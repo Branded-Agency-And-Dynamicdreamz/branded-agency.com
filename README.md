@@ -24,9 +24,8 @@
 
 3. **Starting a new project**
 
-    - Add the required fonts, if it's a Google font use `gatsby-theme-material-ui` in `gatsby-config.js`. If it's a
-      local font, import it in `app.styles.jsx` (make sure to save it the `static` folder)
-    - Add the theme variables under `gatsby-theme-material-ui-top-layout/theme.js` (colors, font, navHeight, etc)
+    - Add the required fonts in `src/styles/app.styles.jsx` and keep font files in the `static/fonts` folder.
+    - Add or update theme variables under `src/gatsby-theme-material-ui-top-layout/theme.js` (colors, font, navHeight, etc).
     - Start creating layouts (see instructions below)
 
 4. **Creating Layouts**
@@ -58,4 +57,4 @@
 6. **`react-modal-video`** Open YouTube - Vimeo or local videos in a modal - popup
 7. **`swiper`**: Carousel - Slider
 8. **`html-react-parser`**: Parse HTML from string (validate to prevent errors)
-9. **`gatsby-plugin-transition-link`**: Add transitions when changing between pages
+9. **`gatsby-plugin-sitemap`**: Generate XML sitemap for SEO crawlers

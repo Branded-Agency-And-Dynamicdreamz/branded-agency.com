@@ -3,9 +3,17 @@ let activeEnv =
 
 console.log(`Using environment config: '${activeEnv}'`)
 
-require("dotenv").config({
-  path: `.env.${activeEnv}`,
-})
+const dotenv = require("dotenv")
+const fs = require("fs")
+
+const envPath = `.env.${activeEnv}`
+
+if (fs.existsSync(envPath)) {
+  dotenv.config({ path: envPath })
+} else {
+  // Fallback to .env when a per-environment file is not present.
+  dotenv.config({ path: ".env" })
+}
 
 console.log(
   `This WordPress Endpoint is used: '${process.env.GATSBY_WORDPRESS_URL}'`,
@@ -42,7 +50,7 @@ module.exports = {
     {
       resolve: "gatsby-plugin-robots-txt",
       options: {
-        host: process.env.WEBSITE_URL,
+        host: process.env.WEBSITE_URL || process.env.GATSBY_WEBSITE_URL,
         sitemap: `${process.env.GATSBY_WEBSITE_URL}/sitemap.xml`,
         policy: [{ userAgent: "*", allow: "/" }],
       },

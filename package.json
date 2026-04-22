@@ -73,6 +73,9 @@
   "keywords": [
     "gatsby"
   ],
+  "engines": {
+    "node": "20.x"
+  },
   "license": "0BSD",
   "scripts": {
     "build": "gatsby build",
