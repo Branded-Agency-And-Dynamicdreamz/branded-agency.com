@@ -1,0 +1,60 @@
+[
+  {
+    "name": "UK",
+    "part": 1,
+    "links": [
+      {
+        "title": "Privacy Policy",
+        "url": "/branded-privacy-policy/"
+      },
+      {
+        "title": "Cookie Policy",
+        "url": "/cookie-policy/"
+      },
+      {
+        "title": "GDPR Statement",
+        "url": "/dpa-gdpr-statement/"
+      },
+      {
+        "title": "Equal Opportunities Policy",
+        "url": "/equal-opportunities-policy/"
+      },
+      {
+        "title": "Corporate Responsibility Policy",
+        "url": "/corporate-responsibility-policy/"
+      }
+    ]
+  },
+  {
+    "name": "UK",
+    "part": 2,
+    "links": [
+      {
+        "title": "Modern Slavery Act Statement",
+        "url": "https://www.writtle.com/modern-slavery-act-statement-2/",
+        "target": "_blank"
+      },
+      {
+        "title": "Environmental And Ethical Purchasing Policy",
+        "url": "/environmental-and-ethical-purchasing-policy/"
+      },
+      {
+        "title": "Quality & Environmental Policy",
+        "url": "/quality-ems-policy/"
+      }
+    ]
+  },
+  {
+    "name": "US",
+    "links": [
+      {
+        "title": "Privacy Policy",
+        "url": "/privacy-policy/"
+      },
+      {
+        "title": "Terms of Use",
+        "url": "/terms-of-use/"
+      }
+    ]
+  }
+]
