@@ -14,4 +14,15 @@ export const Wrapper = styled(Box)`
     top: 50%;
     transform: translateY(-50%);
   }
+
+  > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+  }
 `

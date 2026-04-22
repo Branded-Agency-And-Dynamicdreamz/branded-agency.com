@@ -18,6 +18,9 @@ const CustomImage = ({
 
   let image = ""
   let imgAlt = alt
+  const remoteUrl =
+    (img && (img.mediaItemUrl || img.sourceUrl || img.url)) ||
+    (typeof img === "string" || img instanceof String ? img : "")
 
   if (!imgAlt) {
     imgAlt = img.altText ? img.altText : img.title
@@ -39,7 +42,7 @@ const CustomImage = ({
     )
   }
 
-  if (img.sourceUrl || typeof img === "string" || img instanceof String) {
+  if (remoteUrl) {
     return (
       <S.Wrapper
         fit={fit}
@@ -47,10 +50,12 @@ const CustomImage = ({
         className={className}
         {...props}
       >
-        <img src={img.sourceUrl ? img.sourceUrl : img} alt={alt ?? imgAlt} />
+        <img src={remoteUrl} loading={loading} alt={alt ?? imgAlt ?? ""} />
       </S.Wrapper>
     )
   }
+
+  return null
 }
 
 CustomImage.propTypes = {

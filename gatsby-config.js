@@ -113,8 +113,19 @@ module.exports = {
         },
         type: {
           MediaItem: {
-            // Use direct WordPress media URLs instead of creating local File nodes.
-            createFileNodes: false,
+            // Keep local file nodes for images so existing Gatsby image queries continue to work.
+            createFileNodes: true,
+            localFile: {
+              // Keep media downloads sequential to avoid origin socket resets.
+              requestConcurrency: 1,
+              // Videos are rendered from remote URLs, so skip downloading them.
+              excludeByMimeTypes: [
+                "video/mp4",
+                "video/quicktime",
+                "video/webm",
+                "video/ogg",
+              ],
+            },
           },
         },
         html: {

@@ -18,8 +18,9 @@ const CustomBgImage = props => {
   }
 
   let image = ""
+  let fallbackUrl = ""
 
-  if (img.localFile) {
+  if (img.localFile && img.localFile.childImageSharp) {
     image = img.localFile.childImageSharp.gatsbyImageData
   }
 
@@ -27,13 +28,20 @@ const CustomBgImage = props => {
     image = img.childImageSharp.gatsbyImageData
   }
 
-  if (!img && fallback) {
+  if (!image && fallback) {
     if (fallback.localFile) {
-      image = img.localFile.childImageSharp.gatsbyImageData
+      image = fallback.localFile.childImageSharp?.gatsbyImageData
     }
     if (fallback.childImageSharp) {
       image = fallback.childImageSharp.gatsbyImageData
     }
+  }
+
+  if (!image) {
+    fallbackUrl =
+      (img && (img.mediaItemUrl || img.sourceUrl || img.url)) ||
+      (fallback && (fallback.mediaItemUrl || fallback.sourceUrl || fallback.url)) ||
+      (typeof img === "string" || img instanceof String ? img : "")
   }
 
   return (
@@ -45,6 +53,9 @@ const CustomBgImage = props => {
           role="presentation"
           alt=""
         />
+      )}
+      {!image && fallbackUrl && (
+        <img src={fallbackUrl} loading={loading} role="presentation" alt="" />
       )}
       {children}
     </S.Wrapper>
