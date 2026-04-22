@@ -116,6 +116,13 @@ module.exports = {
             localFile: {
               // Keep media downloads sequential to avoid origin socket resets.
               requestConcurrency: 1,
+              // Videos are served directly from WordPress via mediaItemUrl and don't need local File nodes.
+              excludeByMimeTypes: [
+                "video/mp4",
+                "video/quicktime",
+                "video/webm",
+                "video/ogg",
+              ],
             },
           },
         },
