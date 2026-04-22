@@ -108,6 +108,14 @@ module.exports = {
           previewRequestConcurrency: 1,
           timeout: 120000,
         },
+        type: {
+          MediaItem: {
+            localFile: {
+              // Keep media downloads sequential to avoid origin socket resets.
+              requestConcurrency: 1,
+            },
+          },
+        },
         html: {
           useGatsbyImage: false,
           createStaticFiles: false,
