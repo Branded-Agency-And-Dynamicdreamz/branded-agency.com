@@ -102,10 +102,11 @@ module.exports = {
       options: {
         url: `${process.env.GATSBY_WORDPRESS_URL}/graphql`,
         schema: {
-          // Lower batch size and request concurrency to avoid overloading WP/GraphQL on CI.
-          perPage: 20,
-          requestConcurrency: 5,
-          previewRequestConcurrency: 2,
+          // Conservative settings for smaller concurrent load on WPGraphQL in CI.
+          perPage: 10,
+          requestConcurrency: 2,
+          previewRequestConcurrency: 1,
+          timeout: 120000,
         },
         html: {
           useGatsbyImage: false,
