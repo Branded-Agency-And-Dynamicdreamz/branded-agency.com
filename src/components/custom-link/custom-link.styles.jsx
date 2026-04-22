@@ -1,5 +1,4 @@
 import { Link } from "gatsby"
-import AniLink from "gatsby-plugin-transition-link/AniLink"
 import { css } from "@emotion/react"
 import styled from "@emotion/styled"
 
@@ -17,6 +16,6 @@ export const CustomLink = styled(Link)`
   ${styledLink};
 `
 
-export const CustomAniLink = styled(AniLink)`
+export const CustomAniLink = styled(Link)`
   ${styledLink};
 `

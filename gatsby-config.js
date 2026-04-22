@@ -34,9 +34,9 @@ module.exports = {
     //   },
     // },
     {
-      resolve: `gatsby-plugin-advanced-sitemap`,
+      resolve: `gatsby-plugin-sitemap`,
       options: {
-        exclude: [`/404`, `/layouts`],
+        excludes: [`/404`, `/layouts`],
       },
     },
     {
@@ -73,8 +73,6 @@ module.exports = {
         },
       },
     },
-    `gatsby-plugin-transition-link`,
-    `gatsby-theme-material-ui`,
     `gatsby-plugin-emotion`,
     {
       resolve: `gatsby-plugin-manifest`,

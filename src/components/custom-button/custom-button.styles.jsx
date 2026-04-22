@@ -1,5 +1,5 @@
 import styled from "@emotion/styled"
-import AniLink from "gatsby-plugin-transition-link/AniLink"
+import { Link } from "gatsby"
 import { darken } from "@mui/system"
 import { LoadingButton } from "@mui/lab"
 
@@ -115,7 +115,7 @@ export const CustomButton = styled(LoadingButton)`
   }
 `
 
-export const CustomButtonLink = styled(AniLink)`
+export const CustomButtonLink = styled(Link)`
   color: white;
   background-color: ${({ theme, color }) =>
     theme.palette[color]

@@ -2,7 +2,6 @@ import React from "react"
 import * as S from "./join-us-banner.styles"
 import { Container } from "@mui/material"
 import parse from "html-react-parser"
-import AniLink from "gatsby-plugin-transition-link/AniLink"
 
 const JoinUsBanner = ({ title, description, buttonLink, bgImage }) => {
   return (
