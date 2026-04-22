@@ -101,6 +101,12 @@ module.exports = {
       resolve: `gatsby-source-wordpress`,
       options: {
         url: `${process.env.GATSBY_WORDPRESS_URL}/graphql`,
+        schema: {
+          // Lower batch size and request concurrency to avoid overloading WP/GraphQL on CI.
+          perPage: 20,
+          requestConcurrency: 5,
+          previewRequestConcurrency: 2,
+        },
         html: {
           useGatsbyImage: false,
           createStaticFiles: false,
