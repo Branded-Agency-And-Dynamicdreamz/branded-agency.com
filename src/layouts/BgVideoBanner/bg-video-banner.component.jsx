@@ -2,11 +2,14 @@ import React from "react"
 import * as S from "./bg-video-banner.styles"
 import Container from "@mui/material/Container"
 import CustomAnimatedText from "../../components/custom-animated-text/custom-animated-text.component"
+import { getMediaUrl } from "../../utils/media-url"
 
 const BgVideoBanner = ({ topText, title, button, bgVideo, bgImage }) => {
+  const bgVideoSrc = getMediaUrl(bgVideo)
+
   return (
     <S.Wrapper>
-      <S.CustomVideo src={bgVideo} autoPlay loop />
+      <S.CustomVideo src={bgVideoSrc} autoPlay loop />
       <S.Image img={bgImage} />
       <S.Content>
         <Container>

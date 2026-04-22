@@ -7,6 +7,7 @@ import EmailIcon from "@mui/icons-material/Email"
 import dayjs from "dayjs"
 import VideoComponent from "../../layouts/VideoComponent"
 import TypeformEmbed from "../../layouts/TypeformEmbed"
+import { getMediaUrl } from "../../utils/media-url"
 
 const ArticleHero = ({
   isHeroVideo,
@@ -31,10 +32,10 @@ const ArticleHero = ({
   const extraLink = authorInfo?.extraLink
   const linkedInLink = authorInfo?.linkedinLink
   const mail = authorInfo?.mail
+  const videoUrl = getMediaUrl(video)
 
   const isHeroGif =
-    video?.mediaItemUrl.substr(video?.mediaItemUrl.lastIndexOf(".") + 1) ===
-    "gif"
+    videoUrl && videoUrl.substr(videoUrl.lastIndexOf(".") + 1) === "gif"
 
   return (
     <S.TopWrapper>
@@ -53,7 +54,7 @@ const ArticleHero = ({
               )}
             </>
           ) : (
-            <S.Gif arPaddingPercentage={50} img={video?.mediaItemUrl} />
+            <S.Gif arPaddingPercentage={50} img={videoUrl} />
           )
         ) : (
           <S.VideoWrapper>

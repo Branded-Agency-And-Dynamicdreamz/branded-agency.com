@@ -2,10 +2,11 @@ import React from "react"
 import * as S from "./grid-content-media.styles"
 import { Grid } from "@mui/material"
 import FadeInOnScroll from "../../components/fade-in-on-scroll/fade-in-on-scroll.component"
+import { getMediaUrl } from "../../utils/media-url"
 
 const GridContentMedia = ({ sections, noPaddings }) => {
   const isGif = img => {
-    return img?.mediaItemUrl?.toLowerCase()?.endsWith(".gif")
+    return getMediaUrl(img)?.toLowerCase()?.endsWith(".gif")
   }
 
   return (
@@ -28,7 +29,7 @@ const GridContentMedia = ({ sections, noPaddings }) => {
                 {mediaType === "video" && (
                   <S.Video
                     src={vimeoLink}
-                    thumbnail={thumbnail?.publicUrl}
+                    thumbnail={getMediaUrl(thumbnail)}
                     autoPlay
                     muted
                     loop
@@ -38,7 +39,7 @@ const GridContentMedia = ({ sections, noPaddings }) => {
                 {mediaType === "image" && (
                   <S.Image
                     className={isGif(image) ? "gif" : ""}
-                    img={isGif(image) ? image?.mediaItemUrl : image}
+                    img={isGif(image) ? getMediaUrl(image) : image}
                   />
                 )}
                 {mediaType === "grid" && (
@@ -53,7 +54,7 @@ const GridContentMedia = ({ sections, noPaddings }) => {
                           {vimeoLink && (
                             <S.Video
                               src={vimeoLink}
-                              thumbnail={thumbnail?.publicUrl}
+                              thumbnail={getMediaUrl(thumbnail)}
                               autoPlay
                               muted
                               loop

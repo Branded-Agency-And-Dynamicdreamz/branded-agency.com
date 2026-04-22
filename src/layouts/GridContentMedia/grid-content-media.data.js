@@ -10,6 +10,7 @@ export const query = graphql`
       image {
         title
         mediaItemUrl
+        sourceUrl
         localFile {
           childImageSharp {
             gatsbyImageData
@@ -18,11 +19,14 @@ export const query = graphql`
       }
       thumbnail {
         publicUrl
+        sourceUrl
       }
       vimeoLink
       gridItems {
         image {
           title
+          sourceUrl
+          mediaItemUrl
           localFile {
             childImageSharp {
               gatsbyImageData
@@ -31,6 +35,7 @@ export const query = graphql`
         }
         thumbnail {
           publicUrl
+          sourceUrl
         }
         vimeoLink
         size

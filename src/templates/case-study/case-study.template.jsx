@@ -38,12 +38,14 @@ export const query = graphql`
         heroVimeoLink
         heroVideoThumbnail {
           publicUrl
+          sourceUrl
         }
         hideHeaderOnScroll
         heroVideoControls
         heroFile {
           gatsbyImage(width: 100, height: 100)
           mediaItemUrl
+          sourceUrl
         }
         layouts {
           ... on WpCaseStudy_Casestudybuilder_Layouts_MiscContent {

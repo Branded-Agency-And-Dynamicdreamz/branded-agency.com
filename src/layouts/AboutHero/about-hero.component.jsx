@@ -8,7 +8,7 @@ const AboutHero = ({ title, subtitle, bg, vimeoLink, thumbnail }) => {
   return (
     <S.Wrapper>
       <S.VideoWrapper>
-        <VideoComponent vimeoLink={vimeoLink} autoplay thumbnail={thumbnail?.publicUrl} />
+        <VideoComponent vimeoLink={vimeoLink} autoplay thumbnail={thumbnail} />
       </S.VideoWrapper>
       {/* <S.Image img={bg} alt="About Us Hero" /> */}
       <Container>

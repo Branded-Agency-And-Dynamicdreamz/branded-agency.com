@@ -7,6 +7,7 @@ export const query = graphql`
     iframeVideo
     imageOrVideo {
       mediaItemUrl
+      sourceUrl
       gatsbyImage(width: 100, height: 100)
     }
     downloadButtonText
@@ -24,6 +25,7 @@ export const query = graphql`
     iframeVideo
     imageOrVideo {
       mediaItemUrl
+      sourceUrl
       gatsbyImage(width: 100, height: 100)
     }
     content

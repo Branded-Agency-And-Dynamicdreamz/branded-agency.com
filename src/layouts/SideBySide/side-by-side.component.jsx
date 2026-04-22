@@ -35,7 +35,7 @@ const SideBySide = ({
       >
         <S.LeftWrapper style={{ ...getStyles() }}>
           {imageOrVideo?.gatsbyImage ? (
-            <S.Image img={imageOrVideo?.mediaItemUrl} role="presentation" />
+            <S.Image img={imageOrVideo} role="presentation" />
           ) : (
             <VideoComponent
               video={imageOrVideo}

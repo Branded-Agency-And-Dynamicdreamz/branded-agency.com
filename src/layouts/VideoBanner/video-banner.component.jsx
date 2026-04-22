@@ -1,6 +1,6 @@
 import React from "react"
 import * as S from "./video-banner.styles"
-import ReactPlayer from "react-player"
+import { getMediaUrl } from "../../utils/media-url"
 
 const VideoBanner = ({
   iframeVideo,
@@ -10,7 +10,9 @@ const VideoBanner = ({
   autoplay,
   controls,
 }) => {
-  if (!vimeoLink && !video && !iframeVideo) return null
+  const videoSrc = vimeoLink || getMediaUrl(video)
+
+  if (!videoSrc && !iframeVideo) return null
 
   return (
     <S.Wrapper id={sectionId}>
@@ -25,7 +27,7 @@ const VideoBanner = ({
         </S.IframeWrapper>
       ) : (
         <S.Video
-          src={vimeoLink ?? video?.mediaItemUrl}
+          src={videoSrc}
           autoPlay={autoplay}
           muted={autoplay}
           loop

@@ -10,6 +10,7 @@ export const query = graphql`
         iframeVideo
         video {
           mediaItemUrl
+          sourceUrl
         }
         autoplay
         controls

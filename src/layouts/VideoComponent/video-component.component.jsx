@@ -3,6 +3,7 @@ import * as S from "./video-component.styles"
 import Container from "@mui/material/Container"
 import parse from "html-react-parser"
 import FadeInOnScroll from "../../components/fade-in-on-scroll/fade-in-on-scroll.component"
+import { getMediaUrl } from "../../utils/media-url"
 
 const VideoComponent = ({
   video,
@@ -25,6 +26,13 @@ const VideoComponent = ({
   ...props
 }) => {
   const isCaseStudy = fieldGroupName?.split("_")[0] === "CaseStudy"
+  const videoSrc = vimeoLink || getMediaUrl(video)
+  const thumbnailSrc = getMediaUrl(thumbnail) || thumbnail
+
+  if (!iframeVideo && !videoSrc) {
+    return null
+  }
+
   return (
     <FadeInOnScroll showAnimation={showAnimation}>
       <S.Section
@@ -52,7 +60,7 @@ const VideoComponent = ({
                 </S.IframeWrapper>
               ) : (
                 <S.Video
-                  src={vimeoLink ?? video?.mediaItemUrl}
+                  src={videoSrc}
                   autoPlay={autoplay}
                   muted={autoplay}
                   loop={loop}
@@ -60,7 +68,7 @@ const VideoComponent = ({
                   controls={controls}
                   threshold={threshold}
                   pauseOnClick={pauseOnClick}
-                  thumbnail={thumbnail?.publicUrl ?? thumbnail}
+                  thumbnail={thumbnailSrc}
                 />
               )}
             </>
@@ -79,7 +87,7 @@ const VideoComponent = ({
               </S.IframeWrapper>
             ) : (
               <S.Video
-                src={vimeoLink ?? video?.mediaItemUrl}
+                src={videoSrc}
                 autoPlay={autoplay}
                 muted={autoplay}
                 loop={loop}
@@ -87,7 +95,7 @@ const VideoComponent = ({
                 playsInline={autoplay}
                 controls={controls}
                 pauseOnClick={pauseOnClick}
-                thumbnail={thumbnail?.publicUrl ?? thumbnail}
+                thumbnail={thumbnailSrc}
               />
             )}
           </>

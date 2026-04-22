@@ -19,7 +19,7 @@ const CaseStudyHero = ({
   return (
     <>
       {heroFile?.gatsbyImage ? (
-        <S.HeroImage img={heroFile?.mediaItemUrl} role="presentation" />
+        <S.HeroImage img={heroFile} role="presentation" />
       ) : (
         (heroFile || heroVimeoLink) && (
           <VideoComponent
@@ -27,7 +27,7 @@ const CaseStudyHero = ({
             video={heroFile}
             autoplay
             controls={heroVideoControls}
-            thumbnail={heroVideoThumbnail?.publicUrl}
+            thumbnail={heroVideoThumbnail}
           />
         )
       )}

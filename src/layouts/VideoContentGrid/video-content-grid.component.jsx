@@ -3,6 +3,7 @@ import * as S from "./video-content-grid.styles"
 import Container from "@mui/material/Container"
 import { Grid } from "@mui/material"
 import parse from "html-react-parser"
+import { getMediaUrl } from "../../utils/media-url"
 
 export const VideoContentGrid = ({ description, title, items, services }) => {
   return (
@@ -30,7 +31,7 @@ export const VideoContentGrid = ({ description, title, items, services }) => {
                   </S.IframeWrapper>
                 ) : (
                   <S.Video
-                    src={videoItem?.vimeoLink ?? videoItem?.video?.mediaItemUrl}
+                    src={videoItem?.vimeoLink ?? getMediaUrl(videoItem?.video)}
                     autoPlay={videoItem?.autoplay}
                     muted={videoItem?.autoplay}
                     loop

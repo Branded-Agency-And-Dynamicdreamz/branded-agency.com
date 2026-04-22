@@ -6,6 +6,7 @@ export const query = graphql`
     sectionId
     video {
       mediaItemUrl
+      sourceUrl
     }
     iframeVideo
     autoplay

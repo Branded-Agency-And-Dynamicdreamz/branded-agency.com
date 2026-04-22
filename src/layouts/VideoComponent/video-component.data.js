@@ -6,6 +6,7 @@ export const query = graphql`
     iframeVideo
     video {
       mediaItemUrl
+      sourceUrl
     }
     vimeoLink
     autoplay
@@ -22,9 +23,11 @@ export const query = graphql`
     vimeoLink
     video {
       mediaItemUrl
+      sourceUrl
     }
     thumbnail {
       publicUrl
+      sourceUrl
     }
     autoplay
     controls
@@ -40,6 +43,7 @@ export const query = graphql`
     vimeoLink
     video {
       mediaItemUrl
+      sourceUrl
     }
     autoplay
     controls

@@ -6,7 +6,8 @@ export const query = graphql`
     subtitle
     vimeoLink
     thumbnail {
-    publicUrl
+      publicUrl
+      sourceUrl
       altText
       title
       localFile {
