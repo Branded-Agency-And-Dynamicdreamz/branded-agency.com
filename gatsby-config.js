@@ -101,6 +101,9 @@ module.exports = {
       resolve: `gatsby-source-wordpress`,
       options: {
         url: `${process.env.GATSBY_WORDPRESS_URL}/graphql`,
+        production: {
+          hardCacheMediaFiles: true,
+        },
         schema: {
           // Conservative settings for smaller concurrent load on WPGraphQL in CI.
           perPage: 10,
