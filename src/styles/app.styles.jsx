@@ -279,6 +279,10 @@ export const AppContainer = styled.main`
   flex-direction: column;
   padding-top: ${({ theme }) => theme.navHeight}px;
 
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+
   &.transparentHeader {
     ${({ theme }) => theme.breakpoints.up("md")} {
       padding-top: 0;

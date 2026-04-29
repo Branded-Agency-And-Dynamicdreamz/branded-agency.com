@@ -3,11 +3,10 @@ import * as S from "./images-slider.styles"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Autoplay, Navigation } from "swiper/modules"
 import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded"
-import CustomImage from "../../components/custom-image/custom-image.component"
 import "swiper/css"
 import "swiper/css/navigation"
 import parse from "html-react-parser"
-import { useMediaQuery, useTheme } from "@mui/material"
+import { useTheme } from "@mui/material"
 
 const ImagesSlider = ({
   images,
@@ -26,7 +25,7 @@ const ImagesSlider = ({
   spaceBetween = 30,
 }) => {
   const theme = useTheme()
-  const isMd = useMediaQuery(theme.breakpoints.up("md"))
+
   return (
     <S.Wrapper
       className={`${isCaseStudy ? "caseStudy" : ""} ${
@@ -37,20 +36,20 @@ const ImagesSlider = ({
         className={` ${isContinuousMove ? "isContinuousMove" : ""}`}
       >
         <Swiper
-          spaceBetween={fullWidth ? 0 : spaceBetween}
+          key={`swiper-${images?.length}`}
+          spaceBetween={fullWidth ? 0 : (spaceBetween || 30)} 
           loop={true}
           speed={isContinuousMove ? 8000 : 300}
           centeredSlides={true}
-          // slidesPerView={fullWidth && !fullHeight ? (isMd ? 3.5 : 1.5) : 1}
           breakpoints={{
             900: {
-              slidesPerView: fullWidth && !fullHeight ? 3.5 : slidesDesktop,
+              slidesPerView: fullWidth && !fullHeight ? 3.5 : (slidesDesktop || 1),
             },
             600: {
-              slidesPerView: fullWidth && !fullHeight ? 1.5 : slidesTablet,
+              slidesPerView: fullWidth && !fullHeight ? 1.5 : (slidesTablet || 1),
             },
             0: {
-              slidesPerView: fullWidth && !fullHeight ? 1.5 : slidesMobile,
+              slidesPerView: fullWidth && !fullHeight ? 1.5 : (slidesMobile || 1),
             },
           }}
           modules={[Navigation, Autoplay]}
@@ -59,6 +58,7 @@ const ImagesSlider = ({
               ? {
                   delay: isContinuousMove ? 0 : delay,
                   disableOnInteraction: isContinuousMove ?? false,
+                  pauseOnMouseEnter: true,
                 }
               : false
           }
@@ -75,14 +75,7 @@ const ImagesSlider = ({
               />
             </SwiperSlide>
           ))}
-          {images?.map(({ image }, index) => (
-            <SwiperSlide key={`${index}-Testimonials-part-2`}>
-              <S.Image
-                className={enableMaxHeight ? "maxHeight" : ""}
-                img={image}
-              />
-            </SwiperSlide>
-          ))}
+
         </Swiper>
       </S.SliderWrapper>
       {caption && <S.Caption>{parse(caption)}</S.Caption>}
