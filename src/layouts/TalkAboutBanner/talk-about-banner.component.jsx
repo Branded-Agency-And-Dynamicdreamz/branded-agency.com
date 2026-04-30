@@ -62,7 +62,7 @@ const TalkAboutBanner = ({
           </S.InfoWrapper>
         </S.VicepresidentWrapper>
         <S.ButtonsWrapper>
-          <S.Link url="https://branded-agency.com" target="_blank">
+          <S.Link url="https://wp.branded-agency.com/" target="_blank">
             Website
           </S.Link>
           <S.Link url="mailto:george-essex@branded-agency.com">Email</S.Link>

@@ -64,12 +64,12 @@ export default function HTML(props) {
             <link
               rel="alternate"
               hrefLang="en"
-              href="https://branded-agency.com"
+              href="https://wp.branded-agency.com/"
             />
             <link
               rel="alternate"
               hrefLang="es"
-              href="https://es.branded-agency.com"
+              href="https://wp.branded-agency.com/"
             />
             {/*{process.env.GATSBY_OR_PROJECT_KEY && (*/}
             {/*  <script*/}
