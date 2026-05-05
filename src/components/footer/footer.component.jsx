@@ -78,7 +78,7 @@ const Footer = ({ className, whiteFooter }) => {
                       href="/contact/"
                       onClick={() => trackGetInTouchClick()}
                     >
-                      hello
+                      Get in touch uk hello
                     </S.Button>
                   </Grid>
                   <Grid item xs={6}>
