@@ -74,11 +74,11 @@ const Footer = ({ className, whiteFooter }) => {
                   <Grid item xs={6}>
                     <S.Button
                       fullWidth
-                      className="light"
+                      className="light footer-item"
                       href="/contact/"
                       onClick={() => trackGetInTouchClick()}
                     >
-                      Get in touch
+                      Get in touch hello
                     </S.Button>
                   </Grid>
                   <Grid item xs={6}>
