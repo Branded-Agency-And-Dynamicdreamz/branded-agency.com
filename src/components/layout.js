@@ -80,7 +80,7 @@ const Layout = ({
           {weglotLoaded && (
             <Script id="second-unique-id">
               {`Weglot.initialize({
-                api_key: 'wg_d54cea8743b81f7b9b07dcf9242cedba8'
+                api_key: 'wg_99db751438638e0ddcb5df66e92cf6b73'
             });`}
             </Script>
           )}
@@ -147,3 +147,4 @@ Layout.propTypes = {
 }
 
 export default Layout
+
