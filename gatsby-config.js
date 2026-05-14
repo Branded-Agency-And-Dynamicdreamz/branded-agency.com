@@ -51,7 +51,7 @@ module.exports = {
       resolve: "gatsby-plugin-robots-txt",
       options: {
         host: process.env.WEBSITE_URL || process.env.GATSBY_WEBSITE_URL,
-        sitemap: `${process.env.GATSBY_WEBSITE_URL}/sitemap.xml`,
+        sitemap: `${process.env.GATSBY_WEBSITE_URL}/sitemap-index.xml`,
         policy: [{ userAgent: "*", allow: "/" }],
       },
     },

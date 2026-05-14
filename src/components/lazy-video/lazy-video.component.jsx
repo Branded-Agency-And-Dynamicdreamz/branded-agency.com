@@ -40,7 +40,6 @@ const LazyVideo = ({
       controls={controls}
       poster={thumbnail}
       preload="none"
-      poster={thumbnail}
       autoPlay={inView} // Control play based on inView
       src={inView ? src : undefined} // Load video source when in view
       {...otherProps}

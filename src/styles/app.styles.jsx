@@ -244,19 +244,19 @@ export const GlobalStyles = theme => css`
     flex-direction: column;
   }
 
-  .weglot-container {
-    margin-left: 0.5rem;
-  }
+  // .weglot-container {
+  //   margin-left: 0.5rem;
+  // }
 
-  .weglot_switcher {
-    &.vertical_expand {
-      &.closed {
-        a {
-          //color: white !important;
-        }
-      }
-    }
-  }
+  // .weglot_switcher {
+  //   &.vertical_expand {
+  //     &.closed {
+  //       a {
+  //         //color: white !important;
+  //       }
+  //     }
+  //   }
+  // }
 
   ${
     "" /* ${wordpress}

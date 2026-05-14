@@ -32,7 +32,7 @@ const Layout = ({
   const location = useLocation()
   const isHome = location.pathname === "/"
   const [gtmLoaded, setGtmLoaded] = useState(false)
-  const [weglotLoaded, setWeglotLoaded] = useState(false)
+  // const [weglotLoaded, setWeglotLoaded] = useState(false)
   useEffect(() => {
     if (isBrowser) {
       const urlParams = new URLSearchParams(window.location.search)
@@ -54,10 +54,11 @@ const Layout = ({
     <>
       {IS_PRODUCTION && (
         <>
-          <Script src="https://cmp.osano.com/AzyrZXU6jDIam3dtK/24c3e19f-6f8e-4661-b8e8-6862487b22f4/osano.js" />
-          <Script src={"https://embed.navu.co/boot.js"} />
+          <Script src="https://cmp.osano.com/AzyrZXU6jDIam3dtK/24c3e19f-6f8e-4661-b8e8-6862487b22f4/osano.js" strategy="idle"/>
+          <Script src={"https://embed.navu.co/boot.js"} strategy="idle" />
           <Script
             src={`https://www.googletagmanager.com/gtag/js?id=G-${process.env.GATSBY_GA_TRACKING_ID}`}
+            strategy="idle"
             onLoad={() => setGtmLoaded(true)}
           />
           {gtmLoaded && (
@@ -72,18 +73,18 @@ const Layout = ({
             </Script>
           )}
           <Script src={`https://www.creativeperceptive.com/js/799500.js`} />
-          <Script
+          {/* <Script
             type="text/javascript"
             src="https://cdn.weglot.com/weglot.min.js"
             onLoad={() => setWeglotLoaded(true)}
-          />
-          {weglotLoaded && (
+          /> */}
+          {/* {weglotLoaded && (
             <Script id="second-unique-id">
               {`Weglot.initialize({
                 api_key: 'wg_d54cea8743b81f7b9b07dcf9242cedba8'
             });`}
             </Script>
-          )}
+          )} */}
           {gtmLoaded && (
             <>
               <Script
@@ -96,6 +97,7 @@ const Layout = ({
               />
               <Script
                 id="linkedin-config"
+                strategy="idle"
                 dangerouslySetInnerHTML={{
                   __html: `(function(l) {
                         if (!l) {
