@@ -66,10 +66,10 @@ const ArticlesSlider = ({
   const caseStudies = isIndividual
     ? handleReduceArticles(articles)
     : staticQuery.allWpCaseStudy.nodes?.filter(
-        caseStudy =>
-          caseStudy?.slug !== actualSlug &&
-          !excludedCaseStudies.includes(caseStudy?.slug),
-      )
+      caseStudy =>
+        caseStudy?.slug !== actualSlug &&
+        !excludedCaseStudies.includes(caseStudy?.slug),
+    )
 
   const swiperRef = useRef(null)
   const theme = useTheme()
@@ -153,15 +153,14 @@ const ArticlesSlider = ({
             }}
             modules={[Autoplay]}
           >
-            {caseStudies?.map(
+            {caseStudies?.filter(item => item)?.map(
               (
                 { featuredImage, slug, title: caseTitle, caseStudyBuilder },
                 index,
               ) => (
                 <SwiperSlide
-                  key={`${index}-case-studies-slider${
-                    isIndividual ? "individual" : ""
-                  }`}
+                  key={`${index}-case-studies-slider${isIndividual ? "individual" : ""
+                    }`}
                 >
                   <S.Link url={`/case-study/${slug}`}>
                     <S.CardArticle>
@@ -187,15 +186,14 @@ const ArticlesSlider = ({
                 </SwiperSlide>
               ),
             )}
-            {caseStudies?.map(
+            {caseStudies?.filter(item => item)?.map(
               (
                 { featuredImage, slug, title: caseTitle, caseStudyBuilder },
                 index,
               ) => (
                 <SwiperSlide
-                  key={`${index}-case-studies-slider-part-2-${
-                    isIndividual ? "individual" : ""
-                  }`}
+                  key={`${index}-case-studies-slider-part-2-${isIndividual ? "individual" : ""
+                    }`}
                 >
                   <S.Link url={`/case-study/${slug}`}>
                     <S.CardArticle>
