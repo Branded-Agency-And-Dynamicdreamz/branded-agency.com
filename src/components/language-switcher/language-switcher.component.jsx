@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
-import { Link } from "gatsby"
+
 import styled from "styled-components"
+import Link from "../LocalizedLink"
 
 const FloatingContainer = styled.div`
   position: fixed;

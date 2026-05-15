@@ -1,4 +1,5 @@
-path = require(`path`)
+const fs = require("fs")
+const path = require(`path`)
 const { slash } = require(`gatsby-core-utils`)
 
 /**
@@ -41,6 +42,69 @@ module.exports = async ({ actions, graphql, reporter }) => {
 
   const allPages = result.data.allWpPage.nodes
 
+  const translationsMap = {}
+
+  allPages.forEach(page => {
+    let currentUri = page.uri
+
+    // Front page handling for translations map
+    if (page.isFrontPage) {
+      if (page.language?.code === "EN") {
+        currentUri = "/"
+      } else {
+        currentUri = `/${page.language.code.toLowerCase()}/`
+      }
+    }
+
+    const defaultUri =
+      page.language?.code === "EN"
+        ? currentUri
+        : page.translations?.find(
+            t => t.language.code === "EN"
+          )?.uri || "/"
+
+    if (!defaultUri) return
+
+    if (!translationsMap[defaultUri]) {
+      translationsMap[defaultUri] = {}
+    }
+
+    translationsMap[defaultUri][
+      page.language.code
+    ] = currentUri
+
+    page.translations?.forEach(t => {
+      let translatedUri = t.uri
+
+      // Handle translated homepage URIs
+      if (
+        t.uri === "/" &&
+        page.language?.code !== "EN"
+      ) {
+        translatedUri = `/${page.language.code.toLowerCase()}/`
+      }
+
+      translationsMap[defaultUri][
+        t.language.code
+      ] = translatedUri
+    })
+  })
+
+  const generatedDir = path.resolve(
+    "./src/generated"
+  )
+
+  if (!fs.existsSync(generatedDir)) {
+    fs.mkdirSync(generatedDir)
+  }
+
+  fs.writeFileSync(
+    path.resolve(
+      "./src/generated/translations.json"
+    ),
+    JSON.stringify(translationsMap, null, 2)
+  )
+
   // Template path
   const pageTemplate = path.resolve(
     `./src/templates/page/page.template.jsx`
@@ -57,9 +121,12 @@ module.exports = async ({ actions, graphql, reporter }) => {
     if (pagePath === "/layouts/") return
 
     // Front page handling
-    // Polylang already controls multilingual URIs
-    if (page.isFrontPage && pagePath !== "/") {
-      pagePath = page.uri
+    if (page.isFrontPage) {
+      if (page.language?.code === "EN") {
+        pagePath = "/"
+      } else {
+        pagePath = `/${page.language.code.toLowerCase()}/`
+      }
     }
 
     createPage({

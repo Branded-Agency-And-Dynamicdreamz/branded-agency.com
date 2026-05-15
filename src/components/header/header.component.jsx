@@ -89,9 +89,8 @@ const Header = ({
       {/*>*/}
       <S.CustomAppBar
         elevation={scrollTrigger && !isCaseStudy && !hideHeaderOnScroll ? 4 : 0}
-        className={`${isTransparent && !scrollTrigger && "transparent"} ${
-          isActiveMenu && "activeMenu"
-        } ${hideHeaderOnScroll ? "semiTransparent" : ""} `}
+        className={`${isTransparent && !scrollTrigger && "transparent"} ${isActiveMenu && "activeMenu"
+          } ${hideHeaderOnScroll ? "semiTransparent" : ""} `}
       >
         {hideHeaderOnScroll && (
           <HideOnScroll
@@ -113,9 +112,8 @@ const Header = ({
         >
           <S.CustomContainer
             maxWidth="xl"
-            className={`top-header-container ${
-              hideHeaderOnScroll ? "absolute" : ""
-            }`}
+            className={`top-header-container ${hideHeaderOnScroll ? "absolute" : ""
+              }`}
           >
             <S.MenuWrapper
               className={whiteHeader ? "whiteHeader" : ""}
@@ -126,11 +124,19 @@ const Header = ({
               {isActiveMenu ? <Close /> : <MenuIcon />}
             </S.MenuWrapper>
             <S.LeftWrapper>
-              <S.Link url={!hideItems ? "/" : ""}>
+              <S.Link
+                url={
+                  !hideItems
+                    ? path === "/es/" ||
+                      path.startsWith("/es/")
+                      ? "/es/"
+                      : "/"
+                    : ""
+                }
+              >
                 <S.Logo
-                  className={`${hideItems ? "addPadding" : ""} ${
-                    whiteHeader ? "whiteHeader" : ""
-                  }`}
+                  className={`${hideItems ? "addPadding" : ""} ${whiteHeader ? "whiteHeader" : ""
+                    }`}
                 />
               </S.Link>
             </S.LeftWrapper>

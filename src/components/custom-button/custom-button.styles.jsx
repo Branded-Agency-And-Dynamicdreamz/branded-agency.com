@@ -1,7 +1,8 @@
 import styled from "@emotion/styled"
-import { Link } from "gatsby"
+
 import { darken } from "@mui/system"
 import { LoadingButton } from "@mui/lab"
+import Link from "../LocalizedLink"
 
 export const CustomButton = styled(LoadingButton)`
   color: white;

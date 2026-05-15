@@ -3,6 +3,7 @@ import { graphql, Link } from "gatsby"
 import Layout from "../../components/layout"
 import { getPageLayout } from "../../utils/get-layout-utils"
 import SEO from "../../components/seo/seo.component"
+import { TranslationProvider } from "../../context/translations-context"
 
 export const query = graphql`
   query PageQuery($id: String!) {
@@ -314,7 +315,13 @@ const PageTemplate = ({ data }) => {
   )
 
 
-  return (
+  return (<TranslationProvider
+  value={{
+    currentLanguage: language?.code,
+    currentUri: uri,
+    translations,
+  }}
+>
    <Layout
   {...pageBuilder.pageConfiguration}
   whitePinSpacer={hasAnimatedFeaturesVideo}
@@ -388,29 +395,39 @@ const PageTemplate = ({ data }) => {
       {/**
        * Translation languages
        */}
-      {translations?.map(item => (
-        <Link
-          key={item.language.code}
-          to={item.uri}
-          style={{
-            display: "block",
-            padding: "12px 16px",
-            textDecoration: "none",
-            color: "#111827",
-            borderBottom:
-              "1px solid #f3f4f6",
-            transition: "0.2s ease",
-          }}
-        >
-          {item.language.code}
-        </Link>
-      ))}
+      {translations?.map(item => {
+  let translatedUri = item.uri
+
+  if (
+    item.uri.includes("/home-page/")
+  ) {
+    translatedUri = `/${item.language.code.toLowerCase()}/`
+  }
+
+  return (
+    <Link
+      key={item.language.code}
+      to={translatedUri}
+      style={{
+        display: "block",
+        padding: "12px 16px",
+        textDecoration: "none",
+        color: "#111827",
+        borderBottom:
+          "1px solid #f3f4f6",
+        transition: "0.2s ease",
+      }}
+    >
+      {item.language.code}
+    </Link>
+  )
+})}
     </div>
   </details>
 </div>
 
   {layouts.map(layout => getPageLayout(layout))}
-</Layout>
+</Layout></TranslationProvider>
   )
 }
 
