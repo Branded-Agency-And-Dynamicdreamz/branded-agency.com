@@ -1,5 +1,5 @@
 import React from "react"
-import { graphql } from "gatsby"
+import { graphql, Link } from "gatsby"
 import Layout from "../../components/layout"
 import { getPageLayout } from "../../utils/get-layout-utils"
 import SEO from "../../components/seo/seo.component"
@@ -14,6 +14,17 @@ export const query = graphql`
       uri
       slug
       parentId
+      language {
+        code
+      }
+
+      translations {
+        uri
+
+        language {
+          code
+        }
+      }
       seo {
         canonical
         title
@@ -260,10 +271,40 @@ export const query = graphql`
   }
 `
 
-export const Head = ({ data }) => <SEO data={data?.wpPage?.seo} />
+export const Head = ({ data }) => {
+  const page = data?.wpPage
+
+  return (
+    <>
+      <SEO data={page?.seo} />
+
+      <link
+        rel="alternate"
+        hrefLang={page?.language?.code?.toLowerCase()}
+        href={page?.uri}
+      />
+
+      {page?.translations?.map(item => (
+        <link
+          key={item.language.code}
+          rel="alternate"
+          hrefLang={item.language.code.toLowerCase()}
+          href={item.uri}
+        />
+      ))}
+    </>
+  )
+}
 
 const PageTemplate = ({ data }) => {
-  const { slug, pageBuilder, title } = data.wpPage
+  const {
+  slug,
+  pageBuilder,
+  title,
+  language,
+  translations,
+  uri,
+} = data.wpPage
   const layouts = pageBuilder.layouts || []
 
   const hasAnimatedFeaturesVideo = layouts?.some(
@@ -274,12 +315,33 @@ const PageTemplate = ({ data }) => {
 
 
   return (
-    <Layout
-      {...pageBuilder.pageConfiguration}
-      whitePinSpacer={hasAnimatedFeaturesVideo}
-    >
-      {layouts.map(layout => getPageLayout(layout))}
-    </Layout>
+   <Layout
+  {...pageBuilder.pageConfiguration}
+  whitePinSpacer={hasAnimatedFeaturesVideo}
+>
+  <div
+    style={{
+      padding: "20px",
+      display: "flex",
+      gap: "10px",
+    }}
+  >
+    <Link to={uri}>
+      {language?.code}
+    </Link>
+
+    {translations?.map(item => (
+      <Link
+        key={item.language.code}
+        to={item.uri}
+      >
+        {item.language.code}
+      </Link>
+    ))}
+  </div>
+
+  {layouts.map(layout => getPageLayout(layout))}
+</Layout>
   )
 }
 

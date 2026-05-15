@@ -1,55 +1,84 @@
-const path = require(`path`)
+path = require(`path`)
 const { slash } = require(`gatsby-core-utils`)
+
 /**
- * This is the export which Gatbsy will use to process.
- *
- * @param { actions, graphql }
- * @returns {Promise<void>}
+ * Gatsby createPages API
  */
-module.exports = async ({ actions, graphql, reporter }, options) => {
+
+module.exports = async ({ actions, graphql, reporter }) => {
   const { createPage } = actions
-  // query content for WordPress posts
-  const {
-    data: {
-      allWpPage: { nodes: allPages },
-    },
-  } = await graphql(`
+
+  // Fetch all WordPress pages
+  const result = await graphql(`
     query {
       allWpPage {
         nodes {
           id
           uri
+          isFrontPage
+
+          language {
+            code
+          }
+
+          translations {
+            uri
+
+            language {
+              code
+            }
+          }
         }
       }
     }
   `)
-  const pageTemplate = path.resolve(`./src/templates/page/page.template.jsx`)
-  allPages.forEach(page => {
-    let pagePath = `${page.uri}`
 
-    // Exclude hardcoded pages
+  // GraphQL error handling
+  if (result.errors) {
+    reporter.panicOnBuild(`Error while running GraphQL query`)
+    return
+  }
+
+  const allPages = result.data.allWpPage.nodes
+
+  // Template path
+  const pageTemplate = path.resolve(
+    `./src/templates/page/page.template.jsx`
+  )
+
+  // Create pages
+  allPages.forEach(page => {
+    let pagePath = page.uri
+
+    // Remove duplicate slashes
+    pagePath = pagePath.replace(/\/\/+/g, "/")
+
+    // Ignore hardcoded pages
     if (pagePath === "/layouts/") return
 
-    /**
-     * If the page is the front page, the page path should not be the uri,
-     * but the root path '/'.
-     */
-    if (page.isFrontPage) {
-      pagePath = "/"
+    // Front page handling
+    // Polylang already controls multilingual URIs
+    if (page.isFrontPage && pagePath !== "/") {
+      pagePath = page.uri
     }
 
     createPage({
-      // will be the url for the page
       path: pagePath,
-      // specify the component template of your choice
+
       component: slash(pageTemplate),
-      // In the ^template's GraphQL query, 'id' will be available
-      // as a GraphQL variable to query for this post's data.
+
       context: {
         id: page.id,
+
+        language: page.language?.code || "EN",
+
+        translations: page.translations || [],
       },
     })
-    reporter.info(`page created:  ${page.uri}`)
+
+    reporter.info(
+      `[Page Created] ${page.language?.code || "EN"} -> ${pagePath}`
+    )
   })
 
   reporter.info(`# -----> PAGES TOTAL: ${allPages.length}`)
