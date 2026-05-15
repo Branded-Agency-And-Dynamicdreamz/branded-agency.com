@@ -320,25 +320,94 @@ const PageTemplate = ({ data }) => {
   whitePinSpacer={hasAnimatedFeaturesVideo}
 >
   <div
+  style={{
+    position: "fixed",
+    right: "20px",
+    bottom: "20px",
+    zIndex: 9999,
+  }}
+>
+  <details
     style={{
-      padding: "20px",
-      display: "flex",
-      gap: "10px",
+      position: "relative",
     }}
   >
-    <Link to={uri}>
-      {language?.code}
-    </Link>
+    <summary
+      style={{
+        listStyle: "none",
+        cursor: "pointer",
+        background: "#111827",
+        color: "#fff",
+        borderRadius: "999px",
+        padding: "14px 18px",
+        fontWeight: "600",
+        fontSize: "14px",
+        border: "none",
+        boxShadow:
+          "0 10px 25px rgba(0,0,0,0.2)",
+        display: "flex",
+        alignItems: "center",
+        gap: "8px",
+      }}
+    >
+      🌐 {language?.code}
+    </summary>
 
-    {translations?.map(item => (
+    <div
+      style={{
+        position: "absolute",
+        bottom: "60px",
+        right: 0,
+        background: "#fff",
+        borderRadius: "16px",
+        minWidth: "140px",
+        overflow: "hidden",
+        boxShadow:
+          "0 10px 30px rgba(0,0,0,0.15)",
+        border: "1px solid #e5e7eb",
+      }}
+    >
+      {/**
+       * Current language
+       */}
       <Link
-        key={item.language.code}
-        to={item.uri}
+        to={uri}
+        style={{
+          display: "block",
+          padding: "12px 16px",
+          textDecoration: "none",
+          color: "#111827",
+          fontWeight: "700",
+          background: "#f3f4f6",
+          borderBottom: "1px solid #e5e7eb",
+        }}
       >
-        {item.language.code}
+        {language?.code}
       </Link>
-    ))}
-  </div>
+
+      {/**
+       * Translation languages
+       */}
+      {translations?.map(item => (
+        <Link
+          key={item.language.code}
+          to={item.uri}
+          style={{
+            display: "block",
+            padding: "12px 16px",
+            textDecoration: "none",
+            color: "#111827",
+            borderBottom:
+              "1px solid #f3f4f6",
+            transition: "0.2s ease",
+          }}
+        >
+          {item.language.code}
+        </Link>
+      ))}
+    </div>
+  </details>
+</div>
 
   {layouts.map(layout => getPageLayout(layout))}
 </Layout>
