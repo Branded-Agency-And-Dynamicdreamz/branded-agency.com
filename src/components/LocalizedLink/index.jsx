@@ -1,6 +1,5 @@
 import React from "react"
 import { Link as GatsbyLink } from "gatsby"
-
 import translations from "../../generated/translations.json"
 
 const getCurrentLanguage = () => {
@@ -10,7 +9,6 @@ const getCurrentLanguage = () => {
 
   const pathname = window.location.pathname
 
-  // Direct language route detection
   if (
     pathname === "/es/" ||
     pathname.startsWith("/es/")
@@ -18,56 +16,126 @@ const getCurrentLanguage = () => {
     return "ES"
   }
 
-  // Match translated routes
-  const matchedLanguage = Object.values(
-    translations
-  ).find(item => {
-    return Object.values(item).includes(pathname)
-  })
+  return "EN"
+}
 
-  if (!matchedLanguage) {
-    return "EN"
+const normalizePath = path => {
+  if (!path || typeof path !== "string") {
+    return "/"
   }
 
-  const lang = Object.keys(
-    matchedLanguage
-  ).find(key => {
-    return matchedLanguage[key] === pathname
-  })
+  if (path === "/") {
+    return "/"
+  }
 
-  return lang || "EN"
+  return path.endsWith("/")
+    ? path
+    : `${path}/`
 }
 
 const getLocalizedPath = to => {
+
+  if (!to || typeof to !== "string") {
+    return to
+  }
+
   const currentLanguage =
     getCurrentLanguage()
+
+  const normalizedTo =
+    normalizePath(to)
+
+  if (normalizedTo === "/") {
+    return currentLanguage === "ES"
+      ? "/es/"
+      : "/"
+  }
+
+  if (
+    currentLanguage === "ES" &&
+    normalizedTo.startsWith("/es/")
+  ) {
+    if (
+      normalizedTo.includes(
+        "/home-page/"
+      )
+    ) {
+      return "/es/"
+    }
+
+    return normalizedTo
+  }
+
+  if (
+    currentLanguage === "EN" &&
+    !normalizedTo.startsWith("/es/")
+  ) {
+    if (
+      normalizedTo.includes(
+        "/home-page/"
+      )
+    ) {
+      return "/"
+    }
+
+    return normalizedTo
+  }
 
   const matchedKey = Object.keys(
     translations
   ).find(key => {
-    return Object.values(
+    const values = Object.values(
       translations[key]
-    ).includes(to)
+    ).map(normalizePath)
+
+    return values.includes(
+      normalizedTo
+    )
   })
 
-  if (!matchedKey) {
-    return to
+  if (matchedKey) {
+    let translatedPath =
+      translations[matchedKey][
+        currentLanguage
+      ] || normalizedTo
+
+    translatedPath =
+      normalizePath(
+        translatedPath
+      )
+
+    if (
+      translatedPath.includes(
+        "/home-page/"
+      )
+    ) {
+      return currentLanguage === "ES"
+        ? "/es/"
+        : "/"
+    }
+
+    return translatedPath
   }
 
-  return (
-    translations[matchedKey][
-      currentLanguage
-    ] || to
-  )
+  return normalizedTo
 }
 
-const Link = ({ to, ...props }) => {
+const LocalizedLink = ({
+  to,
+  children,
+  ...props
+}) => {
+  const localizedTo =
+    getLocalizedPath(to)
+
   return (
     <GatsbyLink
-      to={getLocalizedPath(to)}
       {...props}
-    />
+      to={localizedTo}
+    >
+      {children}
+    </GatsbyLink>
   )
 }
 
-export default Link
+export default LocalizedLink

@@ -124,16 +124,7 @@ const Header = ({
               {isActiveMenu ? <Close /> : <MenuIcon />}
             </S.MenuWrapper>
             <S.LeftWrapper>
-              <S.Link
-                url={
-                  !hideItems
-                    ? path === "/es/" ||
-                      path.startsWith("/es/")
-                      ? "/es/"
-                      : "/"
-                    : ""
-                }
-              >
+              <S.Link url={!hideItems ? "/" : ""}>
                 <S.Logo
                   className={`${hideItems ? "addPadding" : ""} ${whiteHeader ? "whiteHeader" : ""
                     }`}
