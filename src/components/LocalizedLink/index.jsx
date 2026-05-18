@@ -33,8 +33,7 @@ const normalizePath = path => {
     : `${path}/`
 }
 
-const getLocalizedPath = to => {
-
+export const getLocalizedPath = to => {
   if (!to || typeof to !== "string") {
     return to
   }
