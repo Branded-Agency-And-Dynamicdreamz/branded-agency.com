@@ -2,14 +2,9 @@ const fs = require("fs")
 const path = require(`path`)
 const { slash } = require(`gatsby-core-utils`)
 
-/**
- * Gatsby createPages API
- */
-
 module.exports = async ({ actions, graphql, reporter }) => {
   const { createPage } = actions
 
-  // Fetch all WordPress pages
   const result = await graphql(`
     query {
       allWpPage {
@@ -31,23 +26,43 @@ module.exports = async ({ actions, graphql, reporter }) => {
           }
         }
       }
+
+      # ADDED: Fetch all case studies for page generation
+      allWpCaseStudy {
+        nodes {
+          id
+          uri
+          slug
+
+          language {
+            code
+          }
+
+          translations {
+            uri
+
+            language {
+              code
+            }
+          }
+        }
+      }
     }
   `)
 
-  // GraphQL error handling
   if (result.errors) {
     reporter.panicOnBuild(`Error while running GraphQL query`)
     return
   }
 
   const allPages = result.data.allWpPage.nodes
+  const allCaseStudies = result.data.allWpCaseStudy?.nodes || []
 
   const translationsMap = {}
 
   allPages.forEach(page => {
     let currentUri = page.uri
 
-    // Front page handling for translations map
     if (page.isFrontPage) {
       if (page.language?.code === "EN") {
         currentUri = "/"
@@ -76,7 +91,6 @@ module.exports = async ({ actions, graphql, reporter }) => {
     page.translations?.forEach(t => {
       let translatedUri = t.uri
 
-      // Handle translated homepage URIs
       if (
         t.uri === "/" &&
         page.language?.code !== "EN"
@@ -105,22 +119,21 @@ module.exports = async ({ actions, graphql, reporter }) => {
     JSON.stringify(translationsMap, null, 2)
   )
 
-  // Template path
   const pageTemplate = path.resolve(
     `./src/templates/page/page.template.jsx`
   )
 
-  // Create pages
+  const caseStudyTemplate = path.resolve(
+    `./src/templates/case-study/case-study.template.jsx`
+  )
+
   allPages.forEach(page => {
     let pagePath = page.uri
 
-    // Remove duplicate slashes
     pagePath = pagePath.replace(/\/\/+/g, "/")
 
-    // Ignore hardcoded pages
     if (pagePath === "/layouts/") return
 
-    // Front page handling
     if (page.isFrontPage) {
       if (page.language?.code === "EN") {
         pagePath = "/"
@@ -131,14 +144,10 @@ module.exports = async ({ actions, graphql, reporter }) => {
 
     createPage({
       path: pagePath,
-
       component: slash(pageTemplate),
-
       context: {
         id: page.id,
-
         language: page.language?.code || "EN",
-
         translations: page.translations || [],
       },
     })
@@ -148,5 +157,27 @@ module.exports = async ({ actions, graphql, reporter }) => {
     )
   })
 
+  allCaseStudies.forEach(caseStudy => {
+    let pagePath = caseStudy.uri
+
+    pagePath = pagePath.replace(/\/\/+/g, "/")
+
+    createPage({
+      path: pagePath,
+      component: slash(caseStudyTemplate),
+      context: {
+        id: caseStudy.id,
+        slug: caseStudy.slug,
+        language: caseStudy.language?.code || "EN",
+        translations: caseStudy.translations || [],
+      },
+    })
+
+    reporter.info(
+      `[Case Study Created] ${caseStudy.language?.code || "EN"} -> ${pagePath}`
+    )
+  })
+
   reporter.info(`# -----> PAGES TOTAL: ${allPages.length}`)
+  reporter.info(`# -----> CASE STUDIES TOTAL: ${allCaseStudies.length}`)
 }
