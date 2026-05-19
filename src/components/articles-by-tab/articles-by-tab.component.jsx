@@ -37,10 +37,15 @@ const ArticlesByTab = ({ articles, type }) => {
   const handleChange = (event, newValue) => {
     setTabSelected(newValue)
     setKeySelected(Object.keys(articles)[newValue])
+    setNumLoadedArticles(LIMIT)
   }
 
   const showMoreItems = () => {
     setNumLoadedArticles(prevValue => prevValue + LIMIT)
+  }
+
+  if (!articles || Object.keys(articles).length === 0) {
+    return null
   }
 
   return (
@@ -76,11 +81,10 @@ const ArticlesByTab = ({ articles, type }) => {
                   <>
                     {articles[key]
                       .slice(0, numLoadedArticles)
-                      .map((insight, index) => (
-                        <Grid item md={6} xs={12}>
+                      .map((insight, idx) => (
+                        <Grid item md={6} xs={12} key={`${insight.title}-${idx}-${type}`}>
                           <ArticleCard
                             {...insight}
-                            key={`${insight.title}-${index}-${type}`}
                             type={type}
                           />
                         </Grid>

@@ -33,9 +33,7 @@ const normalizePath = path => {
     : `${path}/`
 }
 
-// Add this mapping for case study paths
 const getLocalizedCaseStudyPath = (path, currentLanguage) => {
-  // Check if this is a case study path
   const caseStudyMatch = path.match(/\/case-study\/([^/]+)\/?/)
   
   if (caseStudyMatch) {
@@ -57,18 +55,15 @@ export const getLocalizedPath = to => {
   const currentLanguage = getCurrentLanguage()
   const normalizedTo = normalizePath(to)
 
-  // Handle home page
   if (normalizedTo === "/") {
     return currentLanguage === "ES" ? "/es/" : "/"
   }
 
-  // Handle case study paths first
   const caseStudyPath = getLocalizedCaseStudyPath(normalizedTo, currentLanguage)
   if (caseStudyPath) {
     return caseStudyPath
   }
 
-  // Handle paths that already have language prefix
   if (
     currentLanguage === "ES" &&
     normalizedTo.startsWith("/es/")
@@ -97,7 +92,6 @@ export const getLocalizedPath = to => {
     return normalizedTo
   }
 
-  // Try to find translation from translations.json
   const matchedKey = Object.keys(
     translations
   ).find(key => {

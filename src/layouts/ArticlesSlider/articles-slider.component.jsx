@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from "react"
+import React, { useRef, useCallback, useState, useEffect } from "react"
 import * as S from "./articles-slider.styles"
 import Container from "@mui/material/Container"
 import { Swiper, SwiperSlide } from "swiper/react"
@@ -8,6 +8,8 @@ import { useMediaQuery, useTheme } from "@mui/material"
 import { capitalizeWords } from "../../utils/utils"
 import ArrowLeft from "../../assets/arrow-left.svg"
 import ArrowRight from "../../assets/arrow-right.svg"
+import { navigate } from "gatsby-link"
+import { getLocalizedPath } from "../../components/LocalizedLink"
 
 const ArticlesSlider = ({
   title,
@@ -37,6 +39,16 @@ const ArticlesSlider = ({
         nodes {
           slug
           title
+          uri
+          language {
+            code
+          }
+          translations {
+            uri
+            language {
+              code
+            }
+          }
           featuredImage {
             node {
               title
@@ -57,19 +69,82 @@ const ArticlesSlider = ({
     }
   `)
 
+  const [currentLanguage, setCurrentLanguage] = useState("EN")
+  const [filteredCaseStudies, setFilteredCaseStudies] = useState([])
+
+  const getCurrentLanguage = () => {
+    if (typeof window === "undefined") return "EN"
+    const pathname = window.location.pathname
+    if (pathname === "/es/" || pathname.startsWith("/es/")) return "ES"
+    return "EN"
+  }
+
+  useEffect(() => {
+    const language = getCurrentLanguage()
+    setCurrentLanguage(language)
+  }, [])
+
   const handleReduceArticles = articles => {
     return articles?.map(({ article }, index) => {
       return article
     })
   }
 
-  const caseStudies = isIndividual
+  let caseStudiesData = isIndividual
     ? handleReduceArticles(articles)
     : staticQuery.allWpCaseStudy.nodes?.filter(
       caseStudy =>
         caseStudy?.slug !== actualSlug &&
         !excludedCaseStudies.includes(caseStudy?.slug),
     )
+
+  useEffect(() => {
+    if (caseStudiesData && caseStudiesData.length > 0) {
+      const filtered = caseStudiesData.filter(cs => {
+        const caseLanguage = cs?.language?.code || "EN"
+
+        if (currentLanguage === "EN") {
+          return caseLanguage === "EN"
+        } else {
+          return caseLanguage === "ES"
+        }
+      })
+      setFilteredCaseStudies(filtered)
+    }
+  }, [caseStudiesData, currentLanguage])
+
+  const handleCaseStudyClick = (caseStudy) => {
+    const { uri, slug, language, translations } = caseStudy
+    const caseLanguage = language?.code || "EN"
+
+    if (currentLanguage === "ES" && caseLanguage === "EN") {
+      const spanishTranslation = translations?.find(
+        t => t.language?.code === "ES"
+      )
+
+      if (spanishTranslation?.uri) {
+        const localizedPath = getLocalizedPath(spanishTranslation.uri)
+        navigate(localizedPath)
+        return
+      }
+    }
+
+    if (currentLanguage === "EN" && caseLanguage === "ES") {
+      const englishTranslation = translations?.find(
+        t => t.language?.code === "EN"
+      )
+
+      if (englishTranslation?.uri) {
+        const localizedPath = getLocalizedPath(englishTranslation.uri)
+        navigate(localizedPath)
+        return
+      }
+    }
+
+    const path = uri || `/case-study/${slug}/`
+    const localizedPath = getLocalizedPath(path)
+    navigate(localizedPath)
+  }
 
   const swiperRef = useRef(null)
   const theme = useTheme()
@@ -101,6 +176,11 @@ const ArticlesSlider = ({
       }
     }, 400)
   }, [])
+
+  if (!filteredCaseStudies || filteredCaseStudies.length === 0) {
+    return null
+  }
+
   return (
     <S.Wrapper
       className={`${isWhite ? "white" : ""} ${title ? "hasTitle" : ""}`}
@@ -153,71 +233,55 @@ const ArticlesSlider = ({
             }}
             modules={[Autoplay]}
           >
-            {caseStudies?.filter(item => item)?.map(
-              (
-                { featuredImage, slug, title: caseTitle, caseStudyBuilder },
-                index,
-              ) => (
-                <SwiperSlide
-                  key={`${index}-case-studies-slider${isIndividual ? "individual" : ""
-                    }`}
-                >
-                  <S.Link url={`/case-study/${slug}`}>
-                    <S.CardArticle>
-                      <S.CardImage
-                        img={featuredImage?.node}
-                        alt={caseTitle || title}
-                        arPaddingPercentage={130}
-                      />
-                      <S.Overlay className="overlay">
-                        <S.TextContent>
-                          {caseTitle && (
-                            <S.CardTitle>
-                              {capitalizeWords(caseTitle)}
-                            </S.CardTitle>
-                          )}
-                          <S.CardDescription>
-                            {caseStudyBuilder?.subtitle}
-                          </S.CardDescription>
-                        </S.TextContent>
-                      </S.Overlay>
-                    </S.CardArticle>
-                  </S.Link>
-                </SwiperSlide>
-              ),
-            )}
-            {caseStudies?.filter(item => item)?.map(
-              (
-                { featuredImage, slug, title: caseTitle, caseStudyBuilder },
-                index,
-              ) => (
-                <SwiperSlide
-                  key={`${index}-case-studies-slider-part-2-${isIndividual ? "individual" : ""
-                    }`}
-                >
-                  <S.Link url={`/case-study/${slug}`}>
-                    <S.CardArticle>
-                      <S.CardImage
-                        img={featuredImage?.node}
-                        alt={caseTitle || title}
-                        arPaddingPercentage={130}
-                      />
-                      <S.Overlay className="overlay">
-                        <S.TextContent>
-                          {caseTitle && (
-                            <S.CardTitle>
-                              {capitalizeWords(caseTitle)}
-                            </S.CardTitle>
-                          )}
-                          <S.CardDescription>
-                            {caseStudyBuilder?.subtitle}
-                          </S.CardDescription>
-                        </S.TextContent>
-                      </S.Overlay>
-                    </S.CardArticle>
-                  </S.Link>
-                </SwiperSlide>
-              ),
+            {/* Only ONE mapping - removed the duplicate */}
+            {filteredCaseStudies?.filter(item => item)?.map(
+              ({ featuredImage, slug, title: caseTitle, caseStudyBuilder, uri, language, translations }, index) => {
+                let displayUri = uri
+                const caseLanguage = language?.code || "EN"
+
+                if (currentLanguage === "ES" && caseLanguage === "EN" && translations?.length > 0) {
+                  const spanishTranslation = translations.find(t => t.language?.code === "ES")
+                  if (spanishTranslation?.uri) {
+                    displayUri = spanishTranslation.uri
+                  }
+                }
+
+                if (currentLanguage === "EN" && caseLanguage === "ES" && translations?.length > 0) {
+                  const englishTranslation = translations.find(t => t.language?.code === "EN")
+                  if (englishTranslation?.uri) {
+                    displayUri = englishTranslation.uri
+                  }
+                }
+
+                return (
+                  <SwiperSlide
+                    key={`${index}-case-studies-slider${isIndividual ? "individual" : ""
+                      }`}
+                  >
+                    <div onClick={() => handleCaseStudyClick({ uri: displayUri, slug, language, translations })}>
+                      <S.CardArticle>
+                        <S.CardImage
+                          img={featuredImage?.node}
+                          alt={caseTitle || title}
+                          arPaddingPercentage={130}
+                        />
+                        <S.Overlay className="overlay">
+                          <S.TextContent>
+                            {caseTitle && (
+                              <S.CardTitle>
+                                {capitalizeWords(caseTitle)}
+                              </S.CardTitle>
+                            )}
+                            <S.CardDescription>
+                              {caseStudyBuilder?.subtitle}
+                            </S.CardDescription>
+                          </S.TextContent>
+                        </S.Overlay>
+                      </S.CardArticle>
+                    </div>
+                  </SwiperSlide>
+                )
+              },
             )}
           </Swiper>
         </S.SwiperWrapper>

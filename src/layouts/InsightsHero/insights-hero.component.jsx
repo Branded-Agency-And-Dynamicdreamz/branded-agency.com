@@ -21,14 +21,25 @@ const InsightsHero = ({ title, sliderArticles }) => {
     divContainer.innerHTML = html
     return divContainer.textContent || divContainer.innerText || ""
   }
+  
   const staticQuery = useStaticQuery(graphql`
     query {
       allWpInsight(sort: { date: DESC }) {
         nodes {
           slug
           title
+          uri
           content
           date
+          language {
+            code
+          }
+          translations {
+            uri
+            language {
+              code
+            }
+          }
           featuredImage {
             node {
               title
@@ -61,9 +72,11 @@ const InsightsHero = ({ title, sliderArticles }) => {
     }
   `)
 
+  const allInsights = staticQuery.allWpInsight.nodes
+
   const groupInsightsByTag = array => {
     return array.reduce((result, item) => {
-      let key = item?.insightBuilder["tag"]
+      let key = item?.insightBuilder?.["tag"] || "Uncategorized"
 
       if (!result["Show All"]) {
         result["Show All"] = [item]
@@ -80,7 +93,7 @@ const InsightsHero = ({ title, sliderArticles }) => {
     }, {})
   }
 
-  const insights = groupInsightsByTag(staticQuery.allWpInsight.nodes)
+  const insights = groupInsightsByTag(allInsights)
 
   return (
     <>
@@ -93,44 +106,6 @@ const InsightsHero = ({ title, sliderArticles }) => {
         <Container>
           <ArticlesByTab articles={insights} type="insight" />
         </Container>
-
-        {/*<S.Subtitle>{subtitle}</S.Subtitle>*/}
-        {/*{description && <S.Description>{parse(description)}</S.Description>}*/}
-        {/*{insights?.map((insight, index) => {*/}
-        {/*  const description = getText(insight.content)*/}
-        {/*  const text = description*/}
-        {/*    ? textEllipsis(description, 300, { ellipsis: "[...]" })*/}
-        {/*    : ""*/}
-        {/*  return (*/}
-        {/*    <Grid*/}
-        {/*      container*/}
-        {/*      direction={{*/}
-        {/*        // xs: "column",*/}
-        {/*        md: index % 2 === 0 ? "row" : "row-reverse",*/}
-        {/*      }}*/}
-        {/*      key={`insight-${index}`}*/}
-        {/*    >*/}
-        {/*      <Grid item xs={12} md={6}>*/}
-        {/*        <S.ImageWrapper url={`/insight/${insight.slug}`}>*/}
-        {/*          <S.InsightImage*/}
-        {/*            img={insight.featuredImage?.node}*/}
-        {/*            alt={insight.title}*/}
-        {/*            arPaddingPercentage={100}*/}
-        {/*          />*/}
-        {/*        </S.ImageWrapper>*/}
-        {/*      </Grid>*/}
-        {/*      <Grid item xs={12} md={6}>*/}
-        {/*        <S.TextWrapper>*/}
-        {/*          <S.InsightTitle>{insight.title}</S.InsightTitle>*/}
-        {/*          {text && <S.InsightDescription>{text}</S.InsightDescription>}*/}
-        {/*          <S.StyledLink url={`/insight/${insight.slug}`}>*/}
-        {/*            Read more*/}
-        {/*          </S.StyledLink>*/}
-        {/*        </S.TextWrapper>*/}
-        {/*      </Grid>*/}
-        {/*    </Grid>*/}
-        {/*  )*/}
-        {/*})}*/}
       </S.Section>
     </>
   )
