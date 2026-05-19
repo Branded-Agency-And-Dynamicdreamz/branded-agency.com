@@ -46,20 +46,30 @@ const InsightArticlesSlider = ({ sliderArticles, title, type }) => {
                 setIndex(() => swiper.activeIndex)
               }}
             >
-              {sliderArticles?.map(({ article }, index) => (
-                <SwiperSlide key={`${index}-${article.title}`}>
-                  <ArticleCard {...article} isSlider type={type} />
-                </SwiperSlide>
-              ))}
+              {sliderArticles
+                ?.filter(item => item?.article)
+                ?.map(({ article }, index) => (
+                  <SwiperSlide
+                    key={`${index}-${article?.title}`}
+                  >
+                    <ArticleCard
+                      {...article}
+                      isSlider
+                      type={type}
+                    />
+                  </SwiperSlide>
+                ))}
             </Swiper>
           </S.ContentSwiper>
           <S.SliderIndicator>
-            {sliderArticles?.map(({ article }, i) => (
-              <S.Indicator
-                key={`${i}-${article.title}`}
-                className={index === i && "active"}
-              />
-            ))}
+            {sliderArticles
+              ?.filter(item => item?.article)
+              ?.map(({ article }, i) => (
+                <S.Indicator
+                  key={`${i}-${article.title}`}
+                  className={index === i && "active"}
+                />
+              ))}
           </S.SliderIndicator>
         </>
       )}
