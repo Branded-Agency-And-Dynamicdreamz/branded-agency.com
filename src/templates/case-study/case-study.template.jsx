@@ -1,5 +1,5 @@
 import React from "react"
-import { graphql } from "gatsby"
+import { graphql, Link } from "gatsby"
 import Layout from "../../components/layout"
 import SEO from "../../components/seo/seo.component"
 import CaseStudyHero from "../../layouts/CaseStudyHero/case-study-hero.component"
@@ -7,6 +7,7 @@ import { getCaseStudyLayout } from "../../utils/get-case-study-layouts"
 import SeeMore from "../../layouts/SeeMore/see-more.component"
 import GetInTouch from "../../layouts/GetInTouch"
 import ArticlesSlider from "../../layouts/ArticlesSlider"
+import { TranslationProvider } from "../../context/translations-context"
 
 export const query = graphql`
   query CaseStudyQuery($id: String!) {
@@ -17,6 +18,15 @@ export const query = graphql`
       id
       uri
       slug
+      language {
+        code
+      }
+      translations {
+        uri
+        language {
+          code
+        }
+      }
       featuredImage {
         node {
           sourceUrl
@@ -115,14 +125,35 @@ export const query = graphql`
 `
 
 export const Head = ({ data }) => {
-  const seo = data.wpCaseStudy.seo
+  const caseStudy = data.wpCaseStudy
+  const seo = caseStudy.seo
   const canonical = `${seo.canonical}`
   const opengraphUrl = `${seo.opengraphUrl}`
-  return <SEO data={{ ...seo, canonical, opengraphUrl }} />
+
+  return (
+    <>
+      <SEO data={{ ...seo, canonical, opengraphUrl }} />
+
+      <link
+        rel="alternate"
+        hrefLang={caseStudy?.language?.code?.toLowerCase()}
+        href={caseStudy?.uri}
+      />
+
+      {caseStudy?.translations?.map(item => (
+        <link
+          key={item.language.code}
+          rel="alternate"
+          hrefLang={item.language.code.toLowerCase()}
+          href={item.uri}
+        />
+      ))}
+    </>
+  )
 }
 
 const Post = ({ data }) => {
-  const { caseStudyBuilder, title, slug } = data?.wpCaseStudy
+  const { caseStudyBuilder, title, slug, language, translations, uri } = data?.wpCaseStudy
   const layouts = caseStudyBuilder.layouts || []
 
   const hasArticlesSlider = layouts?.some(
@@ -130,53 +161,158 @@ const Post = ({ data }) => {
       layout?.fieldGroupName?.split("_").pop().trim() === "ArticlesSlider",
   )
 
-  // console.log("layouts :>> ", layouts)
-  // console.log("caseStudyBuilder :>> ", caseStudyBuilder)
   return (
-    <Layout
-      hideHeaderOnScroll={caseStudyBuilder?.hideHeaderOnScroll}
-      isCaseStudy
+    <TranslationProvider
+      value={{
+        currentLanguage: language?.code,
+        currentUri: uri,
+        translations,
+      }}
     >
-      <CaseStudyHero
-        title={title}
-        heroFile={caseStudyBuilder.heroFile}
-        subtitle={caseStudyBuilder.subtitle}
-        description={caseStudyBuilder.description}
-        className={`${caseStudyBuilder.className} ${
-          hasArticlesSlider ? "noPaddingBottom" : ""
-        }`}
-        heroVimeoLink={caseStudyBuilder.heroVimeoLink}
-        showAnimation={caseStudyBuilder?.showTextAnimation}
-        heroVideoControls={caseStudyBuilder?.heroVideoControls}
-        heroVideoThumbnail={caseStudyBuilder?.heroVideoThumbnail}
+      <Layout
+        hideHeaderOnScroll={caseStudyBuilder?.hideHeaderOnScroll}
+        isCaseStudy
       >
-        {layouts.map(layout => getCaseStudyLayout(layout))}
-      </CaseStudyHero>
-      {caseStudyBuilder?.showArticlesSlider && !hasArticlesSlider && (
-        <ArticlesSlider
-          actualSlug={slug}
-          title="Contact us now to see how BRANDED can help you."
-        />
-      )}
-      {caseStudyBuilder?.showSeeMore && (
-        <SeeMore
-          title="See more case studies"
-          button={{
-            title: "View all",
-            url: "/case-studies/",
+        {/* Language Switcher - Same as page template */}
+        <div
+          style={{
+            position: "fixed",
+            right: "20px",
+            bottom: "20px",
+            zIndex: 9999,
           }}
-        />
-      )}
-      {caseStudyBuilder?.showContactBanner && (
-        <GetInTouch
-          text="Contact us to see how BRANDED can help"
-          button={{
-            title: "Get in touch",
-            url: "/contact/",
-          }}
-        />
-      )}
-    </Layout>
+        >
+          <details
+            style={{
+              position: "relative",
+            }}
+          >
+            <summary
+              style={{
+                listStyle: "none",
+                cursor: "pointer",
+                background: "#111827",
+                color: "#fff",
+                borderRadius: "999px",
+                padding: "14px 18px",
+                fontWeight: "600",
+                fontSize: "14px",
+                border: "none",
+                boxShadow:
+                  "0 10px 25px rgba(0,0,0,0.2)",
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+              }}
+            >
+              🌐 {language?.code || "EN"}
+            </summary>
+
+            <div
+              style={{
+                position: "absolute",
+                bottom: "60px",
+                right: 0,
+                background: "#fff",
+                borderRadius: "16px",
+                minWidth: "140px",
+                overflow: "hidden",
+                boxShadow:
+                  "0 10px 30px rgba(0,0,0,0.15)",
+                border: "1px solid #e5e7eb",
+              }}
+            >
+              {/* Current language */}
+              <Link
+                to={uri}
+                style={{
+                  display: "block",
+                  padding: "12px 16px",
+                  textDecoration: "none",
+                  color: "#111827",
+                  fontWeight: "700",
+                  background: "#f3f4f6",
+                  borderBottom: "1px solid #e5e7eb",
+                }}
+              >
+                {language?.code || "EN"}
+              </Link>
+
+              {/* Translation languages */}
+              {translations?.map(item => {
+                let translatedUri = item.uri
+
+                if (
+                  item.uri.includes("/home-page/")
+                ) {
+                  translatedUri = `/${item.language.code.toLowerCase()}/`
+                }
+
+                return (
+                  <Link
+                    key={item.language.code}
+                    to={translatedUri}
+                    style={{
+                      display: "block",
+                      padding: "12px 16px",
+                      textDecoration: "none",
+                      color: "#111827",
+                      borderBottom:
+                        "1px solid #f3f4f6",
+                      transition: "0.2s ease",
+                    }}
+                  >
+                    {item.language.code}
+                  </Link>
+                )
+              })}
+            </div>
+          </details>
+        </div>
+
+        <CaseStudyHero
+          title={title}
+          heroFile={caseStudyBuilder.heroFile}
+          subtitle={caseStudyBuilder.subtitle}
+          description={caseStudyBuilder.description}
+          className={`${caseStudyBuilder.className} ${hasArticlesSlider ? "noPaddingBottom" : ""
+            }`}
+          heroVimeoLink={caseStudyBuilder.heroVimeoLink}
+          showAnimation={caseStudyBuilder?.showTextAnimation}
+          heroVideoControls={caseStudyBuilder?.heroVideoControls}
+          heroVideoThumbnail={caseStudyBuilder?.heroVideoThumbnail}
+        >
+          {layouts.map(layout => getCaseStudyLayout(layout))}
+        </CaseStudyHero>
+
+        {caseStudyBuilder?.showArticlesSlider && !hasArticlesSlider && (
+          <ArticlesSlider
+            actualSlug={slug}
+            title="Contact us now to see how BRANDED can help you."
+          />
+        )}
+
+        {caseStudyBuilder?.showSeeMore && (
+          <SeeMore
+            title="See more case studies"
+            button={{
+              title: "View all",
+              url: "/case-studies/",
+            }}
+          />
+        )}
+
+        {caseStudyBuilder?.showContactBanner && (
+          <GetInTouch
+            text="Contact us to see how BRANDED can help"
+            button={{
+              title: "Get in touch",
+              url: "/contact/",
+            }}
+          />
+        )}
+      </Layout>
+    </TranslationProvider>
   )
 }
 

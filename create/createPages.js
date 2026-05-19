@@ -47,6 +47,27 @@ module.exports = async ({ actions, graphql, reporter }) => {
           }
         }
       }
+
+      # ADDED: Fetch all insights for page generation
+      allWpInsight {
+        nodes {
+          id
+          uri
+          slug
+
+          language {
+            code
+          }
+
+          translations {
+            uri
+
+            language {
+              code
+            }
+          }
+        }
+      }
     }
   `)
 
@@ -57,6 +78,7 @@ module.exports = async ({ actions, graphql, reporter }) => {
 
   const allPages = result.data.allWpPage.nodes
   const allCaseStudies = result.data.allWpCaseStudy?.nodes || []
+  const allInsights = result.data.allWpInsight?.nodes || []
 
   const translationsMap = {}
 
@@ -127,6 +149,10 @@ module.exports = async ({ actions, graphql, reporter }) => {
     `./src/templates/case-study/case-study.template.jsx`
   )
 
+  const insightTemplate = path.resolve(
+    `./src/templates/insight/insight.template.jsx`
+  )
+
   allPages.forEach(page => {
     let pagePath = page.uri
 
@@ -178,6 +204,28 @@ module.exports = async ({ actions, graphql, reporter }) => {
     )
   })
 
+  allInsights.forEach(insight => {
+    let pagePath = insight.uri
+
+    pagePath = pagePath.replace(/\/\/+/g, "/")
+
+    createPage({
+      path: pagePath,
+      component: slash(insightTemplate),
+      context: {
+        id: insight.id,
+        slug: insight.slug,
+        language: insight.language?.code || "EN",
+        translations: insight.translations || [],
+      },
+    })
+
+    reporter.info(
+      `[Insight Created] ${insight.language?.code || "EN"} -> ${pagePath}`
+    )
+  })
+
   reporter.info(`# -----> PAGES TOTAL: ${allPages.length}`)
   reporter.info(`# -----> CASE STUDIES TOTAL: ${allCaseStudies.length}`)
+  reporter.info(`# -----> INSIGHTS TOTAL: ${allInsights.length}`)
 }
