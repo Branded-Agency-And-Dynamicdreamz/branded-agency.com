@@ -12,6 +12,7 @@ import { graphql, useStaticQuery } from "gatsby"
 import parse from "html-react-parser"
 import { gtagCallClickEvent } from "../../utils/gtag-utils"
 import { trackGetInTouchClick } from "../../utils/meta-pixel-utils"
+import { getLocalizedPath } from "../LocalizedLink"
 
 const Footer = ({ className, whiteFooter }) => {
   const theme = useTheme()
@@ -42,6 +43,11 @@ const Footer = ({ className, whiteFooter }) => {
       setPath(auxPath)
     }
   }, [])
+
+  // Function to get localized href
+  const getLocalizedHref = (href) => {
+    return getLocalizedPath(href)
+  }
 
   return (
     <S.Wrapper
@@ -75,7 +81,7 @@ const Footer = ({ className, whiteFooter }) => {
                     <S.Button
                       fullWidth
                       className="light"
-                      href="/contact/"
+                      href={getLocalizedHref("/contact/")}
                       onClick={() => trackGetInTouchClick()}
                     >
                       Get in touch
@@ -140,10 +146,9 @@ const Footer = ({ className, whiteFooter }) => {
                       >
                         <S.ItemsWrapper>
                           <S.Item
-                            url={url}
-                            className={`pink footer-item ${
-                              path === url && "selected"
-                            }}`}
+                            url={getLocalizedHref(url)}
+                            className={`pink footer-item ${path === url && "selected"
+                              }}`}
                           >
                             {name}
                           </S.Item>
@@ -151,10 +156,9 @@ const Footer = ({ className, whiteFooter }) => {
                             items.map(
                               ({ name, url, className, logo, target }, idx) => (
                                 <S.Item
-                                  url={url}
-                                  className={`footer-item ${className} ${
-                                    path === url && "selected"
-                                  }`}
+                                  url={getLocalizedHref(url)}
+                                  className={`footer-item ${className} ${path === url && "selected"
+                                    }`}
                                   key={`subitem-${idx}-fragment`}
                                   target={target}
                                 >
@@ -174,9 +178,9 @@ const Footer = ({ className, whiteFooter }) => {
                     />
                     <S.CertifiedDescription>
                       {/* {parse(`<p>
-We’re incredibly proud to be a Certified B Corporation, and are actively pushing for wider improvement on all fronts.</p>
-<p>If you would like to take a look at our results for the B Corp Impact Report, follow the link to our page <a href="https://www.bcorporation.net/en-us/find-a-b-corp/company/branded-ltd/" target="_blank">here*</a>.
-</p>`)} */}
+                      We’re incredibly proud to be a Certified B Corporation, and are actively pushing for wider improvement on all fronts.</p>
+                      <p>If you would like to take a look at our results for the B Corp Impact Report, follow the link to our page <a href="https://www.bcorporation.net/en-us/find-a-b-corp/company/branded-ltd/" target="_blank">here*</a>.
+                      </p>`)} */}
 
                       {parse(
                         `<p>We’re incredibly proud to be a Certified B Corporation, and are actively pushing for improvement on all fronts.</p>`,
@@ -206,7 +210,7 @@ We’re incredibly proud to be a Certified B Corporation, and are actively pushi
                   {LINKS[0]?.links?.map(({ title, url }, idx) => (
                     <S.LinkHome
                       className="links footer-item"
-                      url={url}
+                      url={getLocalizedHref(url)}
                       key={`link-${idx}`}
                     >
                       {title}
@@ -222,7 +226,7 @@ We’re incredibly proud to be a Certified B Corporation, and are actively pushi
                   {LINKS[1]?.links?.map(({ title, url, target }, idx) => (
                     <S.LinkHome
                       className="links footer-item"
-                      url={url}
+                      url={getLocalizedHref(url)}
                       target={target}
                       key={`link-${idx}`}
                     >
@@ -239,7 +243,7 @@ We’re incredibly proud to be a Certified B Corporation, and are actively pushi
                   {LINKS[2]?.links?.map(({ title, url, target }, idx) => (
                     <S.LinkHome
                       className="links footer-item"
-                      url={url}
+                      url={getLocalizedHref(url)}
                       target={target}
                       key={`link-${idx}`}
                     >
