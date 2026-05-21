@@ -8,6 +8,7 @@ import SeeMore from "../../layouts/SeeMore/see-more.component"
 import GetInTouch from "../../layouts/GetInTouch"
 import ArticlesSlider from "../../layouts/ArticlesSlider"
 import { TranslationProvider } from "../../context/translations-context"
+import { useTranslation } from "../../hooks/useTranslation"
 
 export const query = graphql`
   query CaseStudyQuery($id: String!) {
@@ -153,6 +154,7 @@ export const Head = ({ data }) => {
 }
 
 const Post = ({ data }) => {
+  const { t } = useTranslation()
   const { caseStudyBuilder, title, slug, language, translations, uri } = data?.wpCaseStudy
   const layouts = caseStudyBuilder.layouts || []
 
@@ -288,15 +290,15 @@ const Post = ({ data }) => {
         {caseStudyBuilder?.showArticlesSlider && !hasArticlesSlider && (
           <ArticlesSlider
             actualSlug={slug}
-            title="Contact us now to see how BRANDED can help you."
+            title={t("Contact us now to see how BRANDED can help you.")}
           />
         )}
 
         {caseStudyBuilder?.showSeeMore && (
           <SeeMore
-            title="See more case studies"
+            title={t("See more case studies")}
             button={{
-              title: "View all",
+              title: t("View all"),
               url: "/case-studies/",
             }}
           />
@@ -304,9 +306,9 @@ const Post = ({ data }) => {
 
         {caseStudyBuilder?.showContactBanner && (
           <GetInTouch
-            text="Contact us to see how BRANDED can help"
+            text={t("Contact us to see how BRANDED can help")}
             button={{
-              title: "Get in touch",
+              title: t("Get in touch"),
               url: "/contact/",
             }}
           />

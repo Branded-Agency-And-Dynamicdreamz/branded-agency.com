@@ -9,6 +9,7 @@ import RelatedInsights from "../../layouts/RelatedInsights/related-insights.comp
 import { DownloadGuideProvider } from "../../context/download-guide.provider"
 import ArticlesSlider from "../../layouts/ArticlesSlider"
 import { TranslationProvider } from "../../context/translations-context"
+import { useTranslation } from "../../hooks/useTranslation"
 
 export const query = graphql`
   query InsightQuery($id: String!) {
@@ -176,6 +177,7 @@ export const Head = ({ data }) => {
 }
 
 const Post = ({ data }) => {
+  const { t } = useTranslation()
   const {
     insightBuilder = {},
     title = "",
@@ -329,16 +331,16 @@ const Post = ({ data }) => {
           {insightBuilder?.showArticlesSlider && !hasArticlesSlider && (
             <ArticlesSlider
               actualSlug={slug}
-              title="Contact us now to see how BRANDED can help you."
+              title={t("Contact us now to see how BRANDED can help you.")}
             />
           )}
           {/*{TypeformEmbedData && <TypeformEmbed {...TypeformEmbedData} />}*/}
           {relatedInsightsData && <RelatedInsights {...relatedInsightsData} />}
           {insightBuilder?.showContactBanner && (
             <GetInTouch
-              text="Contact us to see how BRANDED can help"
+              text={t("Contact us to see how BRANDED can help")}
               button={{
-                title: "Get in touch",
+                title: t("Get in touch"),
                 url: "/contact/",
               }}
             />
