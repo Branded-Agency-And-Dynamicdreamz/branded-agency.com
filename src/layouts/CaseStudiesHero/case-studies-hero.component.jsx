@@ -12,6 +12,7 @@ import { Reveal } from "react-awesome-reveal"
 import { textEllipsis } from "../../utils/utils"
 import { navigate } from "gatsby-link"
 import { getLocalizedPath } from "../../components/LocalizedLink"
+import { useTranslation } from "../../hooks/useTranslation"
 
 const FadeOut = keyframes`
   from {
@@ -24,6 +25,7 @@ const FadeOut = keyframes`
 `
 
 const CaseStudiesHero = ({ testimonials, caseStudies = [] }) => {
+  const { t } = useTranslation()
   
   const getCurrentLanguage = () => {
     if (typeof window === "undefined") return "EN"
@@ -82,7 +84,7 @@ const CaseStudiesHero = ({ testimonials, caseStudies = [] }) => {
             duration={1000}
             keyframes={FadeOut}
           >
-            <S.Label>Click images to view case studies</S.Label>
+            <S.Label>{t("Click images to view case studies")}</S.Label>
           </Reveal>
         </S.LabelWrapper>
       )}
