@@ -72,7 +72,24 @@ const InsightsHero = ({ title, sliderArticles }) => {
     }
   `)
 
-  const allInsights = staticQuery.allWpInsight.nodes
+  const getCurrentLanguage = () => {
+    if (typeof window === "undefined") return "EN"
+    const pathname = window.location.pathname
+    if (pathname === "/es/" || pathname.startsWith("/es/")) return "ES"
+    return "EN"
+  }
+
+  const currentLanguage = getCurrentLanguage()
+  const filteredInsights = staticQuery.allWpInsight.nodes.filter(insight => {
+    const insightLanguage = insight?.language?.code || "EN"
+    
+    if (currentLanguage === "EN") {
+      return insightLanguage === "EN"
+    } 
+    else {
+      return insightLanguage === "ES"
+    }
+  })
 
   const groupInsightsByTag = array => {
     return array.reduce((result, item) => {
@@ -93,7 +110,7 @@ const InsightsHero = ({ title, sliderArticles }) => {
     }, {})
   }
 
-  const insights = groupInsightsByTag(allInsights)
+  const insights = groupInsightsByTag(filteredInsights)
 
   return (
     <>
