@@ -68,7 +68,25 @@ const translations = {
     "Company": "Company",
     "Download the Guide": "Download the Guide",
     "Download the Complete Guide": "Download the Complete Guide",
-    "Download Guide": "Download Guide"
+    "Download Guide": "Download Guide",
+    "Please add a CV file": "Please add a CV file",
+    "Select areas of interest": "Select areas of interest",
+    "Client Services": "Client Services",
+    "Marketing": "Marketing",
+    "Strategy": "Strategy",
+    "Implementation": "Implementation",
+    "Technology": "Technology",
+    "Brand Compliance": "Brand Compliance",
+    "Finance": "Finance",
+    "HR": "HR",
+    "Operations": "Operations",
+    "Full Name*": "Full Name*",
+    "Location": "Location",
+    "Email*": "Email*",
+    "Phone*": "Phone*",
+    "Introduction": "Introduction",
+    "Upload a CV": "Upload a CV",
+    "Uploading...": "Uploading..."
   },
   ES: {
     "Get in touch": "Ponte en contacto",
@@ -136,7 +154,25 @@ const translations = {
     "Company": "Empresa",
     "Download the Guide": "Descargar la Guía",
     "Download the Complete Guide": "Descargar la Guía Completa",
-    "Download Guide": "Descargar Guía"
+    "Download Guide": "Descargar Guía",
+    "Please add a CV file": "Por favor, añade un archivo de CV",
+    "Select areas of interest": "Selecciona áreas de interés",
+    "Client Services": "Servicios al Cliente",
+    "Marketing": "Marketing",
+    "Strategy": "Estrategia",
+    "Implementation": "Implementación",
+    "Technology": "Tecnología",
+    "Brand Compliance": "Cumplimiento de Marca",
+    "Finance": "Finanzas",
+    "HR": "RR. HH.",
+    "Operations": "Operaciones",
+    "Full Name*": "Nombre Completo*",
+    "Location": "Ubicación",
+    "Email*": "Correo electrónico*",
+    "Phone*": "Teléfono*",
+    "Introduction": "Introducción",
+    "Upload a CV": "Subir un CV",
+    "Uploading...": "Subiendo..."
   }
 }
 
