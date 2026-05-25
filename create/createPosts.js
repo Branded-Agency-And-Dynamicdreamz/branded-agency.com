@@ -51,9 +51,11 @@ module.exports = async ({ actions, graphql, reporter }, options) => {
       context: {
         id: post.id,
       },
+      // 🔥 DSG: First visit pe generate hoga
+      defer: true,
     })
-    reporter.info(`post created:  ${path}`)
+    reporter.info(`[Post DSG] ${path}`)
   })
 
-  reporter.info(`# -----> POSTS TOTAL: ${allPosts.length}`)
+  reporter.info(`# -----> POSTS TOTAL (DSG): ${allPosts.length}`)
 }

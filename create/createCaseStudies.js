@@ -52,9 +52,11 @@ module.exports = async ({ actions, graphql, reporter }, options) => {
       context: {
         id: caseStudy.id,
       },
+      // 🔥 DSG: First visit pe generate hoga
+      defer: true,
     })
-    reporter.info(`caseStudy created:  ${path}`)
+    reporter.info(`[Case Study DSG] ${path}`)
   })
 
-  reporter.info(`# -----> CASE STUDIES TOTAL: ${allCaseStudies.length}`)
+  reporter.info(`# -----> CASE STUDIES TOTAL (DSG): ${allCaseStudies.length}`)
 }

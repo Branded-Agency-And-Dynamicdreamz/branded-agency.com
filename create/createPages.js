@@ -19,6 +19,7 @@ module.exports = async ({ actions, graphql, reporter }, options) => {
         nodes {
           id
           uri
+          isFrontPage
         }
       }
     }
@@ -38,6 +39,10 @@ module.exports = async ({ actions, graphql, reporter }, options) => {
       pagePath = "/"
     }
 
+    // 🔥 DSG: Homepage build time, baaki runtime
+    const isHomePage = page.isFrontPage
+    const shouldDefer = !isHomePage
+
     createPage({
       // will be the url for the page
       path: pagePath,
@@ -48,8 +53,10 @@ module.exports = async ({ actions, graphql, reporter }, options) => {
       context: {
         id: page.id,
       },
+      // 🔥 DSG
+      defer: shouldDefer,
     })
-    reporter.info(`page created:  ${page.uri}`)
+    reporter.info(`[Page ${shouldDefer ? 'DSG' : 'SSG'}] ${page.uri}`)
   })
 
   reporter.info(`# -----> PAGES TOTAL: ${allPages.length}`)
