@@ -11,7 +11,6 @@ const envPath = `.env.${activeEnv}`
 if (fs.existsSync(envPath)) {
   dotenv.config({ path: envPath })
 } else {
-  // Fallback to .env when a per-environment file is not present.
   dotenv.config({ path: ".env" })
 }
 
@@ -23,17 +22,11 @@ module.exports = {
   siteMetadata: {
     siteUrl: process.env.GATSBY_WEBSITE_URL,
   },
-  flags: {
-    // FAST_DEV: true,
-    // DEV_SSR: false,
-    // FAST_REFRESH: true,
-  },
+  flags: {},
   plugins: [
     {
       resolve: `gatsby-plugin-sitemap`,
-      options: {
-        excludes: [`/404`, `/layouts`],
-      },
+      options: { excludes: [`/404`, `/layouts`] },
     },
     {
       resolve: "gatsby-plugin-robots-txt",
@@ -46,17 +39,11 @@ module.exports = {
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `assets`,
-        path: `${__dirname}/src/assets`,
-      },
+      options: { name: `assets`, path: `${__dirname}/src/assets` },
     },
     {
       resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `images`,
-        path: `${__dirname}/src/images`,
-      },
+      options: { name: `images`, path: `${__dirname}/src/images` },
     },
     `gatsby-plugin-image`,
     `gatsby-transformer-sharp`,
@@ -65,10 +52,10 @@ module.exports = {
       options: {
         defaults: {
           placeholder: `none`,
-          quality: 80,           // 100 → 80
+          quality: 80,
         },
-        failOn: `none`,         
-        stripMetadata: true, 
+        failOn: `none`,
+        stripMetadata: true,
       },
     },
     `gatsby-plugin-emotion`,
@@ -87,14 +74,12 @@ module.exports = {
       resolve: `gatsby-source-wordpress`,
       options: {
         url: `${process.env.GATSBY_WORDPRESS_URL}/graphql`,
-        production: {
-          hardCacheMediaFiles: true,
-        },
+        production: { hardCacheMediaFiles: true },
         schema: {
-          perPage: 5,                    // 10 → 5
-          requestConcurrency: 1,         // 2 → 1
+          perPage: 5,
+          requestConcurrency: 1,
           previewRequestConcurrency: 1,
-          timeout: 300000,               // 120000 → 300000
+          timeout: 300000,
         },
         type: {
           MediaItem: {
@@ -107,7 +92,7 @@ module.exports = {
                 "video/webm",
                 "video/ogg",
               ],
-              maxFileSizeBytes: 5242880, // Skip files >5MB
+              maxFileSizeBytes: 5242880,
             },
           },
         },
@@ -119,11 +104,7 @@ module.exports = {
     },
     {
       resolve: "gatsby-plugin-react-svg",
-      options: {
-        rule: {
-          include: /assets/,
-        },
-      },
+      options: { rule: { include: /assets/ } },
     },
   ],
 }
