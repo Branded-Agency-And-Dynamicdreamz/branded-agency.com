@@ -4,6 +4,3 @@
   GATSBY_STALL_TIMEOUT = "120000"
   GATSBY_STALL_RETRY_LIMIT = "8"
 
-# 🔥 DSG Support
-[[plugins]]
-  package = "@netlify/plugin-gatsby"

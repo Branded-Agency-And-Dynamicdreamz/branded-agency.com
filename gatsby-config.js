@@ -76,10 +76,10 @@ module.exports = {
         url: `${process.env.GATSBY_WORDPRESS_URL}/graphql`,
         production: { hardCacheMediaFiles: true },
         schema: {
-          perPage: 3,                    // 🔧 5 → 3
+          perPage: 3,
           requestConcurrency: 1,
           previewRequestConcurrency: 1,
-          timeout: 600000,               // 🔧 300000 → 600000 (10 min)
+          timeout: 600000,
         },
         type: {
           MediaItem: {
@@ -92,7 +92,7 @@ module.exports = {
                 "video/webm",
                 "video/ogg",
               ],
-              maxFileSizeBytes: 3145728, // 🔧 5MB → 3MB
+              maxFileSizeBytes: 3145728,
             },
           },
         },
