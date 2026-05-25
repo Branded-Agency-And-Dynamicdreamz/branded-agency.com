@@ -29,18 +29,6 @@ module.exports = {
     // FAST_REFRESH: true,
   },
   plugins: [
-    // `gatsby-plugin-preact`,
-    `gatsby-plugin-netlify`,
-    // Make sure this plugin is first in the array of plugins
-    // {
-    //   resolve: `gatsby-plugin-google-analytics`,
-    //   options: {
-    //     trackingId: "UA-111111111-1",
-    //     // this option places the tracking script into the head of the DOM
-    //     head: true,
-    //     // other options
-    //   },
-    // },
     {
       resolve: `gatsby-plugin-sitemap`,
       options: {
@@ -77,8 +65,10 @@ module.exports = {
       options: {
         defaults: {
           placeholder: `none`,
-          quality: 100,
+          quality: 80,           // 100 → 80
         },
+        failOn: `none`,         
+        stripMetadata: true, 
       },
     },
     `gatsby-plugin-emotion`,
@@ -90,13 +80,9 @@ module.exports = {
         start_url: `/`,
         background_color: `transparent`,
         theme_color: `#1519ba`,
-        icon: `src/assets/icons/favicon.png`, // This path is relative to the root of the site.
+        icon: `src/assets/icons/favicon.png`,
       },
     },
-    /*
-     * Gatsby's data processing layer begins with “source”
-     * plugins. Here the site sources its data from WordPress.
-     */
     {
       resolve: `gatsby-source-wordpress`,
       options: {
@@ -105,26 +91,23 @@ module.exports = {
           hardCacheMediaFiles: true,
         },
         schema: {
-          // Conservative settings for smaller concurrent load on WPGraphQL in CI.
-          perPage: 10,
-          requestConcurrency: 2,
+          perPage: 5,                    // 10 → 5
+          requestConcurrency: 1,         // 2 → 1
           previewRequestConcurrency: 1,
-          timeout: 120000,
+          timeout: 300000,               // 120000 → 300000
         },
         type: {
           MediaItem: {
-            // Keep local file nodes for images so existing Gatsby image queries continue to work.
             createFileNodes: true,
             localFile: {
-              // Keep media downloads sequential to avoid origin socket resets.
               requestConcurrency: 1,
-              // Videos are rendered from remote URLs, so skip downloading them.
               excludeByMimeTypes: [
                 "video/mp4",
                 "video/quicktime",
                 "video/webm",
                 "video/ogg",
               ],
+              maxFileSizeBytes: 5242880, // Skip files >5MB
             },
           },
         },
