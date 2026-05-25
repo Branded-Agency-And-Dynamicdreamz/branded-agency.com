@@ -11,6 +11,7 @@ const envPath = `.env.${activeEnv}`
 if (fs.existsSync(envPath)) {
   dotenv.config({ path: envPath })
 } else {
+  // Fallback to .env when a per-environment file is not present.
   dotenv.config({ path: ".env" })
 }
 
@@ -22,11 +23,29 @@ module.exports = {
   siteMetadata: {
     siteUrl: process.env.GATSBY_WEBSITE_URL,
   },
-  flags: {},
+  flags: {
+    // FAST_DEV: true,
+    // DEV_SSR: false,
+    // FAST_REFRESH: true,
+  },
   plugins: [
+    // `gatsby-plugin-preact`,
+    `gatsby-plugin-netlify`,
+    // Make sure this plugin is first in the array of plugins
+    // {
+    //   resolve: `gatsby-plugin-google-analytics`,
+    //   options: {
+    //     trackingId: "UA-111111111-1",
+    //     // this option places the tracking script into the head of the DOM
+    //     head: true,
+    //     // other options
+    //   },
+    // },
     {
       resolve: `gatsby-plugin-sitemap`,
-      options: { excludes: [`/404`, `/layouts`] },
+      options: {
+        excludes: [`/404`, `/layouts`],
+      },
     },
     {
       resolve: "gatsby-plugin-robots-txt",
@@ -39,11 +58,17 @@ module.exports = {
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
-      options: { name: `assets`, path: `${__dirname}/src/assets` },
+      options: {
+        name: `assets`,
+        path: `${__dirname}/src/assets`,
+      },
     },
     {
       resolve: `gatsby-source-filesystem`,
-      options: { name: `images`, path: `${__dirname}/src/images` },
+      options: {
+        name: `images`,
+        path: `${__dirname}/src/images`,
+      },
     },
     `gatsby-plugin-image`,
     `gatsby-transformer-sharp`,
@@ -52,10 +77,8 @@ module.exports = {
       options: {
         defaults: {
           placeholder: `none`,
-          quality: 80,
+          quality: 100,
         },
-        failOn: `none`,
-        stripMetadata: true,
       },
     },
     `gatsby-plugin-emotion`,
@@ -67,32 +90,41 @@ module.exports = {
         start_url: `/`,
         background_color: `transparent`,
         theme_color: `#1519ba`,
-        icon: `src/assets/icons/favicon.png`,
+        icon: `src/assets/icons/favicon.png`, // This path is relative to the root of the site.
       },
     },
+    /*
+     * Gatsby's data processing layer begins with “source”
+     * plugins. Here the site sources its data from WordPress.
+     */
     {
       resolve: `gatsby-source-wordpress`,
       options: {
         url: `${process.env.GATSBY_WORDPRESS_URL}/graphql`,
-        production: { hardCacheMediaFiles: true },
+        production: {
+          hardCacheMediaFiles: true,
+        },
         schema: {
-          perPage: 3,
-          requestConcurrency: 1,
+          // Conservative settings for smaller concurrent load on WPGraphQL in CI.
+          perPage: 10,
+          requestConcurrency: 2,
           previewRequestConcurrency: 1,
-          timeout: 600000,
+          timeout: 120000,
         },
         type: {
           MediaItem: {
+            // Keep local file nodes for images so existing Gatsby image queries continue to work.
             createFileNodes: true,
             localFile: {
+              // Keep media downloads sequential to avoid origin socket resets.
               requestConcurrency: 1,
+              // Videos are rendered from remote URLs, so skip downloading them.
               excludeByMimeTypes: [
                 "video/mp4",
                 "video/quicktime",
                 "video/webm",
                 "video/ogg",
               ],
-              maxFileSizeBytes: 3145728,
             },
           },
         },
@@ -104,7 +136,11 @@ module.exports = {
     },
     {
       resolve: "gatsby-plugin-react-svg",
-      options: { rule: { include: /assets/ } },
+      options: {
+        rule: {
+          include: /assets/,
+        },
+      },
     },
   ],
 }
