@@ -16,8 +16,10 @@ import { gtagFormSubmission } from "../../utils/gtag-utils"
 import { linkedinConversionTrack } from "../../utils/linkedin-utils"
 import { navigate } from "gatsby"
 import parse from "html-react-parser"
+import { useTranslation } from "../../hooks/useTranslation"
 
 const CustomJobForm = ({ formTitle, isIndividualJob, titleJob, location }) => {
+  const { t } = useTranslation()
   const methods = useForm({
     mode: "onBlur",
     reValidateMode: "onBlur",
@@ -84,7 +86,6 @@ const CustomJobForm = ({ formTitle, isIndividualJob, titleJob, location }) => {
         contactFormRes?.invalidFields?.length > 0 ||
         contactFormRes.status === "validation_failed"
       ) {
-        //   console.log("contactFormRes :>> ", contactFormRes);
         setErrorMessage(contactFormRes.message)
         setIsLoading(false)
         return
@@ -99,18 +100,26 @@ const CustomJobForm = ({ formTitle, isIndividualJob, titleJob, location }) => {
       setCVErrorMessage("")
       linkedinConversionTrack(12868106)
       setIsLoading(false)
-      // disappearAlert()
       await navigate("/thank-you-for-applying/")
     } else {
-      setCVErrorMessage("Please add a CV file")
+      setCVErrorMessage(t("Please add a CV file"))
     }
   }
 
-  // const disappearAlert = () => {
-  //   setTimeout(() => {
-  //     setSuccessMessage("")
-  //   }, 5000)
-  // }
+  const getAreasOptions = () => {
+    return [
+      t("Client Services"),
+      t("Marketing"),
+      t("Strategy"),
+      t("Implementation"),
+      t("Technology"),
+      t("Brand Compliance"),
+      t("Sustainability"),
+      t("Finance"),
+      t("HR"),
+      t("Operations"),
+    ]
+  }
 
   return (
     <>
@@ -123,19 +132,8 @@ const CustomJobForm = ({ formTitle, isIndividualJob, titleJob, location }) => {
                   <CustomSelect
                     style="jobForm"
                     required
-                    title="Select areas of interest"
-                    options={[
-                      "Client Services",
-                      "Marketing",
-                      "Strategy",
-                      "Implementation",
-                      "Technology",
-                      "Brand Compliance",
-                      "Sustainability",
-                      "Finance",
-                      "HR",
-                      "Operations",
-                    ]}
+                    title={t("Select areas of interest")}
+                    options={getAreasOptions()}
                     value={areasSelected}
                     setValue={setAreasSelected}
                   />
@@ -149,7 +147,7 @@ const CustomJobForm = ({ formTitle, isIndividualJob, titleJob, location }) => {
                       style="jobForm"
                       variant="outlined"
                       name="areas"
-                      placeholder="Full Name*"
+                      placeholder={t("Full Name*")}
                       disabled
                       validations={{ required: true }}
                     />
@@ -159,7 +157,7 @@ const CustomJobForm = ({ formTitle, isIndividualJob, titleJob, location }) => {
                       style="jobForm"
                       variant="outlined"
                       name="location"
-                      placeholder="Location"
+                      placeholder={t("Location")}
                       disabled
                       validations={{ required: true }}
                     />
@@ -171,7 +169,7 @@ const CustomJobForm = ({ formTitle, isIndividualJob, titleJob, location }) => {
                   style="jobForm"
                   variant="outlined"
                   name="full_name"
-                  placeholder="Full Name*"
+                  placeholder={t("Full Name*")}
                   validations={{ required: true }}
                 />
               </Grid>
@@ -180,7 +178,7 @@ const CustomJobForm = ({ formTitle, isIndividualJob, titleJob, location }) => {
                   style="jobForm"
                   variant="outlined"
                   name="email"
-                  placeholder="Email*"
+                  placeholder={t("Email*")}
                   type="email"
                   validations={{ required: true, pattern: emailRegex }}
                 />
@@ -190,7 +188,7 @@ const CustomJobForm = ({ formTitle, isIndividualJob, titleJob, location }) => {
                   style="jobForm"
                   variant="outlined"
                   name="phone"
-                  placeholder="Phone*"
+                  placeholder={t("Phone*")}
                   validations={{ required: true }}
                   type="tel"
                 />
@@ -201,7 +199,7 @@ const CustomJobForm = ({ formTitle, isIndividualJob, titleJob, location }) => {
                   style="jobForm"
                   variant="outlined"
                   name="message"
-                  placeholder="Introduction"
+                  placeholder={t("Introduction")}
                   multiline
                   rows={6}
                 />
@@ -210,20 +208,13 @@ const CustomJobForm = ({ formTitle, isIndividualJob, titleJob, location }) => {
                 <CustomInputFile
                   style="jobForm"
                   inputRef={inputCvFile}
-                  title="Upload a CV"
+                  title={t("Upload a CV")}
                   setCVErrorMessage={setCVErrorMessage}
                   files={files}
                   setFiles={setFiles}
-                  // setNameFile={setNameFile}
-                  // nameFile={nameFile}
                 />
                 {cvErrorMessage && <S.Error>{cvErrorMessage}</S.Error>}
               </Grid>
-              {/*{successMessage && (*/}
-              {/*  <Grid item xs={12}>*/}
-              {/*    <Alert severity="success">{successMessage}</Alert>*/}
-              {/*  </Grid>*/}
-              {/*)}*/}
               {errorMessage && (
                 <Grid item xs={12}>
                   <Alert severity="error">{errorMessage}</Alert>
@@ -239,7 +230,7 @@ const CustomJobForm = ({ formTitle, isIndividualJob, titleJob, location }) => {
                 className="g-recaptcha"
                 ref={recaptchaRef}
               />
-              {error && <S.CaptchaError>Please enter captcha</S.CaptchaError>}
+              {error && <S.CaptchaError>{t("Please enter captcha")}</S.CaptchaError>}
             </S.TermsDiv>
             <S.ButtonWrapper>
               <S.Button
@@ -248,7 +239,7 @@ const CustomJobForm = ({ formTitle, isIndividualJob, titleJob, location }) => {
                 className="small"
                 loading={isLoading}
               >
-                Submit
+                {t("Submit")}
               </S.Button>
             </S.ButtonWrapper>
           </form>

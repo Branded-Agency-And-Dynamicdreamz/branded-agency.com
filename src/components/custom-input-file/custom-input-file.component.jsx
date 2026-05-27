@@ -4,6 +4,7 @@ import { getWordpressToken } from "../../utils/utils"
 import { mediaApi } from "../../apis/apis"
 import ClipIcon from "../../assets/clip.svg"
 import CloseIcon from "@mui/icons-material/Close"
+import { useTranslation } from "../../hooks/useTranslation"
 
 const CustomInputFile = ({
   inputRef,
@@ -14,6 +15,7 @@ const CustomInputFile = ({
   files,
   setFiles,
 }) => {
+  const { t } = useTranslation()
   const [loading, setLoading] = useState(false)
   const handleSelectFile = () => {
     if (inputRef) inputRef.current.click()
@@ -73,7 +75,7 @@ const CustomInputFile = ({
       <S.FileButton onClick={handleSelectFile}>
         <ClipIcon />
         <S.InputWrapper>
-          {!loading ? "Upload a CV" : "Uploading..."}
+          {!loading ? t("Upload a CV") : t("Uploading...")}
         </S.InputWrapper>
       </S.FileButton>
     </S.Wrapper>

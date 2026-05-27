@@ -4,7 +4,14 @@
  * See: https://www.gatsbyjs.org/docs/browser-apis/
  */
 
-// You can delete this file if you're not using it
+// Optimized local font loading
+import "@fontsource/mulish/400.css"
+import "@fontsource/mulish/500.css"
+import "@fontsource/mulish/700.css"
+
+import "@fontsource/bebas-neue"
+
+// Existing imports
 import Provider from "./src/provider"
 import { IS_PRODUCTION } from "./src/utils/constants"
 
@@ -17,11 +24,11 @@ export const onRouteUpdate = ({ location, prevLocation }) => {
       send_to: "AW-11137911214/xyNUCLeyxK4YEK6T_L4p",
     })
   }
-  
+
   // Track Meta Pixel PageView on route changes
   if (IS_PRODUCTION && window.fbq) {
     window.fbq("track", "PageView")
   }
-  
+
   // window.scrollTo(0, 0)
 }

@@ -67,9 +67,14 @@ import AnimatedDescription from "../layouts/AnimatedDescription"
 import AnimatedFeaturesVideo from "../layouts/AnimatedFeaturesVideo"
 import ArticlesSlider from "../layouts/ArticlesSlider"
 
-export const getPageLayout = layout => {
+export const getPageLayout = (layout, options = {}) => {
   const layoutName = layout?.fieldGroupName?.split("_").pop().trim()
   if (!layoutName) return null
+  
+  if (layoutName === "CaseStudiesHero") {
+    return <CaseStudiesHero key={uuidv4()} {...layout} caseStudies={options.caseStudies || []} />
+  }
+  
   switch (layoutName) {
     case "MiscContent":
       return <MiscContent key={uuidv4()} {...layout} />
@@ -107,8 +112,6 @@ export const getPageLayout = layout => {
       return <OurValues key={uuidv4()} {...layout} />
     case "JobForm":
       return <JobForm key={uuidv4()} {...layout} />
-    case "CaseStudiesHero":
-      return <CaseStudiesHero key={uuidv4()} {...layout} />
     case "SummarySubItems":
       return <SummarySubItems key={uuidv4()} {...layout} />
     case "SubContent":
@@ -203,5 +206,7 @@ export const getPageLayout = layout => {
       return <AnimatedFeaturesVideo key={uuidv4()} {...layout} />
     case "ArticlesSliderPage":
       return <ArticlesSlider key={uuidv4()} {...layout} isPage />
+    default:
+      return null
   }
 }

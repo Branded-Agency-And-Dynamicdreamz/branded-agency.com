@@ -1,8 +1,9 @@
 import React from "react"
-import { graphql } from "gatsby"
+import { graphql, Link } from "gatsby"
 import Layout from "../../components/layout"
 import { getPageLayout } from "../../utils/get-layout-utils"
 import SEO from "../../components/seo/seo.component"
+import { TranslationProvider } from "../../context/translations-context"
 
 export const query = graphql`
   query PageQuery($id: String!) {
@@ -14,6 +15,17 @@ export const query = graphql`
       uri
       slug
       parentId
+      language {
+        code
+      }
+
+      translations {
+        uri
+
+        language {
+          code
+        }
+      }
       seo {
         canonical
         title
@@ -257,13 +269,77 @@ export const query = graphql`
         }
       }
     }
+
+    # Get ALL case studies (filtering will be done in component)
+    allWpCaseStudy(sort: { date: DESC }) {
+      nodes {
+        slug
+        title
+        uri
+        language {
+          code
+        }
+        translations {
+          title
+          uri
+          language {
+            code
+          }
+        }
+        featuredImage {
+          node {
+            title
+            localFile {
+              childImageSharp {
+                gatsbyImageData
+              }
+            }
+          }
+        }
+        caseStudyBuilder {
+          subtitle
+          titleHover
+          subtitleHover
+        }
+      }
+    }
   }
 `
 
-export const Head = ({ data }) => <SEO data={data?.wpPage?.seo} />
+export const Head = ({ data }) => {
+  const page = data?.wpPage
+
+  return (
+    <>
+      <SEO data={page?.seo} />
+
+      <link
+        rel="alternate"
+        hrefLang={page?.language?.code?.toLowerCase()}
+        href={page?.uri}
+      />
+
+      {page?.translations?.map(item => (
+        <link
+          key={item.language.code}
+          rel="alternate"
+          hrefLang={item.language.code.toLowerCase()}
+          href={item.uri}
+        />
+      ))}
+    </>
+  )
+}
 
 const PageTemplate = ({ data }) => {
-  const { slug, pageBuilder, title } = data.wpPage
+  const {
+    slug,
+    pageBuilder,
+    title,
+    language,
+    translations,
+    uri,
+  } = data.wpPage
   const layouts = pageBuilder.layouts || []
 
   const hasAnimatedFeaturesVideo = layouts?.some(
@@ -272,14 +348,118 @@ const PageTemplate = ({ data }) => {
       "AnimatedFeaturesVideo",
   )
 
+  const caseStudies = data?.allWpCaseStudy?.nodes || []
 
   return (
-    <Layout
-      {...pageBuilder.pageConfiguration}
-      whitePinSpacer={hasAnimatedFeaturesVideo}
+    <TranslationProvider
+      value={{
+        currentLanguage: language?.code,
+        currentUri: uri,
+        translations,
+      }}
     >
-      {layouts.map(layout => getPageLayout(layout))}
-    </Layout>
+      <Layout
+        {...pageBuilder.pageConfiguration}
+        whitePinSpacer={hasAnimatedFeaturesVideo}
+      >
+        <div
+          style={{
+            position: "fixed",
+            right: "20px",
+            bottom: "20px",
+            zIndex: 9999,
+          }}
+        >
+          <details
+            style={{
+              position: "relative",
+            }}
+          >
+            <summary
+              style={{
+                listStyle: "none",
+                cursor: "pointer",
+                background: "#111827",
+                color: "#fff",
+                borderRadius: "999px",
+                padding: "14px 18px",
+                fontWeight: "600",
+                fontSize: "14px",
+                border: "none",
+                boxShadow:
+                  "0 10px 25px rgba(0,0,0,0.2)",
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+              }}
+            >
+              🌐 {language?.code}
+            </summary>
+
+            <div
+              style={{
+                position: "absolute",
+                bottom: "60px",
+                right: 0,
+                background: "#fff",
+                borderRadius: "16px",
+                minWidth: "140px",
+                overflow: "hidden",
+                boxShadow:
+                  "0 10px 30px rgba(0,0,0,0.15)",
+                border: "1px solid #e5e7eb",
+              }}
+            >
+              
+              <Link
+                to={uri}
+                style={{
+                  display: "block",
+                  padding: "12px 16px",
+                  textDecoration: "none",
+                  color: "#111827",
+                  fontWeight: "700",
+                  background: "#f3f4f6",
+                  borderBottom: "1px solid #e5e7eb",
+                }}
+              >
+                {language?.code}
+              </Link>
+
+              {translations?.map(item => {
+                let translatedUri = item.uri
+
+                if (
+                  item.uri.includes("/home-page/")
+                ) {
+                  translatedUri = `/${item.language.code.toLowerCase()}/`
+                }
+
+                return (
+                  <Link
+                    key={item.language.code}
+                    to={translatedUri}
+                    style={{
+                      display: "block",
+                      padding: "12px 16px",
+                      textDecoration: "none",
+                      color: "#111827",
+                      borderBottom:
+                        "1px solid #f3f4f6",
+                      transition: "0.2s ease",
+                    }}
+                  >
+                    {item.language.code}
+                  </Link>
+                )
+              })}
+            </div>
+          </details>
+        </div>
+
+        {layouts.map(layout => getPageLayout(layout, { caseStudies }))}
+      </Layout>
+    </TranslationProvider>
   )
 }
 

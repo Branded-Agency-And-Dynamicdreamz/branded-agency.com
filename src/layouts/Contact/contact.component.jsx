@@ -5,6 +5,7 @@ import { Grid } from "@mui/material"
 import ContactForm from "../../components/contact-form/contact-form.component"
 import LogoCall from "../../assets/book-logo.svg"
 import { gtagCallClickEvent } from "../../utils/gtag-utils"
+import { useTranslation } from "../../hooks/useTranslation"
 
 const Contact = ({
   bgImage,
@@ -16,6 +17,8 @@ const Contact = ({
   subtitle,
   formTitle,
 }) => {
+  const { t } = useTranslation()
+
   return (
     <S.Wrapper>
       <S.CustomContainer maxWidth="xl">
@@ -74,7 +77,7 @@ const Contact = ({
             target="_blank"
             url={"https://meetings.hubspot.com/george-essex/30-minute-call"}
           >
-            <S.Text>Book a Call</S.Text>
+            <S.Text>{t("Book a Call")}</S.Text>
             <S.BookLogoWrapper>
               <LogoCall />
             </S.BookLogoWrapper>

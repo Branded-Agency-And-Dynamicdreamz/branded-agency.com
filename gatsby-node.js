@@ -22,20 +22,6 @@ exports.onCreateWebpackConfig = ({ actions }) => {
 }
 
 exports.createPages = async ({ graphql, actions, reporter }, options) => {
-  const { createRedirect } = actions
-
-  const redirects = [
-    {
-      fromPath: "/es/*",
-      toPath: "https://es.branded-agency.com/:splat",
-      redirectInBrowser: true,
-      isPermanent: true,
-    },
-  ]
-
-  redirects.map(redirect => {
-    createRedirect(redirect)
-  })
 
   await createPages({ actions, graphql, reporter }, options)
   // await createPosts({ actions, graphql, reporter }, options)
