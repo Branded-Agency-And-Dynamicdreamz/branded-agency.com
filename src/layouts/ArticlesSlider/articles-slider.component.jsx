@@ -97,8 +97,6 @@ const ArticlesSlider = ({
         caseStudy?.slug !== actualSlug &&
         !excludedCaseStudies.includes(caseStudy?.slug),
     )
-<<<<<<< HEAD
-=======
 
   useEffect(() => {
     if (caseStudiesData && caseStudiesData.length > 0) {
@@ -123,7 +121,6 @@ const ArticlesSlider = ({
       const spanishTranslation = translations?.find(
         t => t.language?.code === "ES"
       )
->>>>>>> recover-polylang
 
       if (spanishTranslation?.uri) {
         const localizedPath = getLocalizedPath(spanishTranslation.uri)
