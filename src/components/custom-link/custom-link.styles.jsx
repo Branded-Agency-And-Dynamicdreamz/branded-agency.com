@@ -1,6 +1,7 @@
-import { Link } from "gatsby"
+
 import { css } from "@emotion/react"
 import styled from "@emotion/styled"
+import Link from "../LocalizedLink"
 
 const styledLink = css`
   text-decoration: none;

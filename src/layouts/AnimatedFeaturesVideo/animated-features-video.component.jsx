@@ -13,6 +13,7 @@ import SplitType from "split-type"
 import CustomAnimatedText from "../../components/custom-animated-text/custom-animated-text.component"
 import { isBrowser } from "../../utils/utils"
 import { navigate } from "gatsby-link"
+import { getLocalizedPath } from "../../components/LocalizedLink"
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
 
@@ -190,8 +191,10 @@ const AnimatedFeaturesVideo = ({ vimeoLink, title, services, description }) => {
     }
   }
 
+  // FIXED: Use getLocalizedPath to localize the URL before navigating
   const handleServiceClick = link => {
-    navigate(link)
+    const localizedLink = getLocalizedPath(link)
+    navigate(localizedLink)
   }
 
   return (

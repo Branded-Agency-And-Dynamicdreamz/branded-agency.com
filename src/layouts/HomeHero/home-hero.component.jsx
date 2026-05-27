@@ -8,9 +8,11 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import { useTheme, useMediaQuery } from "@mui/material"
 import { scroller } from "react-scroll"
 import VideoComponent from "../VideoComponent"
+import { useTranslation } from "../../hooks/useTranslation"
 
 const HomeHero = ({ title, isHero, heroVideo, thumbnail }) => {
   const [playVideo, setPlayVideo] = React.useState(false)
+  const { t } = useTranslation()
   const theme = useTheme()
 
   const isMd = useMediaQuery(theme.breakpoints.up("md"))
@@ -46,7 +48,7 @@ const HomeHero = ({ title, isHero, heroVideo, thumbnail }) => {
                 target="_blank"
                 url={"https://meetings.hubspot.com/george-essex/30-minute-call"}
               >
-                <S.Text className="bookCall">Book a call</S.Text>
+                <S.Text className="bookCall">{t("Book a Call")}</S.Text>
                 <BookCallSVG />
               </S.BookCall>
             </S.BottomWrapper>

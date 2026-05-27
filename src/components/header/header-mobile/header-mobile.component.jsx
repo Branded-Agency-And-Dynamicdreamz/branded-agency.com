@@ -14,9 +14,12 @@ import SustainabilitySVG from "../../../assets/header-icons/sustainability.svg"
 import TechnologySVG from "../../../assets/header-icons/technology.svg"
 import VisualIdentitySVG from "../../../assets/header-icons/visual-identity.svg"
 
+
 import { graphql, useStaticQuery } from "gatsby"
+import { useTranslation } from "../../../hooks/useTranslation"
 
 const HeaderMobile = ({ isActiveMenu, path }) => {
+  const { t } = useTranslation()
   const staticQuery = useStaticQuery(graphql`
     query {
       creationIcon: file(relativePath: { eq: "brand-creation-icon.png" }) {
@@ -75,7 +78,7 @@ const HeaderMobile = ({ isActiveMenu, path }) => {
         <S.LinksWrapper>
           {ITEMS.map(({ name, url, items, target }, index) => (
             <React.Fragment key={url}>
-              <CustomCollapse name={name} items={items} url={url} path={path}>
+              <CustomCollapse name={t(name)} items={items} url={url} path={path}>
                 {items && (
                   <>
                     {items.map(({ name, url, items }) => (
@@ -87,7 +90,7 @@ const HeaderMobile = ({ isActiveMenu, path }) => {
                           url={url}
                         >
                           <S.Icon img={getIcon(name)} />
-                          <S.Text className="subItemText">{name}</S.Text>
+                          <S.Text className="subItemText">{t(name)}</S.Text>
                         </S.Link>
                         {items && (
                           <S.LinkWrapper className="subItem">
@@ -101,7 +104,7 @@ const HeaderMobile = ({ isActiveMenu, path }) => {
                               >
                                 {getIcon(name)}
                                 <S.Text className="subSubItemText">
-                                  {name}
+                                  {t(name)}
                                 </S.Text>
                               </S.Link>
                             ))}
