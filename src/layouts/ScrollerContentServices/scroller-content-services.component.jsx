@@ -6,6 +6,7 @@ import SplitType from "split-type"
 import { useInView } from "react-intersection-observer"
 import { Grid } from "@mui/material"
 import FadeInOnScroll from "../../components/fade-in-on-scroll/fade-in-on-scroll.component"
+import { useTranslation } from "../../hooks/useTranslation"
 
 const AnimatedText = ({ label, ...props }) => {
   const textRef = useRef(null)
@@ -52,6 +53,7 @@ const ScrollerContentServices = ({ services, content }) => {
   const [maxHeight, setMaxHeight] = useState(null)
   const [showFade, setShowFade] = useState(true)
   const containerRef = useRef(null)
+  const { t } = useTranslation()
 
   useEffect(() => {
     const container = containerRef.current
@@ -93,7 +95,7 @@ const ScrollerContentServices = ({ services, content }) => {
           </Grid>
           <Grid item md={4} xs={12}>
             <S.RightWrapper ref={rightRef}>
-              <AnimatedText className="title" label={"Services:"} />
+              <AnimatedText className="title" label={t("Services:")} />
               {services?.map(({ service }, index) => (
                 <AnimatedText key={`services-${index}`} label={service} />
               ))}

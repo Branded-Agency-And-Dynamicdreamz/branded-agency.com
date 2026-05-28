@@ -86,7 +86,10 @@ const translations = {
     "Phone*": "Phone*",
     "Introduction": "Introduction",
     "Upload a CV": "Upload a CV",
-    "Uploading...": "Uploading..."
+    "Uploading...": "Uploading...",
+    "Services:": "Services:",
+    "Take our brand health quiz to find out.": "Take our brand health quiz to find out.",
+    "Let's go": "Let's go",
   },
   ES: {
     "Get in touch": "Ponte en contacto",
@@ -172,7 +175,10 @@ const translations = {
     "Phone*": "Teléfono*",
     "Introduction": "Introducción",
     "Upload a CV": "Subir un CV",
-    "Uploading...": "Subiendo..."
+    "Uploading...": "Subiendo...",
+    "Services:": "Servicios:",
+    "Take our brand health quiz to find out.": "Realice nuestro cuestionario de salud de marca para descubrirlo.",
+    "Let's go": "Vamos",
   }
 }
 

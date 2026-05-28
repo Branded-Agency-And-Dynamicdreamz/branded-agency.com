@@ -6,13 +6,16 @@ import { Slide } from "react-awesome-reveal"
 import { navigate } from "gatsby"
 import { gtagAdwordsConversion } from "../../utils/gtag-utils"
 import { trackGetInTouchClick } from "../../utils/meta-pixel-utils"
+import { getLocalizedPath } from "../../components/LocalizedLink"
 
 const GetInTouch = ({ text, button }) => {
   const handleOnTouchClick = () => {
+
     gtagAdwordsConversion("AW-11137911214/FBk6COC9vK4YEK6T_L4p")
-    // Track Meta Pixel Get in Touch click
     trackGetInTouchClick()
-    navigate(button?.url)
+
+    const localizedUrl = getLocalizedPath(button?.url)
+    navigate(localizedUrl)
   }
 
   return (

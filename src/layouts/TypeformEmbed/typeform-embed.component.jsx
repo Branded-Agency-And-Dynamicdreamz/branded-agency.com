@@ -11,9 +11,11 @@ import {
   animateScroll as scroll,
   scrollSpy,
 } from "react-scroll"
+import { useTranslation } from "../../hooks/useTranslation"
 
 const TypeformEmbed = ({ idForm, isHero }) => {
   const [isOpenPopup, setIsOpenPopup] = useState(false)
+  const { t } = useTranslation()
 
   useEffect(() => {
     setTimeout(() => {
@@ -38,7 +40,7 @@ const TypeformEmbed = ({ idForm, isHero }) => {
           <S.PopupClose onClick={() => setIsOpenPopup(false)}>
             <CloseRoundedIcon />
           </S.PopupClose>
-          <S.PopupTitle>Take our brand health quiz to find out.</S.PopupTitle>
+          <S.PopupTitle>{t("Take our brand health quiz to find out.")}</S.PopupTitle>
           <Stack spacing={1}>
             <S.PopupBtn
               href="https://rs09ogyrh3x.typeform.com/to/z3YuRJvD"
@@ -48,7 +50,7 @@ const TypeformEmbed = ({ idForm, isHero }) => {
               // smooth={true}
               // offset={-100}
             >
-              Let's go
+              {t("Let's go")}
             </S.PopupBtn>
           </Stack>
         </S.FixedPopup>
