@@ -339,6 +339,7 @@ const PageTemplate = ({ data }) => {
     language,
     translations,
     uri,
+    isFrontPage,
   } = data.wpPage
   const layouts = pageBuilder.layouts || []
 
@@ -349,6 +350,15 @@ const PageTemplate = ({ data }) => {
   )
 
   const caseStudies = data?.allWpCaseStudy?.nodes || []
+
+  const getCurrentLanguageUri = () => {
+
+    if (isFrontPage) {
+      return `/${language?.code?.toLowerCase()}/`
+    }
+    
+    return uri
+  }
 
   return (
     <TranslationProvider
@@ -412,7 +422,7 @@ const PageTemplate = ({ data }) => {
             >
               
               <Link
-                to={uri}
+                to={getCurrentLanguageUri()}
                 style={{
                   display: "block",
                   padding: "12px 16px",
