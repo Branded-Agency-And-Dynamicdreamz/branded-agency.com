@@ -5,8 +5,11 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight"
 import ITEMS from "../header-items.json"
 import { graphql, useStaticQuery } from "gatsby"
 import Typography from "@mui/material/Typography"
+import { useTranslation } from "../../../hooks/useTranslation"
+
 
 const HeaderItems = ({ path, isCaseStudy, whiteHeader }) => {
+  const { t } = useTranslation()
   const [subItemSelected, setSubItemSelected] = React.useState(
     path === "/" || path === "" ? "/brand-creation/" : path,
   )
@@ -101,7 +104,7 @@ const HeaderItems = ({ path, isCaseStudy, whiteHeader }) => {
               onMouseEnter={() => setMainItemSelected(name)}
               onMouseLeave={() => setMainItemSelected("")}
             >
-              <S.Text className="header-item">{name}</S.Text>
+              <S.Text className="header-item">{t(name)}</S.Text>
               {name === "Login" && <S.LoginLogo />}
               {items && <KeyboardArrowDownIcon />}
             </S.Item>
@@ -135,7 +138,7 @@ const HeaderItems = ({ path, isCaseStudy, whiteHeader }) => {
                     >
                       <S.NameWrapper>
                         <S.Icon img={getIcon(name)} />
-                        <S.Text className="subItem">{name}</S.Text>
+                        <S.Text className="subItem">{t(name)}</S.Text>
                       </S.NameWrapper>
                       {subItems && <KeyboardArrowRightIcon />}
                     </S.Item>
@@ -157,7 +160,7 @@ const HeaderItems = ({ path, isCaseStudy, whiteHeader }) => {
                               path === url && "selected"
                             }`}
                           >
-                            <S.Text className="subItem">{name}</S.Text>
+                            <S.Text className="subItem">{t(name)}</S.Text>
                           </S.Item>
                         ))}
                       </S.SubItemsWrapper>

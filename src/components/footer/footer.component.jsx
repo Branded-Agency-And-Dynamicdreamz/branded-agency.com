@@ -12,9 +12,12 @@ import { graphql, useStaticQuery } from "gatsby"
 import parse from "html-react-parser"
 import { gtagCallClickEvent } from "../../utils/gtag-utils"
 import { trackGetInTouchClick } from "../../utils/meta-pixel-utils"
+import { getLocalizedPath } from "../LocalizedLink"
+import { useTranslation } from "../../hooks/useTranslation"
 
 const Footer = ({ className, whiteFooter }) => {
   const theme = useTheme()
+  const { t, language } = useTranslation()
   const isLg = useMediaQuery(theme.breakpoints.up("lg"))
   const isSm = useMediaQuery(theme.breakpoints.down("md"))
 
@@ -42,6 +45,19 @@ const Footer = ({ className, whiteFooter }) => {
       setPath(auxPath)
     }
   }, [])
+
+  // Function to get localized href
+  const getLocalizedHref = (href) => {
+    return getLocalizedPath(href)
+  }
+
+  const getBCorpDescription = () => {
+    const descriptions = {
+      EN: `<p>We're incredibly proud to be a Certified B Corporation, and are actively pushing for improvement on all fronts.</p>`,
+      ES: `<p>Estamos increíblemente orgullosos de ser una Corporación B Certificada, y estamos impulsando activamente la mejora en todos los frentes.</p>`
+    }
+    return descriptions[language] || descriptions.EN
+  }
 
   return (
     <S.Wrapper
@@ -75,10 +91,10 @@ const Footer = ({ className, whiteFooter }) => {
                     <S.Button
                       fullWidth
                       className="light"
-                      href="/contact/"
+                      href={getLocalizedHref("/contact/")}
                       onClick={() => trackGetInTouchClick()}
                     >
-                      Get in touch
+                     {t("Get in touch")}
                     </S.Button>
                   </Grid>
                   <Grid item xs={6}>
@@ -89,7 +105,7 @@ const Footer = ({ className, whiteFooter }) => {
                       href="https://www.linkedin.com/company/branded_2/"
                       borderColor={whiteFooter ? "#1519BA" : "#6EC1FF"}
                     >
-                      <S.Text>LinkedIn</S.Text>
+                      <S.Text>{t("LinkedIn")}</S.Text>
                     </S.LinkButton>
                   </Grid>
                   <Grid item xs={6}>
@@ -102,7 +118,7 @@ const Footer = ({ className, whiteFooter }) => {
                       className="withLogo"
                       onClick={() => gtagCallClickEvent()}
                     >
-                      <S.Text className="withLogo">Book a Call</S.Text>
+                      <S.Text className="withLogo">{t("Book a Call")}</S.Text>
                       <S.BookLogoWrapper>
                         {/* <S.HubspotLogo img={staticQuery.hubspotLogo} /> */}
                         <S.HubspotLogo
@@ -119,7 +135,7 @@ const Footer = ({ className, whiteFooter }) => {
                       href="https://www.instagram.com/branded_agency_hq?igsh=cWRlem54ZHlidnlr"
                       borderColor={whiteFooter ? "#1519BA" : "#FF8787"}
                     >
-                      <S.Text>Instagram</S.Text>
+                      <S.Text>{t("Instagram")}</S.Text>
                     </S.LinkButton>
                   </Grid>
                 </Grid>
@@ -140,25 +156,23 @@ const Footer = ({ className, whiteFooter }) => {
                       >
                         <S.ItemsWrapper>
                           <S.Item
-                            url={url}
-                            className={`pink footer-item ${
-                              path === url && "selected"
-                            }}`}
+                            url={getLocalizedHref(url)}
+                            className={`pink footer-item ${path === url && "selected"
+                              }}`}
                           >
-                            {name}
+                            {t(name)}
                           </S.Item>
                           {items &&
                             items.map(
                               ({ name, url, className, logo, target }, idx) => (
                                 <S.Item
-                                  url={url}
-                                  className={`footer-item ${className} ${
-                                    path === url && "selected"
-                                  }`}
+                                  url={getLocalizedHref(url)}
+                                  className={`footer-item ${className} ${path === url && "selected"
+                                    }`}
                                   key={`subitem-${idx}-fragment`}
                                   target={target}
                                 >
-                                  {name}
+                                  {t(name)}
                                 </S.Item>
                               ),
                             )}
@@ -174,13 +188,11 @@ const Footer = ({ className, whiteFooter }) => {
                     />
                     <S.CertifiedDescription>
                       {/* {parse(`<p>
-We’re incredibly proud to be a Certified B Corporation, and are actively pushing for wider improvement on all fronts.</p>
-<p>If you would like to take a look at our results for the B Corp Impact Report, follow the link to our page <a href="https://www.bcorporation.net/en-us/find-a-b-corp/company/branded-ltd/" target="_blank">here*</a>.
-</p>`)} */}
+                      We’re incredibly proud to be a Certified B Corporation, and are actively pushing for wider improvement on all fronts.</p>
+                      <p>If you would like to take a look at our results for the B Corp Impact Report, follow the link to our page <a href="https://www.bcorporation.net/en-us/find-a-b-corp/company/branded-ltd/" target="_blank">here*</a>.
+                      </p>`)} */}
 
-                      {parse(
-                        `<p>We’re incredibly proud to be a Certified B Corporation, and are actively pushing for improvement on all fronts.</p>`,
-                      )}
+                      {parse(getBCorpDescription())}
                     </S.CertifiedDescription>
                   </S.CertifiedInfoWrapper>
                 </S.BCorpItem>
@@ -201,15 +213,15 @@ We’re incredibly proud to be a Certified B Corporation, and are actively pushi
           <Grid container spacing={{ md: 6, xs: 2.5 }} alignItems="flex-start">
             <Grid item md={3.5} xs={12}>
               <S.LinksWrapper>
-                <S.Name className="footer-item">UK</S.Name>
+                <S.Name className="footer-item">{t("UK")}</S.Name>
                 <S.Links>
                   {LINKS[0]?.links?.map(({ title, url }, idx) => (
                     <S.LinkHome
                       className="links footer-item"
-                      url={url}
+                      url={getLocalizedHref(url)}
                       key={`link-${idx}`}
                     >
-                      {title}
+                      {t(title)}
                     </S.LinkHome>
                   ))}
                 </S.Links>
@@ -222,11 +234,11 @@ We’re incredibly proud to be a Certified B Corporation, and are actively pushi
                   {LINKS[1]?.links?.map(({ title, url, target }, idx) => (
                     <S.LinkHome
                       className="links footer-item"
-                      url={url}
+                      url={getLocalizedHref(url)}
                       target={target}
                       key={`link-${idx}`}
                     >
-                      {title}
+                     {t(title)}
                     </S.LinkHome>
                   ))}
                 </S.Links>
@@ -234,16 +246,16 @@ We’re incredibly proud to be a Certified B Corporation, and are actively pushi
             </Grid>
             <Grid item md={2} xs={12}>
               <S.LinksWrapper>
-                <S.Name className="footer-item">US</S.Name>
+                <S.Name className="footer-item">{t("US")}</S.Name>
                 <S.Links>
                   {LINKS[2]?.links?.map(({ title, url, target }, idx) => (
                     <S.LinkHome
                       className="links footer-item"
-                      url={url}
+                      url={getLocalizedHref(url)}
                       target={target}
                       key={`link-${idx}`}
                     >
-                      {title}
+                      {t(title)}
                     </S.LinkHome>
                   ))}
                 </S.Links>

@@ -77,7 +77,7 @@ const ArticlesSliderBanner = ({ items }) => {
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: "top 72px",
-        end: "+=450%", // 200% scroll
+        end: `+=${items.length * 75}%`,
         scrub: true,
         pin: true,
         pinSpacing: true,

@@ -4,13 +4,18 @@ import Container from "@mui/material/Container"
 import parse from "html-react-parser"
 import { Grid } from "@mui/material"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
+import { useTranslation } from "../../hooks/useTranslation"
+
 
 const OurValues = ({ title, text, values, bottomTitle, bottomDescription }) => {
+
+  const { t } = useTranslation()
   const [expanded, setExpanded] = useState("")
   const handleChange = panel => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false)
   }
   if (!values) return null
+  
 
   return (
     <S.Wrapper>
@@ -56,7 +61,7 @@ const OurValues = ({ title, text, values, bottomTitle, bottomDescription }) => {
             <S.Text className="bottom">{parse(bottomDescription)}</S.Text>
           )}
           <S.Button className="lightBorder" href={"/contact/"}>
-            Get in touch
+            {t("Get in touch")}
           </S.Button>
         </S.BottomWrapper>
       </Container>

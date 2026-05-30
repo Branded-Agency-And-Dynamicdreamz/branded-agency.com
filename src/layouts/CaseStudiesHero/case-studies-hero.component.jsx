@@ -5,12 +5,14 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import { Autoplay, Navigation } from "swiper/modules"
 import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded"
 import CustomImage from "../../components/custom-image/custom-image.component"
-import { graphql, useStaticQuery } from "gatsby"
 import "swiper/css"
 import "swiper/css/navigation"
 import { keyframes } from "@emotion/css"
 import { Reveal } from "react-awesome-reveal"
 import { textEllipsis } from "../../utils/utils"
+import { navigate } from "gatsby-link"
+import { getLocalizedPath } from "../../components/LocalizedLink"
+import { useTranslation } from "../../hooks/useTranslation"
 
 const FadeOut = keyframes`
   from {
@@ -21,38 +23,58 @@ const FadeOut = keyframes`
     opacity: 0;
   }
 `
-const CaseStudiesHero = ({ testimonials }) => {
-  const staticQuery = useStaticQuery(graphql`
-    query {
-      allWpCaseStudy(sort: { date: DESC }) {
-        nodes {
-          slug
-          title
-          featuredImage {
-            node {
-              title
-              localFile {
-                childImageSharp {
-                  gatsbyImageData
-                }
-              }
-            }
-          }
-          caseStudyBuilder {
-            subtitle
-            titleHover
-            subtitleHover
-          }
-        }
+
+const CaseStudiesHero = ({ testimonials, caseStudies = [] }) => {
+  const { t } = useTranslation()
+  
+  const getCurrentLanguage = () => {
+    if (typeof window === "undefined") return "EN"
+    const pathname = window.location.pathname
+    if (pathname === "/es/" || pathname.startsWith("/es/")) return "ES"
+    return "EN"
+  }
+
+  const currentLanguage = getCurrentLanguage()
+
+  const filteredCaseStudies = caseStudies.filter(cs => {
+    const caseLanguage = cs?.language?.code || "EN"
+
+    if (currentLanguage === "EN") {
+      return caseLanguage === "EN"
+    } else {
+      return caseLanguage === "ES"
+    }
+  })
+
+  const handleCaseStudyClick = (uri, slug, caseLanguage) => {
+
+    const actualLanguage = caseLanguage || "EN"
+
+    if (currentLanguage === "ES" && actualLanguage === "EN") {
+      const caseStudy = caseStudies.find(cs => {
+        const csLanguage = cs?.language?.code || "EN"
+        return csLanguage === "EN" && cs.title === slug
+      })
+
+      const spanishTranslation = caseStudy?.translations?.find(
+        t => t.language?.code === "ES"
+      )
+
+      if (spanishTranslation?.uri) {
+        const localizedPath = getLocalizedPath(spanishTranslation.uri)
+        navigate(localizedPath)
+        return
       }
     }
-  `)
 
-  const caseStudies = staticQuery.allWpCaseStudy.nodes
-  // console.log("caseStudies :>> ", caseStudies)
+    const path = uri || `/case-study/${slug}`
+    const localizedPath = getLocalizedPath(path)
+    navigate(localizedPath)
+  }
+
   return (
     <S.Section>
-      {caseStudies.length > 0 && (
+      {filteredCaseStudies.length > 0 && (
         <S.LabelWrapper>
           <Reveal
             cascade={1}
@@ -62,44 +84,68 @@ const CaseStudiesHero = ({ testimonials }) => {
             duration={1000}
             keyframes={FadeOut}
           >
-            <S.Label>Click images to view case studies</S.Label>
+            <S.Label>{t("Click images to view case studies")}</S.Label>
           </Reveal>
         </S.LabelWrapper>
       )}
-      {caseStudies && (
+      {filteredCaseStudies && filteredCaseStudies.length > 0 && (
         <Grid container>
-          {caseStudies?.map(
-            ({ slug, featuredImage, title, caseStudyBuilder }, index) => (
-              <Grid item key={`${index}-caseStudies`} xs={12} sm={6}>
-                <S.CaseStudyLink url={`/case-study/${slug}`}>
-                  <CustomImage
-                    img={featuredImage?.node}
-                    alt={title}
-                    arPaddingPercentage={100}
-                  />
-                  <S.Overlay className="overlay">
-                    <S.CaseStudyTitle>
-                      {caseStudyBuilder?.titleHover || title}
-                    </S.CaseStudyTitle>
-                    {caseStudyBuilder?.subtitleHover ? (
-                      <S.CaseStudySubtitle>
-                        {caseStudyBuilder?.subtitleHover}
-                      </S.CaseStudySubtitle>
-                    ) : (
-                      <>
-                        {caseStudyBuilder?.subtitle && (
-                          <S.CaseStudySubtitle>
-                            {textEllipsis(caseStudyBuilder?.subtitle, 90, {
-                              side: "end",
-                            })}
-                          </S.CaseStudySubtitle>
-                        )}
-                      </>
-                    )}
-                  </S.Overlay>
-                </S.CaseStudyLink>
-              </Grid>
-            ),
+          {filteredCaseStudies?.map(
+            ({ slug, uri, featuredImage, title, caseStudyBuilder, language, translations }, index) => {
+
+              let displayUri = uri
+              const caseLanguage = language?.code || "EN"
+
+              if (currentLanguage === "ES" && caseLanguage === "EN" && translations?.length > 0) {
+                const spanishTranslation = translations.find(t => t.language?.code === "ES")
+                if (spanishTranslation?.uri) {
+                  displayUri = spanishTranslation.uri
+                }
+              }
+
+              return (
+                <Grid item key={`${index}-caseStudies`} xs={12} sm={6}>
+                  <S.CaseStudyLink
+                    url={
+                      (
+                        displayUri ||
+                        uri ||
+                        `/case-study/${slug}/`
+                      ).replace(
+                        /^\/casestudies\//,
+                        "/case-study/",
+                      )
+                    }
+                  >
+                    <CustomImage
+                      img={featuredImage?.node}
+                      alt={title}
+                      arPaddingPercentage={100}
+                    />
+                    <S.Overlay className="overlay">
+                      <S.CaseStudyTitle>
+                        {caseStudyBuilder?.titleHover || title}
+                      </S.CaseStudyTitle>
+                      {caseStudyBuilder?.subtitleHover ? (
+                        <S.CaseStudySubtitle>
+                          {caseStudyBuilder?.subtitleHover}
+                        </S.CaseStudySubtitle>
+                      ) : (
+                        <>
+                          {caseStudyBuilder?.subtitle && (
+                            <S.CaseStudySubtitle>
+                              {textEllipsis(caseStudyBuilder?.subtitle, 90, {
+                                side: "end",
+                              })}
+                            </S.CaseStudySubtitle>
+                          )}
+                        </>
+                      )}
+                    </S.Overlay>
+                  </S.CaseStudyLink>
+                </Grid>
+              )
+            },
           )}
         </Grid>
       )}

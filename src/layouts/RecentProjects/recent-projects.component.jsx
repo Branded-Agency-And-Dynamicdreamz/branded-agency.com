@@ -1,11 +1,34 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import * as S from "./recent-projects.styles"
 import Container from "@mui/material/Container"
 import { Swiper, SwiperSlide } from "swiper/react"
-import CustomLink from "../../components/custom-link/custom-link.component"
+import { Link } from "gatsby"
 import { capitalizeWords } from "../../utils/utils"
 
 const RecentProjects = ({ title, caseStudies }) => {
+  const [currentLanguage, setCurrentLanguage] = useState("EN")
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const pathname = window.location.pathname
+      if (pathname === "/es/" || pathname.startsWith("/es/")) {
+        setCurrentLanguage("ES")
+      } else {
+        setCurrentLanguage("EN")
+      }
+    }
+  }, [])
+
+  const getCaseStudyUrl = (caseStudy) => {
+    const slug = caseStudy.slug
+    
+    if (currentLanguage === "ES") {
+      return `/es/casestudies/${slug}/`
+    }
+    
+    return `/case-study/${slug}/`
+  }
+
   return (
     <S.Wrapper>
       <Container>
@@ -30,8 +53,8 @@ const RecentProjects = ({ title, caseStudies }) => {
         >
           {caseStudies?.map(({ caseStudy, description }, index) => (
             <SwiperSlide key={`case-study-${index}`}>
-              <CustomLink url={`/case-study/${caseStudy.slug}`}>
-                <S.CardArticle key={`case-study-${index}`}>
+              <Link to={getCaseStudyUrl(caseStudy)}>
+                <S.CardArticle>
                   <S.CardImage
                     img={caseStudy?.featuredImage?.node}
                     arPaddingPercentage={130}
@@ -49,7 +72,7 @@ const RecentProjects = ({ title, caseStudies }) => {
                     </S.TextContent>
                   </S.Overlay>
                 </S.CardArticle>
-              </CustomLink>
+              </Link>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -57,4 +80,5 @@ const RecentProjects = ({ title, caseStudies }) => {
     </S.Wrapper>
   )
 }
+
 export default RecentProjects

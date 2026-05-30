@@ -21,8 +21,11 @@ import { linkedinConversionTrack } from "../../utils/linkedin-utils"
 import { trackLeadFormSubmission } from "../../utils/meta-pixel-utils"
 import SelectFormOption from "../select-form-option/select-form-option.component"
 import { CONTACT_FORM_OPTIONS } from "../../utils/constants"
+import { useTranslation } from "../../hooks/useTranslation"
+
 
 const ContactForm = () => {
+  const { t } = useTranslation()
   const methods = useForm({
     mode: "onBlur",
     reValidateMode: "onBlur",
@@ -100,7 +103,7 @@ const ContactForm = () => {
       reset()
     } else {
       setErrorMessage(
-        "There was an error with your submission. Please try again.",
+        t("There was an error with your submission. Please try again."),
       )
     }
     setIsLoading(false)
@@ -113,6 +116,30 @@ const ContactForm = () => {
     }, 5000)
   }
 
+  // Helper function to get translated options
+  const getTranslatedOptions = () => {
+    return {
+      CLIENT: {
+        value: CONTACT_FORM_OPTIONS.CLIENT.value,
+        label: t(CONTACT_FORM_OPTIONS.CLIENT.label),
+      },
+      SERVICES: {
+        value: CONTACT_FORM_OPTIONS.SERVICES.value,
+        label: t(CONTACT_FORM_OPTIONS.SERVICES.label),
+      },
+      CAREER: {
+        value: CONTACT_FORM_OPTIONS.CAREER.value,
+        label: t(CONTACT_FORM_OPTIONS.CAREER.label),
+      },
+      INFO: {
+        value: CONTACT_FORM_OPTIONS.INFO.value,
+        label: t(CONTACT_FORM_OPTIONS.INFO.label),
+      },
+    }
+  }
+
+  const translatedOptions = getTranslatedOptions()
+
   return (
     <S.FormWrapper>
       <FormProvider {...methods}>
@@ -121,8 +148,8 @@ const ContactForm = () => {
             <Grid item xs={12}>
               <SelectFormOption
                 required
-                title="How can we help you?"
-                options={CONTACT_FORM_OPTIONS}
+                title={t("How can we help you?")}
+                options={translatedOptions}
                 labelKey="label"
                 valueKey="value"
                 value={optionSelected}
@@ -136,7 +163,7 @@ const ContactForm = () => {
                   <CustomInput
                     style="contact"
                     name="firstname"
-                    placeholder="First Name"
+                    placeholder={t("First Name")}
                     validations={{ required: true }}
                     autocomplete="given-name"
                     variant="outlined"
@@ -146,7 +173,7 @@ const ContactForm = () => {
                   <CustomInput
                     style="contact"
                     name="lastname"
-                    placeholder="Last Name"
+                    placeholder={t("Last Name")}
                     validations={{ required: true }}
                     variant="outlined"
                     autocomplete="family-name"
@@ -156,7 +183,7 @@ const ContactForm = () => {
                   <CustomInput
                     style="contact"
                     name="email"
-                    placeholder="Email"
+                    placeholder={t("Email")}
                     type="email"
                     validations={{ required: true, pattern: emailRegex }}
                     variant="outlined"
@@ -167,7 +194,7 @@ const ContactForm = () => {
                   <CustomInput
                     style="contact"
                     name="phone"
-                    placeholder="Phone"
+                    placeholder={t("Phone")}
                     validations={{ required: true }}
                     type="tel"
                   />
@@ -178,8 +205,8 @@ const ContactForm = () => {
                     name="message"
                     placeholder={
                       optionSelected === CONTACT_FORM_OPTIONS.SERVICES.value
-                        ? "Tell us about your company/brand and what services you’re interested in from BRANDED."
-                        : "How can we help?"
+                        ? t("Tell us about your company/brand and what services you’re interested in from BRANDED.")
+                        : t("How can we help?")
                     }
                     multiline
                     rows={6}
@@ -191,13 +218,11 @@ const ContactForm = () => {
                     <CustomInput
                       style="contact"
                       name="budget"
-                      placeholder="Budget*"
+                      placeholder={t("Budget*")}
                       validations={{ required: true }}
                     />
                     <S.HelperText>
-                      All of our projects at BRANDED are bespoke. Understanding
-                      a ballpark budget enables us to deliver the most effective
-                      solution for your project.
+                      {t("All of our projects at BRANDED are bespoke. Understanding a ballpark budget enables us to deliver the most effective solution for your project.")}
                     </S.HelperText>
                   </Grid>
                 )}
@@ -222,7 +247,7 @@ const ContactForm = () => {
                       ref={recaptchaRef}
                     />
                     {error && (
-                      <S.CaptchaError>Please enter captcha</S.CaptchaError>
+                      <S.CaptchaError>{t("Please enter captcha")}</S.CaptchaError>
                     )}
                   </S.TermsDiv>
                 </Grid>
@@ -234,7 +259,7 @@ const ContactForm = () => {
                       loading={isLoading}
                       fullWidth
                     >
-                      Submit
+                      {t("Submit")}
                     </CustomButton>
                   </S.ButtonWrapper>
                 </Grid>

@@ -21,6 +21,7 @@ import { linkedinConversionTrack } from "../../utils/linkedin-utils"
 import { trackPDFDownload, trackLeadFormSubmission } from "../../utils/meta-pixel-utils"
 import useDownloadGuideContext from "../../context/download-guide.provider"
 import parse from "html-react-parser"
+import { useTranslation } from "../../hooks/useTranslation"
 
 const DownloadGuide = ({
   buttonText = "Download Guide",
@@ -37,6 +38,7 @@ const DownloadGuide = ({
   leftImg,
   rightImg,
 }) => {
+  const { t } = useTranslation()
   const methods = useForm({
     mode: "onBlur",
     reValidateMode: "onBlur",
@@ -138,7 +140,7 @@ const DownloadGuide = ({
       })
     } else {
       setErrorMessage(
-        "There was an error with your submission. Please try again.",
+        t("There was an error with your submission. Please try again."),
       )
     }
     setIsLoading(false)
@@ -159,23 +161,23 @@ const DownloadGuide = ({
   const getForm = (hideCancel = false, secondForm = false) => (
     <FormProvider {...methods}>
       <S.StyledForm onSubmit={handleSubmit(onSubmit)}>
-        {!secondForm && <S.Label>Just fill out short form below:</S.Label>}
+        {!secondForm && <S.Label>{t("Just fill out short form below:")}</S.Label>}
         <S.StyledInput
           name="firstname"
-          placeholder="First name"
+          placeholder={t("First name")}
           style="contact"
           className="download"
           validations={{ required: true }}
         />
         <S.StyledInput
           name="lastname"
-          placeholder="Last name"
+          placeholder={t("Last name")}
           style="contact"
           className="download"
           validations={{ required: true }}
         />
         <S.StyledInput
-          placeholder="Email"
+          placeholder={t("Email")}
           name="email"
           type="email"
           style="contact"
@@ -183,7 +185,7 @@ const DownloadGuide = ({
           validations={{ required: true, pattern: emailRegex }}
         />
         <S.StyledInput
-          placeholder="Company"
+          placeholder={t("Company")}
           name="company"
           style="contact"
           className="download"
@@ -206,7 +208,7 @@ const DownloadGuide = ({
             className="g-recaptcha"
             ref={recaptchaRef}
           />
-          {error && <S.CaptchaError>Please enter captcha</S.CaptchaError>}
+          {error && <S.CaptchaError>{t("Please enter captcha")}</S.CaptchaError>}
         </S.TermsDiv>
         {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
         {successMessage && <Alert severity="success">{successMessage}</Alert>}
@@ -217,7 +219,7 @@ const DownloadGuide = ({
             className="light"
             loading={isLoading}
           >
-            {secondForm ? "Submit" : "Download the Guide"}
+            {secondForm ? t("Submit") : t("Download the Guide")}
           </S.DownloadBtn>
         </S.ButtonsWrapper>
       </S.StyledForm>
@@ -243,7 +245,7 @@ const DownloadGuide = ({
                   className="light second"
                 >
                   <S.DownloadIcon />
-                  {buttonText}
+                  {t(buttonText)}
                 </S.StyledBtn>
               </S.Content>
             </S.Gradient>
@@ -262,7 +264,7 @@ const DownloadGuide = ({
             <Stack spacing={1}>
               <S.PopupBtn onClick={handleDownloadBtn} className="light second">
                 <S.DownloadIcon />
-                Download the Complete Guide
+                {t("Download the Complete Guide")}
               </S.PopupBtn>
             </Stack>
           </S.FixedPopup>
@@ -275,7 +277,7 @@ const DownloadGuide = ({
               onClick={() => setIsOpenForm2(!isOpenForm2)}
               className="blue"
             >
-              {buttonText}
+              {t(buttonText)}
             </S.StyledBtn>
             <Collapse in={isOpenForm2} mountOnEnter unmountOnExit>
               {getForm(true, true)}
@@ -289,7 +291,7 @@ const DownloadGuide = ({
             <Stack spacing={1}>
               <S.PopupBtn onClick={handleDownloadBtn} className="light">
                 <S.DownloadIcon />
-                Download Guide
+                {t("Download Guide")}
               </S.PopupBtn>
             </Stack>
           </S.FixedPopup>

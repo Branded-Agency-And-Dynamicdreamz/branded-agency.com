@@ -5,36 +5,51 @@ import PropTypes from "prop-types"
 import RightSVG from "../../assets/right-arrow.svg"
 
 const CustomButton = props => {
-  const { fullWidth, className, children, loading, withIcon } = props
-  return (
-    <>
-      {/*{href ?*/}
-      {/*  <S.CustomButtonLink*/}
-      {/*    className={`custom-button ${className}`}*/}
-      {/*    style={style}*/}
-      {/*    color={color}*/}
-      {/*    to={href}*/}
-      {/*    target={target}*/}
-      {/*    // bg="#2A334E"*/}
-      {/*    // swipe*/}
-      {/*    // direction="right"*/}
-      {/*  >*/}
-      {/*    {children}*/}
-      {/*  </S.CustomButtonLink>*/}
-      {/*  :*/}
+  const {
+    fullWidth,
+    className,
+    children,
+    loading,
+    withIcon,
+    href,
+    ...rest
+  } = props
+
+  if (href) {
+    return (
       <S.CustomButton
-        loading={loading}
-        className={`custom-button ${className}`}
+        component={S.CustomButtonLink}
+        to={href}
+        className={`custom-button ${className || ""}`}
         disableElevation
-        fullWidth={fullWidth ? true : null}
+        fullWidth={!!fullWidth}
         variant="contained"
-        {...props}
+        {...rest}
       >
-        <span className="text">{children}</span>
+        <span className="text">
+          {children}
+        </span>
+
         {withIcon && <RightSVG />}
       </S.CustomButton>
-      {/*}*/}
-    </>
+    )
+  }
+
+  return (
+    <S.CustomButton
+      loading={loading}
+      className={`custom-button ${className || ""}`}
+      disableElevation
+      fullWidth={!!fullWidth}
+      variant="contained"
+      {...rest}
+    >
+      <span className="text">
+        {children}
+      </span>
+
+      {withIcon && <RightSVG />}
+    </S.CustomButton>
   )
 }
 
@@ -43,6 +58,9 @@ CustomButton.propTypes = {
   href: PropTypes.string,
   onClick: PropTypes.func,
   fullWidth: PropTypes.bool,
+  loading: PropTypes.bool,
+  withIcon: PropTypes.bool,
+  className: PropTypes.string,
 }
 
 export default CustomButton

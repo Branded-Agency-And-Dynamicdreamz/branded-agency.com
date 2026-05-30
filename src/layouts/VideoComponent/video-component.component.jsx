@@ -49,6 +49,7 @@ const VideoComponent = ({
           <Container>
             <>
               {subtitle && <S.Subtitle>{parse(subtitle)}</S.Subtitle>}
+
               {iframeVideo ? (
                 <S.IframeWrapper>
                   <iframe
@@ -56,6 +57,7 @@ const VideoComponent = ({
                     width="100%"
                     frameBorder={0}
                     style={{ maxHeight: "100%" }}
+                    loading="lazy"
                   />
                 </S.IframeWrapper>
               ) : (
@@ -69,6 +71,9 @@ const VideoComponent = ({
                   threshold={threshold}
                   pauseOnClick={pauseOnClick}
                   thumbnail={thumbnailSrc}
+                  preload="metadata"
+                  poster={thumbnailSrc}
+                  fetchpriority="low"
                 />
               )}
             </>
@@ -76,6 +81,7 @@ const VideoComponent = ({
         ) : (
           <>
             {subtitle && <S.Subtitle>{parse(subtitle)}</S.Subtitle>}
+
             {iframeVideo ? (
               <S.IframeWrapper>
                 <iframe
@@ -83,6 +89,7 @@ const VideoComponent = ({
                   width="100%"
                   frameBorder={0}
                   style={{ maxHeight: "100%" }}
+                  loading="lazy"
                 />
               </S.IframeWrapper>
             ) : (
@@ -96,6 +103,9 @@ const VideoComponent = ({
                 controls={controls}
                 pauseOnClick={pauseOnClick}
                 thumbnail={thumbnailSrc}
+                preload="metadata"
+                poster={thumbnailSrc}
+                fetchpriority="low"
               />
             )}
           </>
@@ -105,4 +115,4 @@ const VideoComponent = ({
   )
 }
 
-export default VideoComponent
+export default React.memo(VideoComponent)
