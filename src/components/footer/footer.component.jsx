@@ -25,12 +25,12 @@ const Footer = ({ className, whiteFooter }) => {
 
   const staticQuery = useStaticQuery(graphql`
     query {
-      bCorpLogo: file(relativePath: { eq: "B_Corp_Logo.png" }) {
+      bCorpLogo: file(relativePath: { eq: "B_Corp_Logo.webp" }) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
-      hubspotLogo: file(relativePath: { eq: "hubspot-logo.png" }) {
+      hubspotLogo: file(relativePath: { eq: "hubspot-logo.webp" }) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }

@@ -7,7 +7,7 @@ import { graphql, useStaticQuery } from "gatsby"
 const HeroMobileLanding = ({ title, description, button, bgImage }) => {
   const staticQuery = useStaticQuery(graphql`
     query {
-      bLogo: file(relativePath: { eq: "logo-branded.png" }) {
+      bLogo: file(relativePath: { eq: "logo-branded.webp" }) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }

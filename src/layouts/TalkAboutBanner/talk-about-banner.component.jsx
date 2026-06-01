@@ -13,22 +13,22 @@ const TalkAboutBanner = ({
 }) => {
   const staticQuery = useStaticQuery(graphql`
     query {
-      bg: file(relativePath: { eq: "bottom-bg.jpg" }) {
+      bg: file(relativePath: { eq: "bottom-bg.webp" }) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
-      cardBg: file(relativePath: { eq: "card-bg.png" }) {
+      cardBg: file(relativePath: { eq: "card-bg.webp" }) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
-      logo: file(relativePath: { eq: "logo-white.png" }) {
+      logo: file(relativePath: { eq: "logo-white.webp" }) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
-      georgeIcon: file(relativePath: { eq: "icon-george.png" }) {
+      georgeIcon: file(relativePath: { eq: "icon-george.webp" }) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }

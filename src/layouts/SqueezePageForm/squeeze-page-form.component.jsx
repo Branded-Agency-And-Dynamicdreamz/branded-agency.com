@@ -40,116 +40,116 @@ const SqueezePageForm = ({
 }) => {
   const staticQuery = useStaticQuery(graphql`
     query {
-      desktopBg: file(relativePath: { eq: "squeeze-page/desktop-bg.png" }) {
+      desktopBg: file(relativePath: { eq: "squeeze-page/desktop-bg.webp" }) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
-      mobileBg: file(relativePath: { eq: "squeeze-page/mobile-bg.png" }) {
+      mobileBg: file(relativePath: { eq: "squeeze-page/mobile-bg.webp" }) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
-      innerBg: file(relativePath: { eq: "squeeze-page/inner-border.png" }) {
+      innerBg: file(relativePath: { eq: "squeeze-page/inner-border.webp" }) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
       mobileInnerBg: file(
-        relativePath: { eq: "squeeze-page/mobile-inner-border.png" }
+        relativePath: { eq: "squeeze-page/mobile-inner-border.webp" }
       ) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
-      buttonImg: file(relativePath: { eq: "squeeze-page/button-bg.png" }) {
+      buttonImg: file(relativePath: { eq: "squeeze-page/button-bg.webp" }) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
-      logo: file(relativePath: { eq: "squeeze-page/branded-logo.png" }) {
+      logo: file(relativePath: { eq: "squeeze-page/branded-logo.webp" }) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
-      penSticker: file(relativePath: { eq: "squeeze-page/pen-sticker.png" }) {
+      penSticker: file(relativePath: { eq: "squeeze-page/pen-sticker.webp" }) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
-      notesSticker: file(relativePath: { eq: "squeeze-page/notes.png" }) {
+      notesSticker: file(relativePath: { eq: "squeeze-page/notes.webp" }) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
-      toySticker: file(relativePath: { eq: "squeeze-page/toy-sticker.png" }) {
+      toySticker: file(relativePath: { eq: "squeeze-page/toy-sticker.webp" }) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
       cardsSticker: file(
-        relativePath: { eq: "squeeze-page/cards-sticker.png" }
+        relativePath: { eq: "squeeze-page/cards-sticker.webp" }
       ) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
       colorsSticker: file(
-        relativePath: { eq: "squeeze-page/colors-sticker.png" }
+        relativePath: { eq: "squeeze-page/colors-sticker.webp" }
       ) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
-      bulbSticker: file(relativePath: { eq: "squeeze-page/bulb-sticker.png" }) {
+      bulbSticker: file(relativePath: { eq: "squeeze-page/bulb-sticker.webp" }) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
       checkSticker: file(
-        relativePath: { eq: "squeeze-page/check-sticker.png" }
+        relativePath: { eq: "squeeze-page/check-sticker.webp" }
       ) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
       errorSticker: file(
-        relativePath: { eq: "squeeze-page/error-sticker.png" }
+        relativePath: { eq: "squeeze-page/error-sticker.webp" }
       ) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
       exclamationSticker: file(
-        relativePath: { eq: "squeeze-page/exclamation-sticker.png" }
+        relativePath: { eq: "squeeze-page/exclamation-sticker.webp" }
       ) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
       colorsStickerMb: file(
-        relativePath: { eq: "squeeze-page/colors-mb.png" }
+        relativePath: { eq: "squeeze-page/colors-mb.webp" }
       ) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
-      formBorder: file(relativePath: { eq: "squeeze-page/form-border.png" }) {
+      formBorder: file(relativePath: { eq: "squeeze-page/form-border.webp" }) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
-      doSticker: file(relativePath: { eq: "squeeze-page/do-sticker.png" }) {
+      doSticker: file(relativePath: { eq: "squeeze-page/do-sticker.webp" }) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
-      dontSticker: file(relativePath: { eq: "squeeze-page/dont-sticker.png" }) {
+      dontSticker: file(relativePath: { eq: "squeeze-page/dont-sticker.webp" }) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
-      drawSticker: file(relativePath: { eq: "squeeze-page/draw-sticker.png" }) {
+      drawSticker: file(relativePath: { eq: "squeeze-page/draw-sticker.webp" }) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }

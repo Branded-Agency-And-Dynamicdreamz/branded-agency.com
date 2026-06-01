@@ -9,7 +9,7 @@ import parse from "html-react-parser"
 const ContentList = ({ grids, bottomVideo }) => {
   const staticQuery = useStaticQuery(graphql`
     query {
-      bg: file(relativePath: { eq: "bg-banner.jpg" }) {
+      bg: file(relativePath: { eq: "bg-banner.webp" }) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }

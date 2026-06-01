@@ -38,52 +38,52 @@ const DistinctiveSqueezePageForm = ({
 }) => {
   const staticQuery = useStaticQuery(graphql`
     query {
-      innerBg: file(relativePath: { eq: "squeeze-page/inner-border.png" }) {
+      innerBg: file(relativePath: { eq: "squeeze-page/inner-border.webp" }) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
       mobileInnerBg: file(
-        relativePath: { eq: "squeeze-page/mobile-inner-border.png" }
+        relativePath: { eq: "squeeze-page/mobile-inner-border.webp" }
       ) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
       runner: file(
-        relativePath: { eq: "distinctive-squeeze-page/runner.png" }
+        relativePath: { eq: "distinctive-squeeze-page/runner.webp" }
       ) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
       bgRunner: file(
-        relativePath: { eq: "distinctive-squeeze-page/bg-runner.png" }
+        relativePath: { eq: "distinctive-squeeze-page/bg-runner.webp" }
       ) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
       buttonA: file(
-        relativePath: { eq: "distinctive-squeeze-page/button-a.png" }
+        relativePath: { eq: "distinctive-squeeze-page/button-a.webp" }
       ) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
       buttonB: file(
-        relativePath: { eq: "distinctive-squeeze-page/button-b.png" }
+        relativePath: { eq: "distinctive-squeeze-page/button-b.webp" }
       ) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
-      logo: file(relativePath: { eq: "squeeze-page/branded-logo.png" }) {
+      logo: file(relativePath: { eq: "squeeze-page/branded-logo.webp" }) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
-      formBorder: file(relativePath: { eq: "squeeze-page/form-border.png" }) {
+      formBorder: file(relativePath: { eq: "squeeze-page/form-border.webp" }) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }

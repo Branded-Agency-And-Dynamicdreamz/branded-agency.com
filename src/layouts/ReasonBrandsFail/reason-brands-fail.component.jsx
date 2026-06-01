@@ -10,7 +10,7 @@ import { useMediaQuery, useTheme } from "@mui/material"
 const ReasonBrandsFail = ({ title, description, contentItems }) => {
   const staticQuery = useStaticQuery(graphql`
     query {
-      bg: file(relativePath: { eq: "bg-brands-fail.jpg" }) {
+      bg: file(relativePath: { eq: "bg-brands-fail.webp" }) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }

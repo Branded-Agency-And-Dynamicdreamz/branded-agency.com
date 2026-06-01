@@ -56,19 +56,19 @@ const HeaderItems = ({ path, isCaseStudy, whiteHeader }) => {
   const [mainItemSelected, setMainItemSelected] = React.useState("")
   const staticQuery = useStaticQuery(graphql`
     query {
-      creationIcon: file(relativePath: { eq: "brand-creation-icon.png" }) {
+      creationIcon: file(relativePath: { eq: "brand-creation-icon.webp" }) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
       implementationIcon: file(
-        relativePath: { eq: "brand-implementation-icon.png" }
+        relativePath: { eq: "brand-implementation-icon.webp" }
       ) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
-      managementIcon: file(relativePath: { eq: "brand-management-icon.png" }) {
+      managementIcon: file(relativePath: { eq: "brand-management-icon.webp" }) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }

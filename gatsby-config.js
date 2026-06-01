@@ -90,7 +90,7 @@ module.exports = {
         start_url: `/`,
         background_color: `transparent`,
         theme_color: `#1519ba`,
-        icon: `src/assets/icons/favicon.png`, // This path is relative to the root of the site.
+        icon: `src/assets/icons/favicon.webp`, // This path is relative to the root of the site.
       },
     },
     /*
