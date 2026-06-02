@@ -85,7 +85,7 @@
   "clean": "gatsby clean",
   "develop": "gatsby develop",
   "start": "npm run develop",
-  "build": "gatsby clean && gatsby build",
+  "build": "gatsby build",
   "serve": "gatsby serve",
   "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
   "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
