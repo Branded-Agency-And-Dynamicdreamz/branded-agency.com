@@ -3,6 +3,7 @@ import * as S from "./articles-by-tag.styles"
 import { Grid, Tabs } from "@mui/material"
 import ArticleCard from "../article-card/article-card.component"
 import CustomButton from "../custom-button/custom-button.component"
+import { useTranslation } from "../../hooks/useTranslation"
 
 function a11yProps(index) {
   return {
@@ -30,6 +31,7 @@ function CustomTabPanel(props) {
 }
 
 const ArticlesByTab = ({ articles, type }) => {
+  const { t } = useTranslation()
   const [tabSelected, setTabSelected] = useState(0)
   const [numLoadedArticles, setNumLoadedArticles] = useState(LIMIT)
   const [keySelected, setKeySelected] = useState("Show All")
@@ -48,6 +50,11 @@ const ArticlesByTab = ({ articles, type }) => {
     return null
   }
 
+  // Translate tab labels
+  const getTranslatedTabLabel = (key) => {
+    return t(key) || key
+  }
+
   return (
     <>
       <S.HeaderWrapper>
@@ -62,7 +69,7 @@ const ArticlesByTab = ({ articles, type }) => {
             <S.CustomTab
               disableRipple
               key={`${key}-${index}`}
-              label={key}
+              label={getTranslatedTabLabel(key)}
               {...a11yProps(index)}
             />
           ))}
@@ -98,7 +105,7 @@ const ArticlesByTab = ({ articles, type }) => {
                         onClick={showMoreItems}
                         style={{ height: "52px" }}
                       >
-                        Load More
+                        {t("Load More")}
                       </CustomButton>
                     </S.ButtonWrapper>
                   )}

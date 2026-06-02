@@ -6,6 +6,7 @@ import PlayCircleIcon from "@mui/icons-material/PlayCircle"
 import { useMediaQuery, useTheme } from "@mui/material"
 import { navigate } from "gatsby-link"
 import { getLocalizedPath } from "../LocalizedLink"
+import { useTranslation } from "../../hooks/useTranslation"
 
 const ArticleCard = ({
   slug,
@@ -21,7 +22,9 @@ const ArticleCard = ({
   language,
   translations,
   uri,
+
 }) => {
+  const { t } = useTranslation()
   const dateFormatted = dayjs(date, "YYYY-MM-DDTHH:mm:ss").format(
     "MMMM D, YYYY",
   )
@@ -95,10 +98,10 @@ const ArticleCard = ({
             img={image}
             className="isSlider"
           />
-          {tag && <S.Tag>{tag}</S.Tag>}
+          {tag && <S.Tag>{t(tag)}</S.Tag>}
           <S.Title>{title}</S.Title>
           {content && <S.Description>{parse(content)}</S.Description>}
-          <S.ReadMore>Read more</S.ReadMore>
+          <S.ReadMore>{t("Read more")}</S.ReadMore>
         </S.Wrapper>
       </div>
     )
@@ -114,7 +117,7 @@ const ArticleCard = ({
           {tag === "Video" && <PlayCircleIcon />}
         </S.ImageWrapper>
         {tag && !isRelatedInsights && (
-          <S.Tag className={!isSlider && "tabStyle"}>{tag}</S.Tag>
+          <S.Tag className={!isSlider && "tabStyle"}>{t(tag)}</S.Tag>
         )}
         <S.Title className="tabStyle">{title}</S.Title>
         <S.InfoWrapper>
