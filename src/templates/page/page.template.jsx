@@ -7,6 +7,8 @@ import { TranslationProvider } from "../../context/translations-context"
 
 // ✅ Import Page Builder fragments
 import "../../layouts/GridContentMedia/grid-content-media.page-fragment"
+// ✅ Import HeroBgText fragment
+import "../../layouts/HeroBgText/hero-bg-text.data"
 // ✅ Import TextHero fragment
 import "../../layouts/TextHero/text-hero.data"
 
@@ -63,6 +65,9 @@ export const query = graphql`
       }
       pageBuilder {
         layouts {
+          ... on WpPage_Pagebuilder_Layouts_Herobgtext {
+            ...HeroBgText
+          }
           ... on WpPage_Pagebuilder_Layouts_Texthero {
             ...TextHero
           }

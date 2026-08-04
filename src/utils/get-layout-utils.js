@@ -67,11 +67,17 @@ import AnimatedDescription from "../layouts/AnimatedDescription"
 import AnimatedFeaturesVideo from "../layouts/AnimatedFeaturesVideo"
 import ArticlesSlider from "../layouts/ArticlesSlider"
 import GridContentMedia from "../layouts/GridContentMedia"
+// ✅ HeroBgText import
+import HeroBgText from "../layouts/HeroBgText"
 // ✅ TextHero import
 import TextHero from "../layouts/TextHero"
 
 export const getPageLayout = (layout, options = {}) => {
   const layoutName = layout?.fieldGroupName?.split("_").pop().trim()
+  
+  // ✅ Debug
+  console.log("🔍 Layout Name:", layoutName)
+  
   if (!layoutName) return null
   
   if (layoutName === "CaseStudiesHero") {
@@ -79,8 +85,13 @@ export const getPageLayout = (layout, options = {}) => {
   }
   
   switch (layoutName) {
+    // ✅ HeroBgText case
+    case "Herobgtext":
+      console.log("✅ HeroBgText rendering...")
+      return <HeroBgText key={uuidv4()} {...layout} />
     // ✅ TextHero case
     case "Texthero":
+      console.log("✅ TextHero rendering...")
       return <TextHero key={uuidv4()} {...layout} />
     case "GridContentMedia":
       return <GridContentMedia key={uuidv4()} {...layout} />
@@ -215,6 +226,7 @@ export const getPageLayout = (layout, options = {}) => {
     case "ArticlesSliderPage":
       return <ArticlesSlider key={uuidv4()} {...layout} isPage />
     default:
+      console.warn("⚠️ Unknown layout:", layoutName)
       return null
   }
 }
