@@ -66,6 +66,7 @@ import ServicesHero from "../layouts/ServicesHero"
 import AnimatedDescription from "../layouts/AnimatedDescription"
 import AnimatedFeaturesVideo from "../layouts/AnimatedFeaturesVideo"
 import ArticlesSlider from "../layouts/ArticlesSlider"
+import GridContentMedia from "../layouts/GridContentMedia"
 
 export const getPageLayout = (layout, options = {}) => {
   const layoutName = layout?.fieldGroupName?.split("_").pop().trim()
@@ -76,6 +77,8 @@ export const getPageLayout = (layout, options = {}) => {
   }
   
   switch (layoutName) {
+    case "GridContentMedia":
+      return <GridContentMedia key={uuidv4()} {...layout} />
     case "MiscContent":
       return <MiscContent key={uuidv4()} {...layout} />
     case "HomeHero":

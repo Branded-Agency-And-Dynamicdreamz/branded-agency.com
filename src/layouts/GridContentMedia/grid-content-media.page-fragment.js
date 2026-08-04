@@ -1,7 +1,7 @@
 import { graphql } from "gatsby"
 
 export const query = graphql`
-  fragment GridContentMedia on WpCaseStudy_Casestudybuilder_Layouts_GridContentMedia {
+  fragment GridContentMediaPage on WpPage_Pagebuilder_Layouts_GridContentMedia {
     fieldGroupName
     noPaddings
     sections {
@@ -22,7 +22,27 @@ export const query = graphql`
         sourceUrl
       }
       vimeoLink
-      # ❌ BeforeAfter fields hatao - Case Study ke liye nahi chahiye
+      beforeImage {
+        title
+        mediaItemUrl
+        sourceUrl
+        localFile {
+          childImageSharp {
+            gatsbyImageData
+          }
+        }
+      }
+      afterImage {
+        title
+        mediaItemUrl
+        sourceUrl
+        localFile {
+          childImageSharp {
+            gatsbyImageData
+          }
+        }
+      }
+      # ❌ showSlider hata diya
       gridItems {
         image {
           title

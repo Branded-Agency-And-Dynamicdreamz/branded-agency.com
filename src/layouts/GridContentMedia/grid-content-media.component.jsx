@@ -3,6 +3,7 @@ import * as S from "./grid-content-media.styles"
 import { Grid } from "@mui/material"
 import FadeInOnScroll from "../../components/fade-in-on-scroll/fade-in-on-scroll.component"
 import { getMediaUrl } from "../../utils/media-url"
+import BeforeAfter from "../BeforeAfter/before-after.component"
 
 const GridContentMedia = ({ sections, noPaddings }) => {
   const isGif = img => {
@@ -22,6 +23,9 @@ const GridContentMedia = ({ sections, noPaddings }) => {
                 image,
                 thumbnail,
                 gridItems,
+                beforeImage,
+                afterImage,
+                // ❌ showSlider hata diya
               },
               index,
             ) => (
@@ -40,6 +44,14 @@ const GridContentMedia = ({ sections, noPaddings }) => {
                   <S.Image
                     className={isGif(image) ? "gif" : ""}
                     img={isGif(image) ? getMediaUrl(image) : image}
+                  />
+                )}
+                {mediaType === "beforeAfter" && (
+                  <BeforeAfter
+                    beforeImage={beforeImage}
+                    afterImage={afterImage}
+                    isInGrid={true}
+                    // ❌ showSlider prop hata diya
                   />
                 )}
                 {mediaType === "grid" && (

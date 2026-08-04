@@ -21,12 +21,18 @@ export const Image = styled(CustomImage)`
   height: 100%;
   display: flex;
 
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
   &.gif {
     img {
       object-fit: cover !important;
     }
   }
-`
+` 
 export const VideoWrapper = styled.div`
   display: flex;
 `
