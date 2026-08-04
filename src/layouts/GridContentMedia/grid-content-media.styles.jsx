@@ -5,14 +5,23 @@ import LazyVideo from "../../components/lazy-video/lazy-video.component"
 
 export const Wrapper = styled.section`
   width: 100vw;
-  padding: 0 1rem;
+  padding: 1rem 1rem;
+  background-color: #ffffff;  
 
   ${({ theme }) => theme.breakpoints.up("md")} {
-    padding: 0 1.5rem;
+    padding: 1rem 1rem;
   }
 
   &.noPaddings {
     padding: 0;
+  }
+
+  &.verticalPaddings {
+    padding: 1rem 0;
+    
+    ${({ theme }) => theme.breakpoints.up("md")} {
+      padding: 1rem 0;
+    }
   }
 `
 
@@ -32,14 +41,16 @@ export const Image = styled(CustomImage)`
       object-fit: cover !important;
     }
   }
-` 
+`
+
 export const VideoWrapper = styled.div`
   display: flex;
+  width: 100%;
+  height: 100%;
 `
 
 export const Video = styled(LazyVideo)`
   width: 100%;
   height: 100%;
-
   object-fit: cover !important;
 `

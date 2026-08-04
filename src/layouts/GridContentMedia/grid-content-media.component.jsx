@@ -25,7 +25,6 @@ const GridContentMedia = ({ sections, noPaddings }) => {
                 gridItems,
                 beforeImage,
                 afterImage,
-                // ❌ showSlider hata diya
               },
               index,
             ) => (
@@ -51,7 +50,6 @@ const GridContentMedia = ({ sections, noPaddings }) => {
                     beforeImage={beforeImage}
                     afterImage={afterImage}
                     isInGrid={true}
-                    // ❌ showSlider prop hata diya
                   />
                 )}
                 {mediaType === "grid" && (

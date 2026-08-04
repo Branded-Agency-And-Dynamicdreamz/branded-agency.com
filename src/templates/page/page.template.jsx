@@ -5,8 +5,10 @@ import { getPageLayout } from "../../utils/get-layout-utils"
 import SEO from "../../components/seo/seo.component"
 import { TranslationProvider } from "../../context/translations-context"
 
-// ✅ Only import GridContentMedia (BeforeAfter is used inside it)
+// ✅ Import Page Builder fragments
 import "../../layouts/GridContentMedia/grid-content-media.page-fragment"
+// ✅ Import TextHero fragment
+import "../../layouts/TextHero/text-hero.data"
 
 export const query = graphql`
   query PageQuery($id: String!) {
@@ -61,6 +63,9 @@ export const query = graphql`
       }
       pageBuilder {
         layouts {
+          ... on WpPage_Pagebuilder_Layouts_Texthero {
+            ...TextHero
+          }
           ... on WpPage_Pagebuilder_Layouts_GridContentMedia {
             ...GridContentMediaPage
           }

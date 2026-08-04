@@ -67,6 +67,8 @@ import AnimatedDescription from "../layouts/AnimatedDescription"
 import AnimatedFeaturesVideo from "../layouts/AnimatedFeaturesVideo"
 import ArticlesSlider from "../layouts/ArticlesSlider"
 import GridContentMedia from "../layouts/GridContentMedia"
+// ✅ TextHero import
+import TextHero from "../layouts/TextHero"
 
 export const getPageLayout = (layout, options = {}) => {
   const layoutName = layout?.fieldGroupName?.split("_").pop().trim()
@@ -77,6 +79,9 @@ export const getPageLayout = (layout, options = {}) => {
   }
   
   switch (layoutName) {
+    // ✅ TextHero case
+    case "Texthero":
+      return <TextHero key={uuidv4()} {...layout} />
     case "GridContentMedia":
       return <GridContentMedia key={uuidv4()} {...layout} />
     case "MiscContent":
