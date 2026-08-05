@@ -78,6 +78,7 @@ import AnimatedDescriptionWithButton from "../layouts/AnimatedDescriptionWithBut
 
 export const getPageLayout = (layout, options = {}) => {
   const layoutName = layout?.fieldGroupName?.split("_").pop().trim()
+  console.log("🔍 Layout Name:", layoutName)
   
   // ✅ Debug
   console.log("🔍 Layout Name:", layoutName)

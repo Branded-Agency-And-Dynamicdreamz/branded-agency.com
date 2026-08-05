@@ -513,6 +513,7 @@ const PageTemplate = ({ data }) => {
             </div>
           </details>
         </div>
+        {console.log("🔍 Layouts:", layouts)}
 
         {layouts.map(layout => getPageLayout(layout, { caseStudies }))}
       </Layout>

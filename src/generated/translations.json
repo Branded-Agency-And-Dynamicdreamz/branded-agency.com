@@ -1,0 +1,150 @@
+{
+  "/photography/": {
+    "ES": "/es/photography-2/",
+    "EN": "/photography/"
+  },
+  "/visual-identity/": {
+    "ES": "/es/identidad-visual/",
+    "EN": "/visual-identity/"
+  },
+  "/thank-you-for-applying/": {
+    "ES": "/es/gracias-por-postularse/",
+    "EN": "/thank-you-for-applying/"
+  },
+  "/thank-you/": {
+    "ES": "/es/gracias/",
+    "EN": "/thank-you/"
+  },
+  "/dpa-gdpr-statement/": {
+    "ES": "/es/declaracion-sobre-la-dpa-gdpr/",
+    "EN": "/dpa-gdpr-statement/"
+  },
+  "/brand-strategy/": {
+    "ES": "/es/estrategia-de-marca/",
+    "EN": "/brand-strategy/"
+  },
+  "/terms-of-use/": {
+    "ES": "/es/condiciones-de-uso/",
+    "EN": "/terms-of-use/"
+  },
+  "/technology/": {
+    "ES": "/es/tecnologia/",
+    "EN": "/technology/"
+  },
+  "/team/": {
+    "ES": "/es/conozca-al-equipo/",
+    "EN": "/team/"
+  },
+  "/sustainability/": {
+    "ES": "/es/sostenibilidad/",
+    "EN": "/sustainability/"
+  },
+  "/quality-ems-policy/": {
+    "ES": "/es/calidad-y-medio-ambiente/",
+    "EN": "/quality-ems-policy/"
+  },
+  "/privacy-policy/": {
+    "ES": "/es/politica-de-privacidad/",
+    "EN": "/privacy-policy/"
+  },
+  "/positioning-pitfalls-landing-page/": {
+    "ES": "/es/pagina-de-aterrizaje-errores-comunes-de-posicionamiento/",
+    "EN": "/positioning-pitfalls-landing-page/"
+  },
+  "/our-story/": {
+    "ES": "/es/nuestra-historia/",
+    "EN": "/our-story/"
+  },
+  "/multi-channel-production/": {
+    "ES": "/es/produccion-multicanal/",
+    "EN": "/multi-channel-production/"
+  },
+  "/modern-slavery-act-statement/": {
+    "ES": "/es/declaracion-sobre-la-ley-de-esclavitud-moderna/",
+    "EN": "/modern-slavery-act-statement/"
+  },
+  "/join-us/": {
+    "ES": "/es/unete-a-nosotras/",
+    "EN": "/join-us/"
+  },
+  "/": {
+    "ES": "/es/home-page/",
+    "EN": "/"
+  },
+  "/imagery/": {
+    "ES": "/es/imagenes/",
+    "EN": "/imagery/"
+  },
+  "/equal-opportunities-policy/": {
+    "ES": "/es/politica-de-igualdad-de-oportunidades/",
+    "EN": "/equal-opportunities-policy/"
+  },
+  "/environmental-and-ethical-purchasing-policy/": {
+    "ES": "/es/politica-de-compras-ambientales-y-eticas/",
+    "EN": "/environmental-and-ethical-purchasing-policy/"
+  },
+  "/corporate-responsibility-policy/": {
+    "ES": "/es/politica-de-responsabilidad-corporativa/",
+    "EN": "/corporate-responsibility-policy/"
+  },
+  "/cookie-policy/": {
+    "ES": "/es/politica-de-cookies/",
+    "EN": "/cookie-policy/"
+  },
+  "/branding-thats-irresistable/": {
+    "ES": "/es/una-marca-irresistible/",
+    "EN": "/branding-thats-irresistable/"
+  },
+  "/brandingsolutions/": {
+    "ES": "/es/soluciones-de-branding/",
+    "EN": "/brandingsolutions/"
+  },
+  "/branded-privacy-policy/": {
+    "ES": "/es/politica-de-privacidad-de-la-marca/",
+    "EN": "/branded-privacy-policy/"
+  },
+  "/brand-management/": {
+    "ES": "/es/gestion-de-marca/",
+    "EN": "/brand-management/"
+  },
+  "/brand-implementation/": {
+    "ES": "/es/implementacion-de-marca/",
+    "EN": "/brand-implementation/"
+  },
+  "/brand-distinctiveness-landing-page/": {
+    "ES": "/es/pagina-de-aterrizaje-sobre-la-distintividad-de-marca/",
+    "EN": "/brand-distinctiveness-landing-page/"
+  },
+  "/adaptive-design/": {
+    "ES": "/es/diseno-adaptativo/",
+    "EN": "/adaptive-design/"
+  },
+  "/brand-compliance/": {
+    "ES": "/es/cumplimiento-de-la-marca/",
+    "EN": "/brand-compliance/"
+  },
+  "/packaging-design/": {
+    "ES": "/es/diseno-de-empaque/",
+    "EN": "/packaging-design/"
+  },
+  "/contact/": {
+    "ES": "/es/contacto/",
+    "EN": "/contact/"
+  },
+  "/insights/": {
+    "ES": "/es/perspectivas/",
+    "EN": "/insights/"
+  },
+  "/services/": {
+    "ES": "/es/servicios/",
+    "EN": "/services/"
+  },
+  "/about/": {
+    "ES": "/es/acerca-de/",
+    "EN": "/about/"
+  },
+  "/case-studies/": {
+    "ES": "/es/estudios-de-caso/",
+    "EN": "/case-studies/"
+  }
+}
