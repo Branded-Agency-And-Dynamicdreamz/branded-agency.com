@@ -5,10 +5,13 @@ import FadeInOnScroll from "../../components/fade-in-on-scroll/fade-in-on-scroll
 const TextHero = ({ 
   heading,
   description,
+  targetId,
 }) => {
+  const sectionId = targetId || "text-hero"
+
   return (
     <FadeInOnScroll showAnimation>
-      <S.Wrapper>
+      <S.Wrapper id={sectionId}>
         <S.Content>
           {heading && <S.Heading>{heading}</S.Heading>}
           {description && (

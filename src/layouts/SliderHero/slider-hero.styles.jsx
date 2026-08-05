@@ -198,13 +198,16 @@ export const Navbar = styled.nav`
   left: 0;
   bottom: 0;
   width: 100%;
-  z-index: 20;
+  z-index: 9999;  /* ✅ High z-index for clickability */
 
   background: transparent;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 
   transition: all 0.3s ease;
+
+  /* ✅ Ensure click works */
+  pointer-events: auto;
 
   ${({ isSticky }) =>
     isSticky &&
@@ -217,6 +220,7 @@ export const Navbar = styled.nav`
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       box-shadow: 0 8px 24px rgba(0,0,0,.25);
+      pointer-events: auto;  /* ✅ Ensure click works when sticky */
     `}
 `
 
@@ -261,6 +265,11 @@ export const NavItem = styled.button`
   transition: color 0.3s ease;
 
   border-right: 1px solid rgba(255, 255, 255, 0.35);
+
+  /* ✅ Ensure click works */
+  pointer-events: auto;
+  position: relative;
+  z-index: 1;
 
   &:last-child {
     border-right: none;

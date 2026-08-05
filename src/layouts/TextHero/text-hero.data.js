@@ -5,5 +5,7 @@ export const query = graphql`
     fieldGroupName
     heading
     description
+    alignment
+    targetId   # ✅ New field from ACF
   }
 `
