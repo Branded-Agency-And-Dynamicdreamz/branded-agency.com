@@ -1,0 +1,1 @@
+export { default } from "./animated-description-with-button.component"

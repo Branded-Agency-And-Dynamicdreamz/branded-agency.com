@@ -13,6 +13,8 @@ import "../../layouts/HeroBgText/hero-bg-text.data"
 import "../../layouts/TextHero/text-hero.data"
 // ✅ Import SliderHero fragment
 import "../../layouts/SliderHero/slider-hero.data"
+// ✅ Import AnimatedDescriptionWithButton fragment
+import "../../layouts/AnimatedDescriptionWithButton/animated-description-with-button.data"
 
 export const query = graphql`
   query PageQuery($id: String!) {
@@ -75,6 +77,9 @@ export const query = graphql`
           }
           ... on WpPage_Pagebuilder_Layouts_Sliderhero {
             ...SliderHero
+          }
+         ... on WpPage_Pagebuilder_Layouts_AnimatedDescriptionWithButton {
+      ...AnimatedDescriptionWithButton
           }
           ... on WpPage_Pagebuilder_Layouts_GridContentMedia {
             ...GridContentMediaPage

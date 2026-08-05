@@ -73,6 +73,8 @@ import HeroBgText from "../layouts/HeroBgText"
 import TextHero from "../layouts/TextHero"
 // ✅ SliderHero import
 import SliderHero from "../layouts/SliderHero"
+// ✅ AnimatedDescriptionWithButton import
+import AnimatedDescriptionWithButton from "../layouts/AnimatedDescriptionWithButton"
 
 export const getPageLayout = (layout, options = {}) => {
   const layoutName = layout?.fieldGroupName?.split("_").pop().trim()
@@ -99,6 +101,10 @@ export const getPageLayout = (layout, options = {}) => {
     case "Sliderhero":
       console.log("✅ SliderHero rendering...")
       return <SliderHero key={uuidv4()} {...layout} />
+    // ✅ AnimatedDescriptionWithButton case
+    case "AnimatedDescriptionWithButton":
+      console.log("✅ AnimatedDescriptionWithButton rendering...")
+      return <AnimatedDescriptionWithButton key={uuidv4()} {...layout} />
     case "GridContentMedia":
       return <GridContentMedia key={uuidv4()} {...layout} />
     case "MiscContent":
