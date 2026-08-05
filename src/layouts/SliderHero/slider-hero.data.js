@@ -27,5 +27,9 @@ export const query = graphql`
       heading
       description
     }
+    navItems {
+      label
+      targetId   # ✅ ACF: target_id → GraphQL: targetId
+    }
   }
 `

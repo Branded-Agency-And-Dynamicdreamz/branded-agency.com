@@ -34,14 +34,14 @@ export const ContentWrapper = styled.div`
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
-  padding: 3rem;
+  padding: 3rem 3rem 8rem;
 
   ${({ theme }) => theme.breakpoints.down("lg")} {
-    padding: 2rem;
+    padding: 2rem 2rem 7rem;
   }
 
   ${({ theme }) => theme.breakpoints.down("md")} {
-    padding: 2rem 1.5rem;
+    padding: 2rem 1.5rem 6rem;
   }
 `
 
@@ -64,7 +64,7 @@ export const Content = styled.div`
   }
 `
 
-/* ================= LEFT ================= */
+// ================= LEFT =================
 
 export const TextContent = styled.div`
   width: 100%;
@@ -127,7 +127,7 @@ export const Description = styled.div`
   }
 `
 
-/* ================= RIGHT IMAGE ================= */
+// ================= RIGHT IMAGE =================
 
 export const OverlayImageBox = styled.div`
   width: 500px;
@@ -163,7 +163,7 @@ export const OverlayImage = styled(CustomImage)`
   }
 `
 
-/* ================= DOTS ================= */
+// ================= DOTS =================
 
 export const DotsWrapper = styled.div`
   display: flex;
@@ -184,10 +184,99 @@ export const Dot = styled.button`
   cursor: pointer;
   transition: all 0.3s ease;
 
-  background: ${({ active }) =>
-    active ? "#ffffff" : "transparent"};
+  background: ${({ active }) => (active ? "#ffffff" : "transparent")};
 
   &:hover {
     transform: scale(1.15);
+  }
+`
+
+// ================= STICKY NAVBAR =================
+
+export const Navbar = styled.nav`
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 20;
+
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+
+  transition: all 0.3s ease;
+
+  ${({ isSticky }) =>
+    isSticky &&
+    `
+      position: fixed;
+      top: 0;
+      bottom: auto;
+      left: 0;
+      background: #1519BA;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 8px 24px rgba(0,0,0,.25);
+    `}
+`
+
+export const NavbarInner = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 88px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 2rem;
+
+  ${({ theme }) => theme.breakpoints.down("md")} {
+    min-height: 72px;
+    padding: 0 1rem;
+    overflow-x: auto;
+    justify-content: flex-start;
+    gap: 2rem;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+`
+
+export const NavItem = styled.button`
+  flex: 1;
+  background: transparent;
+  border: none;
+
+  color: rgba(255, 255, 255, 0.95);
+
+  font-size: 1.45rem;
+  font-weight: 300;
+  line-height: 1.7;
+  text-align: left;
+
+  padding: 0 2rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+
+  border-right: 1px solid rgba(255, 255, 255, 0.35);
+
+  &:last-child {
+    border-right: none;
+  }
+
+  &:hover {
+    color: #ffffff;
+  }
+
+  ${({ theme }) => theme.breakpoints.down("md")} {
+    flex: none;
+    min-width: 220px;
+    padding: 0;
+    border-right: none;
+
+    font-size: 1.2rem;
+    line-height: 1.6;
   }
 `
