@@ -80,7 +80,8 @@ const SliderHero = ({ slides, navItems }) => {
 
   return (
     <FadeInOnScroll showAnimation>
-      <S.Wrapper ref={wrapperRef}>
+      {/* ✅ Add id="slider-hero" for scroll targeting */}
+      <S.Wrapper ref={wrapperRef} id="slider-hero">
         {/* Background */}
         <S.BackgroundImageWrapper>
           <S.BackgroundImage

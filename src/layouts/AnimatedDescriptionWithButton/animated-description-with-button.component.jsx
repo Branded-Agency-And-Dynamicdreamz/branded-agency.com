@@ -26,10 +26,19 @@ const AnimatedDescriptionWithButton = ({
 
   const imageUrl = getMediaUrl(buttonImage)
 
-  // ✅ Smooth scroll to target section
+  // ✅ Smooth scroll to target section (SliderHero)
   const scrollToSection = () => {
     if (!targetId) return
-    const target = document.getElementById(targetId)
+    
+    // ✅ Try to find element by ID
+    let target = document.getElementById(targetId)
+    
+    // ✅ If not found, try to find SliderHero section
+    if (!target) {
+      target = document.querySelector('[class*="SliderHero"]') || 
+              document.querySelector('section[class*="slider"]')
+    }
+    
     if (target) {
       target.scrollIntoView({ behavior: "smooth", block: "start" })
     }
@@ -64,7 +73,7 @@ const AnimatedDescriptionWithButton = ({
           <S.NavButton onClick={scrollToSection}>
             <S.ButtonImage 
               src={imageUrl} 
-              alt="Scroll down" 
+              alt="Scroll to SliderHero" 
             />
           </S.NavButton>
         </S.ButtonWrapper>
