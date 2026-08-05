@@ -10,6 +10,7 @@ const SliderHero = ({ slides, navItems }) => {
   const navbarRef = useRef(null)
   const wrapperRef = useRef(null)
 
+  // ✅ Sticky Navbar
   useEffect(() => {
     const handleScroll = () => {
       if (!wrapperRef.current || !navbarRef.current) return
@@ -31,6 +32,17 @@ const SliderHero = ({ slides, navItems }) => {
     }
   }, [])
 
+  // ✅ Auto Slider (Restored)
+  useEffect(() => {
+    if (!slides || slides.length <= 1) return
+
+    const interval = setInterval(() => {
+      setCurrentSlide(prev => (prev + 1) % slides.length)
+    }, 5000)
+
+    return () => clearInterval(interval)
+  }, [slides])
+
   if (!slides || slides.length === 0) return null
 
   const totalSlides = slides.length
@@ -46,21 +58,24 @@ const SliderHero = ({ slides, navItems }) => {
 
   if (!bgImageUrl) return null
 
-  // ✅ Scroll to section with offset for sticky navbar
+  // ✅ Scroll to section with sticky navbar offset
   const scrollToSection = (targetId) => {
     if (!targetId) return
-    
+
     const target = document.getElementById(targetId)
+
     if (target) {
-      // ✅ Get navbar height for offset
       const navbarHeight = navbarRef.current?.offsetHeight || 88
-      
-      // ✅ Calculate target position with offset
-      const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight - 20
-      
+
+      const targetPosition =
+        target.getBoundingClientRect().top +
+        window.pageYOffset -
+        navbarHeight -
+        20
+
       window.scrollTo({
         top: targetPosition,
-        behavior: "smooth"
+        behavior: "smooth",
       })
     }
   }
