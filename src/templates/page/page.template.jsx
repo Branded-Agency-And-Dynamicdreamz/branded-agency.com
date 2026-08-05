@@ -11,6 +11,8 @@ import "../../layouts/GridContentMedia/grid-content-media.page-fragment"
 import "../../layouts/HeroBgText/hero-bg-text.data"
 // ✅ Import TextHero fragment
 import "../../layouts/TextHero/text-hero.data"
+// ✅ Import SliderHero fragment
+import "../../layouts/SliderHero/slider-hero.data"
 
 export const query = graphql`
   query PageQuery($id: String!) {
@@ -70,6 +72,9 @@ export const query = graphql`
           }
           ... on WpPage_Pagebuilder_Layouts_Texthero {
             ...TextHero
+          }
+          ... on WpPage_Pagebuilder_Layouts_Sliderhero {
+            ...SliderHero
           }
           ... on WpPage_Pagebuilder_Layouts_GridContentMedia {
             ...GridContentMediaPage

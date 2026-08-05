@@ -71,6 +71,8 @@ import GridContentMedia from "../layouts/GridContentMedia"
 import HeroBgText from "../layouts/HeroBgText"
 // ✅ TextHero import
 import TextHero from "../layouts/TextHero"
+// ✅ SliderHero import
+import SliderHero from "../layouts/SliderHero"
 
 export const getPageLayout = (layout, options = {}) => {
   const layoutName = layout?.fieldGroupName?.split("_").pop().trim()
@@ -93,6 +95,10 @@ export const getPageLayout = (layout, options = {}) => {
     case "Texthero":
       console.log("✅ TextHero rendering...")
       return <TextHero key={uuidv4()} {...layout} />
+    // ✅ SliderHero case
+    case "Sliderhero":
+      console.log("✅ SliderHero rendering...")
+      return <SliderHero key={uuidv4()} {...layout} />
     case "GridContentMedia":
       return <GridContentMedia key={uuidv4()} {...layout} />
     case "MiscContent":
