@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react"
+import React, { useState, useRef, useCallback, useEffect } from "react"
 import * as S from "./before-after.styles"
 import { getMediaUrl } from "../../utils/media-url"
 
@@ -9,46 +9,114 @@ const BeforeAfter = ({
 }) => {
   const [sliderPosition, setSliderPosition] = useState(50)
   const containerRef = useRef(null)
+  const dividerRef = useRef(null)
+  const beforeWrapperRef = useRef(null)
+  const animationFrame = useRef(null)
+  const isDraggingRef = useRef(false)
 
   const beforeImageUrl = getMediaUrl(beforeImage)
   const afterImageUrl = getMediaUrl(afterImage)
 
-  if (!beforeImageUrl || !afterImageUrl) return null
+  const updateSlider = useCallback((percentage) => {
+    const value = Math.min(Math.max(percentage, 0), 100)
 
-  const handleMouseMove = (e) => {
+    if (animationFrame.current) {
+      cancelAnimationFrame(animationFrame.current)
+    }
+
+    animationFrame.current = requestAnimationFrame(() => {
+      if (dividerRef.current) {
+        dividerRef.current.style.left = `${value}%`
+      }
+
+      if (beforeWrapperRef.current) {
+        beforeWrapperRef.current.style.clipPath = `inset(0 ${100 - value}% 0 0)`
+      }
+    })
+  }, [])
+
+  const handleMouseDown = useCallback((e) => {
+    e.preventDefault()
+    isDraggingRef.current = true
     if (!containerRef.current) return
 
     const rect = containerRef.current.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const percentage = (x / rect.width) * 100
+    const percentage = ((e.clientX - rect.left) / rect.width) * 100
+    updateSlider(percentage)
+  }, [updateSlider])
 
-    setSliderPosition(Math.min(Math.max(percentage, 0), 100))
-  }
-
-  const handleTouchMove = (e) => {
-    if (!containerRef.current) return
+  const handleMouseMove = useCallback((e) => {
+    e.preventDefault()
+    if (!isDraggingRef.current || !containerRef.current) return
 
     const rect = containerRef.current.getBoundingClientRect()
+    const percentage = ((e.clientX - rect.left) / rect.width) * 100
+    updateSlider(percentage)
+  }, [updateSlider])
+
+  const handleMouseUp = useCallback(() => {
+    isDraggingRef.current = false
+  }, [])
+
+  const handleTouchStart = useCallback((e) => {
+    e.preventDefault()
     const touch = e.touches[0]
-    const x = touch.clientX - rect.left
-    const percentage = (x / rect.width) * 100
+    if (!touch || !containerRef.current) return
 
-    setSliderPosition(Math.min(Math.max(percentage, 0), 100))
-  }
+    isDraggingRef.current = true
+    const rect = containerRef.current.getBoundingClientRect()
+    const percentage = ((touch.clientX - rect.left) / rect.width) * 100
+    updateSlider(percentage)
+  }, [updateSlider])
+
+  const handleTouchMove = useCallback((e) => {
+    e.preventDefault()
+    if (!isDraggingRef.current || !containerRef.current) return
+
+    const touch = e.touches[0]
+    if (!touch) return
+
+    const rect = containerRef.current.getBoundingClientRect()
+    const percentage = ((touch.clientX - rect.left) / rect.width) * 100
+    updateSlider(percentage)
+  }, [updateSlider])
+
+  const handleTouchEnd = useCallback(() => {
+    isDraggingRef.current = false
+  }, [])
+
+  const resetSlider = useCallback(() => {
+    updateSlider(50)
+  }, [updateSlider])
+
+  useEffect(() => {
+    return () => {
+      if (animationFrame.current) {
+        cancelAnimationFrame(animationFrame.current)
+      }
+    }
+  }, [])
+
+  if (!beforeImageUrl || !afterImageUrl) return null
 
   return (
     <S.SliderContainer
       ref={containerRef}
+      onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+      onMouseLeave={resetSlider}
+      onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
-      onMouseLeave={() => setSliderPosition(50)}
-      onTouchEnd={() => setSliderPosition(50)}
+      onTouchEnd={handleTouchEnd}
+      onTouchCancel={handleTouchEnd}
       isInGrid={isInGrid}
     >
       <S.ImageWrapper>
         <S.Image img={afterImage} alt="After" />
 
         <S.BeforeImageWrapper
+          ref={beforeWrapperRef}
           style={{
             clipPath: `inset(0 ${100 - sliderPosition}% 0 0)`,
           }}
@@ -56,10 +124,11 @@ const BeforeAfter = ({
           <S.Image img={beforeImage} alt="Before" />
         </S.BeforeImageWrapper>
 
-        <S.DividerLine style={{ left: `${sliderPosition}%` }}>
-          <S.DividerHandle>
-
-          </S.DividerHandle>
+        <S.DividerLine
+          ref={dividerRef}
+          style={{ left: `${sliderPosition}%` }}
+        >
+          <S.DividerHandle />
         </S.DividerLine>
       </S.ImageWrapper>
     </S.SliderContainer>

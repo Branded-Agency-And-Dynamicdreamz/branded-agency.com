@@ -10,6 +10,11 @@ export const SliderContainer = styled.div`
   cursor: ew-resize;
   user-select: none;
   touch-action: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  contain: layout paint;
 
   ${({ isInGrid }) =>
     isInGrid &&
@@ -36,6 +41,7 @@ export const Image = styled(CustomImage)`
     width: 100%;
     height: 100%;
     object-fit: cover;
+    pointer-events: none;
   }
 `
 
@@ -43,18 +49,19 @@ export const BeforeImageWrapper = styled.div`
   position: absolute;
   inset: 0;
   overflow: hidden;
+  pointer-events: none;
+  will-change: clip-path;
 `
-
 export const DividerLine = styled.div`
   position: absolute;
   top: 0;
   width: 6px;
   height: 100%;
-  transform: translateX(-50%);
-  transition: left 0.05s linear;
+  transform: translate3d(-50%, 0, 0);
   z-index: 20;
   pointer-events: none;
   background: #fff;
+  will-change: left;
 `
 
 export const DividerHandle = styled.div`
@@ -74,7 +81,7 @@ export const DividerHandle = styled.div`
   align-items: center;
   justify-content: center;
 
-  pointer-events: auto;
+  pointer-events: none;
   cursor: ew-resize;
 
   box-shadow:
