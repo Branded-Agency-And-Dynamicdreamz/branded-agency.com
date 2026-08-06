@@ -3,13 +3,12 @@ import SectionWrapper from "../../components/section-wrapper/section-wrapper.com
 
 export const Wrapper = styled(SectionWrapper)`
   background-color: white;
-  padding: 3.75rem 0;
+  padding: 3rem 0;
 
   ${({ theme }) => theme.breakpoints.up("md")} {
-    padding: 6.25rem 0;
+    padding: 5rem 0;
   }
 `
-
 export const TextWrapper = styled.div`
   p {
     &:not(:last-of-type) {
@@ -64,11 +63,7 @@ export const TextWrapper = styled.div`
 export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
-  margin-top: 2.5rem;
-
-  ${({ theme }) => theme.breakpoints.down("md")} {
-    justify-content: center;
-  }
+  margin-top: 2rem;
 `
 
 export const NavButton = styled.button`
@@ -79,13 +74,23 @@ export const NavButton = styled.button`
   border: none;
   cursor: pointer;
   padding: 0;
-  width: 100px;
-  height: 100px;
+  width: 70px;
+  height: 70px;
+
+  ${({ theme }) => theme.breakpoints.up("md")} {
+    width: 100px;
+    height: 100px;
+  }
 `
 
 export const ButtonImage = styled.img`
-  width: 100px;
-  height: 100px;
+  width: 70px;
+  height: 70px;
   object-fit: contain;
   display: block;
+
+  ${({ theme }) => theme.breakpoints.up("md")} {
+    width: 100px;
+    height: 100px;
+  }
 `
