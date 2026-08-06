@@ -4,16 +4,10 @@ import Layout from "../../components/layout"
 import { getPageLayout } from "../../utils/get-layout-utils"
 import SEO from "../../components/seo/seo.component"
 import { TranslationProvider } from "../../context/translations-context"
-
-// ✅ Import Page Builder fragments
 import "../../layouts/GridContentMedia/grid-content-media.page-fragment"
-// ✅ Import HeroBgText fragment
 import "../../layouts/HeroBgText/hero-bg-text.data"
-// ✅ Import TextHero fragment
 import "../../layouts/TextHero/text-hero.data"
-// ✅ Import SliderHero fragment
 import "../../layouts/SliderHero/slider-hero.data"
-// ✅ Import AnimatedDescriptionWithButton fragment
 import "../../layouts/AnimatedDescriptionWithButton/animated-description-with-button.data"
 
 export const query = graphql`
