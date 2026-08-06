@@ -25,11 +25,11 @@ export const TextWrapper = styled.div`
       font-size: 1.625rem;
     }
   }
-  
+
   a {
     color: ${({ theme }) => theme.palette.primary.main};
   }
-  
+
   h4 {
     font-family: ${({ theme }) => theme.fonts.primary};
     color: ${({ theme }) => theme.palette.primary.main};
@@ -56,27 +56,6 @@ export const TextWrapper = styled.div`
 
   a {
     position: relative;
-    &:after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 0.1em;
-      background-color: ${({ theme }) => theme.palette.primary.main};
-      opacity: 0;
-      transition:
-        width 0.3s ease,
-        opacity 0.3s ease;
-    }
-
-    ${({ theme }) => theme.breakpoints.up("sm")} {
-      &:hover:after,
-      &:focus:after {
-        width: 100%;
-        opacity: 1;
-      }
-    }
   }
 `
 
@@ -100,13 +79,13 @@ export const NavButton = styled.button`
   border: none;
   cursor: pointer;
   padding: 0;
-  width: 100px;    /* ✅ 56px → 80px */
-  height: 100px;   /* ✅ 56px → 80px */
+  width: 100px;
+  height: 100px;
 `
 
 export const ButtonImage = styled.img`
-  width: 100px;    /* ✅ 56px → 80px */
-  height: 100px;   /* ✅ 56px → 80px */
+  width: 100px;
+  height: 100px;
   object-fit: contain;
   display: block;
 `

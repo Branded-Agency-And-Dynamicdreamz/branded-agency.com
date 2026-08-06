@@ -1,6 +1,6 @@
 import React from "react"
 import * as S from "./text-hero.styles"
-import FadeInOnScroll from "../../components/fade-in-on-scroll/fade-in-on-scroll.component"
+
 
 const TextHero = ({ 
   heading,
@@ -10,7 +10,6 @@ const TextHero = ({
   const sectionId = targetId || "text-hero"
 
   return (
-    <FadeInOnScroll showAnimation>
       <S.Wrapper id={sectionId}>
         <S.Content>
           {heading && <S.Heading>{heading}</S.Heading>}
@@ -21,7 +20,6 @@ const TextHero = ({
           )}
         </S.Content>
       </S.Wrapper>
-    </FadeInOnScroll>
   )
 }
 

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react"
 import * as S from "./slider-hero.styles"
-import FadeInOnScroll from "../../components/fade-in-on-scroll/fade-in-on-scroll.component"
 import { getMediaUrl } from "../../utils/media-url"
 
 const SliderHero = ({ slides, navItems }) => {
@@ -102,7 +101,6 @@ const SliderHero = ({ slides, navItems }) => {
   const navList = navItems?.length ? navItems : defaultNavItems
 
   return (
-    <FadeInOnScroll showAnimation>
       <S.Wrapper ref={wrapperRef} id="slider-hero">
         {/* Background */}
         <S.BackgroundImageWrapper>
@@ -170,7 +168,6 @@ const SliderHero = ({ slides, navItems }) => {
           </S.NavbarInner>
         </S.Navbar>
       </S.Wrapper>
-    </FadeInOnScroll>
   )
 }
 

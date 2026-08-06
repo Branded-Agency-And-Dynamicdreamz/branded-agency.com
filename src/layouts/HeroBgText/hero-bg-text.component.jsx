@@ -1,6 +1,5 @@
 import React from "react"
 import * as S from "./hero-bg-text.styles"
-import FadeInOnScroll from "../../components/fade-in-on-scroll/fade-in-on-scroll.component"
 import { getMediaUrl } from "../../utils/media-url"
 
 const HeroBgText = ({ 
@@ -14,7 +13,6 @@ const HeroBgText = ({
   if (!imageUrl) return null
 
   return (
-    <FadeInOnScroll showAnimation>
       <S.Wrapper>
         <S.BackgroundImageWrapper>
           <S.BackgroundImage img={backgroundImage} alt="Background" />
@@ -29,7 +27,6 @@ const HeroBgText = ({
           </S.Content>
         </S.ContentWrapper>
       </S.Wrapper>
-    </FadeInOnScroll>
   )
 }
 
