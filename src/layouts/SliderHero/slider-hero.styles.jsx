@@ -40,9 +40,9 @@ export const ContentWrapper = styled.div`
     padding: 2rem 2rem 7rem;
   }
 
-  ${({ theme }) => theme.breakpoints.down("md")} {
-    padding: 2rem 1.5rem 6rem;
-  }
+${({ theme }) => theme.breakpoints.down("md")} {
+  padding: 2rem 1.5rem 21rem;
+}
 `
 
 export const Content = styled.div`
@@ -57,7 +57,7 @@ export const Content = styled.div`
   }
 
   ${({ theme }) => theme.breakpoints.down("md")} {
-    flex-direction: column-reverse;
+    flex-direction: column;
     align-items: center;
     gap: 2rem;
     text-align: center;
@@ -172,6 +172,7 @@ export const DotsWrapper = styled.div`
 
   ${({ theme }) => theme.breakpoints.down("md")} {
     justify-content: center;
+    margin-top: 2rem;
   }
 `
 
@@ -190,6 +191,24 @@ export const Dot = styled.button`
     transform: scale(1.15);
   }
 `
+export const DesktopDots = styled(DotsWrapper)`
+  display: flex;
+
+  ${({ theme }) => theme.breakpoints.down("md")} {
+    display: none;
+  }
+`
+
+export const MobileDots = styled(DotsWrapper)`
+  display: none;
+
+  ${({ theme }) => theme.breakpoints.down("md")} {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 1.5rem;
+  }
+`
 
 // ================= STICKY NAVBAR =================
 
@@ -198,16 +217,13 @@ export const Navbar = styled.nav`
   left: 0;
   bottom: 0;
   width: 100%;
-  z-index: 9999;  /* ✅ High z-index for clickability */
+  z-index: 9999;
 
   background: transparent;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 
   transition: all 0.3s ease;
-
-  /* ✅ Ensure click works */
-  pointer-events: auto;
 
   ${({ isSticky }) =>
     isSticky &&
@@ -220,8 +236,18 @@ export const Navbar = styled.nav`
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       box-shadow: 0 8px 24px rgba(0,0,0,.25);
-      pointer-events: auto;  /* ✅ Ensure click works when sticky */
     `}
+
+  ${({ theme }) => theme.breakpoints.down("md")} {
+    position: absolute;
+    top: auto;
+    bottom: 0;
+
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
+  }
 `
 
 export const NavbarInner = styled.div`
@@ -235,17 +261,18 @@ export const NavbarInner = styled.div`
 
   padding: 0 2rem;
 
-  ${({ theme }) => theme.breakpoints.down("md")} {
-    min-height: 72px;
-    padding: 0 1rem;
-    overflow-x: auto;
-    justify-content: flex-start;
-    gap: 2rem;
+${({ theme }) => theme.breakpoints.down("md")} {
+  min-height: auto;
 
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 1.25rem;
+  padding: 1.5rem;
+
+  overflow: visible;
+}
 `
 
 export const NavItem = styled.button`
@@ -259,14 +286,10 @@ export const NavItem = styled.button`
   font-weight: 300;
   line-height: 1.7;
   text-align: left;
-
   padding: 0 2rem;
   cursor: pointer;
   transition: color 0.3s ease;
-
   border-right: 1px solid rgba(255, 255, 255, 0.35);
-
-  /* ✅ Ensure click works */
   pointer-events: auto;
   position: relative;
   z-index: 1;
@@ -279,13 +302,31 @@ export const NavItem = styled.button`
     color: #ffffff;
   }
 
-  ${({ theme }) => theme.breakpoints.down("md")} {
-    flex: none;
-    min-width: 220px;
-    padding: 0;
-    border-right: none;
+${({ theme }) => theme.breakpoints.down("md")} {
+  width: 100%;
+  flex: none;
+  min-width: 100%;
 
-    font-size: 1.2rem;
-    line-height: 1.6;
+  padding: 0 0 1rem;
+  border-right: none;
+
+  text-align: left;
+
+  font-size: 1.2rem;
+  line-height: 1.6;
+
+  position: relative;
+
+  &:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    width: 36px;
+    height: 1px;
+
+    background: rgba(255, 255, 255, 0.6);
   }
+}
 `

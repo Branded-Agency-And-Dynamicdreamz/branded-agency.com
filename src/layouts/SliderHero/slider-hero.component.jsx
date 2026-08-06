@@ -11,16 +11,22 @@ const SliderHero = ({ slides, navItems }) => {
 
   // ✅ Sticky Navbar
   useEffect(() => {
-    const handleScroll = () => {
-      if (!wrapperRef.current || !navbarRef.current) return
+const handleScroll = () => {
+  if (!wrapperRef.current || !navbarRef.current) return
 
-      const triggerPoint =
-        wrapperRef.current.offsetTop +
-        wrapperRef.current.offsetHeight -
-        navbarRef.current.offsetHeight
+  // Disable sticky on tablets/mobile
+  if (window.innerWidth <= 768) {
+    setIsSticky(false)
+    return
+  }
 
-      setIsSticky(window.scrollY >= triggerPoint)
-    }
+  const triggerPoint =
+    wrapperRef.current.offsetTop +
+    wrapperRef.current.offsetHeight -
+    navbarRef.current.offsetHeight
+
+  setIsSticky(window.scrollY >= triggerPoint)
+}
 
     handleScroll()
 
@@ -100,75 +106,90 @@ const SliderHero = ({ slides, navItems }) => {
 
   const navList = navItems?.length ? navItems : defaultNavItems
 
-  return (
-      <S.Wrapper ref={wrapperRef} id="slider-hero">
-        {/* Background */}
-        <S.BackgroundImageWrapper>
-          <S.BackgroundImage
-            img={currentSlideData.image}
-            alt={currentSlideData.heading || "Slide"}
-          />
-        </S.BackgroundImageWrapper>
+return (
+  <S.Wrapper ref={wrapperRef} id="slider-hero">
+    {/* Background */}
+    <S.BackgroundImageWrapper>
+      <S.BackgroundImage
+        img={currentSlideData.image}
+        alt={currentSlideData.heading || "Slide"}
+      />
+    </S.BackgroundImageWrapper>
 
-        {/* Hero Content */}
-        <S.ContentWrapper>
-          <S.Content>
-            <S.TextContent>
-              {currentSlideData.heading && (
-                <S.Heading>
-                  {currentSlideData.heading}
-                </S.Heading>
-              )}
+    {/* Hero Content */}
+    <S.ContentWrapper>
+      <S.Content>
+        <S.TextContent>
+          {currentSlideData.heading && (
+            <S.Heading>
+              {currentSlideData.heading}
+            </S.Heading>
+          )}
 
-              {currentSlideData.description && (
-                <S.Description
-                  dangerouslySetInnerHTML={{
-                    __html: currentSlideData.description,
-                  }}
-                />
-              )}
+          {currentSlideData.description && (
+            <S.Description
+              dangerouslySetInnerHTML={{
+                __html: currentSlideData.description,
+              }}
+            />
+          )}
 
-              <S.DotsWrapper>
-                {slides.map((_, index) => (
-                  <S.Dot
-                    key={index}
-                    active={index === currentSlide}
-                    onClick={() => goToSlide(index)}
-                    aria-label={`Go to slide ${index + 1}`}
-                  />
-                ))}
-              </S.DotsWrapper>
-            </S.TextContent>
-
-            {overlayImageUrl && (
-              <S.OverlayImageBox>
-                <S.OverlayImage
-                  img={currentSlideData.overlayImage}
-                  alt={currentSlideData.heading || "Overlay"}
-                />
-              </S.OverlayImageBox>
-            )}
-          </S.Content>
-        </S.ContentWrapper>
-
-        {/* Bottom Navigation */}
-        <S.Navbar
-          ref={navbarRef}
-          isSticky={isSticky}
-        >
-          <S.NavbarInner>
-            {navList.map((item, index) => (
-              <S.NavItem
+          {/* Desktop Dots */}
+          <S.DesktopDots>
+            {slides.map((_, index) => (
+              <S.Dot
                 key={index}
-                onClick={() => scrollToSection(item.targetId)}
-              >
-                {item.label}
-              </S.NavItem>
+                active={index === currentSlide}
+                onClick={() => goToSlide(index)}
+                aria-label={`Go to slide ${index + 1}`}
+              />
             ))}
-          </S.NavbarInner>
-        </S.Navbar>
-      </S.Wrapper>
-  )
+          </S.DesktopDots>
+        </S.TextContent>
+
+        {overlayImageUrl && (
+          <>
+            <S.OverlayImageBox>
+              <S.OverlayImage
+                img={currentSlideData.overlayImage}
+                alt={currentSlideData.heading || "Overlay"}
+              />
+            </S.OverlayImageBox>
+
+            {/* Mobile Dots */}
+            <S.MobileDots>
+              {slides.map((_, index) => (
+                <S.Dot
+                  key={index}
+                  active={index === currentSlide}
+                  onClick={() => goToSlide(index)}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </S.MobileDots>
+          </>
+        )}
+      </S.Content>
+    </S.ContentWrapper>
+
+    {/* Bottom Navigation */}
+    <S.Navbar
+      ref={navbarRef}
+      isSticky={isSticky}
+    >
+      <S.NavbarInner>
+        {navList.map((item, index) => (
+          <S.NavItem
+            key={index}
+            onClick={() => scrollToSection(item.targetId)}
+          >
+            {item.label}
+          </S.NavItem>
+        ))}
+      </S.NavbarInner>
+    </S.Navbar>
+  </S.Wrapper>
+)
 }
 
 export default SliderHero
