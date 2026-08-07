@@ -15,7 +15,6 @@ import CustomInputFile from "../../components/custom-input-file/custom-input-fil
 import { gtagFormSubmission } from "../../utils/gtag-utils"
 import { linkedinConversionTrack } from "../../utils/linkedin-utils"
 import { navigate } from "gatsby"
-import parse from "html-react-parser"
 import { useTranslation } from "../../hooks/useTranslation"
 
 const CustomJobForm = ({ formTitle, isIndividualJob, titleJob, location }) => {

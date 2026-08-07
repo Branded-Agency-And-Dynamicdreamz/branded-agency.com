@@ -1,6 +1,5 @@
 import styled from "@emotion/styled"
 import SectionWrapper from "../../components/section-wrapper/section-wrapper.component"
-import CustomButton from "../../components/custom-button/custom-button.component"
 import { Link } from "react-scroll"
 
 export const HeroWrapper = styled(SectionWrapper)`

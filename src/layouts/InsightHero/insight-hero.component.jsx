@@ -2,11 +2,8 @@ import React from "react"
 import * as S from "./insight-hero.styles"
 import { Container } from "@mui/material"
 import dayjs from "dayjs"
-import FavoriteIcon from "@mui/icons-material/Favorite"
-import LinkedInSVG from "../../assets/linkedin.svg"
-import EmailIcon from "@mui/icons-material/Email"
 import ArticleHero from "../../components/article-hero/article-hero.component"
-import AuthorCard from "../../components/author-card/author-card.component"
+
 
 const InsightHero = ({
   title,

@@ -1,5 +1,4 @@
 import styled from "@emotion/styled"
-import CustomBgImage from "../../components/custom-bg-image/custom-bg-image.component"
 import SectionWrapper from "../../components/section-wrapper/section-wrapper.component"
 import CustomImage from "../../components/custom-image/custom-image.component"
 import { Alert, Typography } from "@mui/material"

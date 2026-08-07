@@ -1,5 +1,4 @@
 import * as S from "../../layouts/InsightHero/insight-hero.styles"
-import FavoriteIcon from "@mui/icons-material/Favorite"
 import LinkedInSVG from "../../assets/linkedin.svg"
 import EmailIcon from "@mui/icons-material/Email"
 import React from "react"

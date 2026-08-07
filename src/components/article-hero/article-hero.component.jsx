@@ -1,7 +1,6 @@
 import React from "react"
 import * as S from "./article-hero.styles"
 import { Container } from "@mui/material"
-import FavoriteIcon from "@mui/icons-material/Favorite"
 import LinkedInSVG from "../../assets/linkedin.svg"
 import EmailIcon from "@mui/icons-material/Email"
 import dayjs from "dayjs"
