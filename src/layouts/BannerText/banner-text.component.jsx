@@ -3,7 +3,6 @@ import * as S from "./banner-text.styles"
 import Container from "@mui/material/Container"
 import parse from "html-react-parser"
 import { Slide } from "react-awesome-reveal"
-import { Link } from "react-scroll"
 
 const BannerText = ({ title, description, button, withAnimation }) => {
   return (

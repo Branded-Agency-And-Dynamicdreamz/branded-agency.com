@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react"
 import * as S from "./distinctive-squeeze-page-form.styles"
 import { graphql, useStaticQuery } from "gatsby"
-import { Alert, Grid } from "@mui/material"
+import { Grid } from "@mui/material"
 import { FormProvider, useForm } from "react-hook-form"
 import {
   detectHubspotErrorSubmission,
@@ -23,7 +23,6 @@ import WestIcon from "@mui/icons-material/West"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useGSAP } from "@gsap/react"
-import { FlagLeftSticker } from "./distinctive-squeeze-page-form.styles"
 
 gsap.registerPlugin(ScrollTrigger)
 

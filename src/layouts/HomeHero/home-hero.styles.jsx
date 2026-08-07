@@ -2,7 +2,6 @@ import styled from "@emotion/styled"
 import SectionWrapper from "../../components/section-wrapper/section-wrapper.component"
 import Typography from "@mui/material/Typography"
 import Container from "@mui/material/Container"
-import { Link } from "react-scroll"
 import CustomLink from "../../components/custom-link/custom-link.component"
 import LazyVideo from "../../components/lazy-video/lazy-video.component"
 

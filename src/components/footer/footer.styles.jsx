@@ -7,7 +7,6 @@ import Typography from "@mui/material/Typography"
 import { Link } from "react-scroll"
 import { Grid } from "@mui/material"
 import { CustomButton } from "../custom-button/custom-button.styles"
-import CustomImage from "../custom-image/custom-image.component"
 import BCorpLogoSVG from "../../assets/b-corp.svg"
 import HubspotLogoSVG from "../../assets/hubspot-logo.svg"
 

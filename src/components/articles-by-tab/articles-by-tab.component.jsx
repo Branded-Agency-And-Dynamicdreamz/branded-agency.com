@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import * as S from "./articles-by-tag.styles"
 import { Grid, Tabs } from "@mui/material"
 import ArticleCard from "../article-card/article-card.component"

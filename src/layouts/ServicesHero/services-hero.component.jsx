@@ -1,7 +1,6 @@
 import React from "react"
 import * as S from "./services-hero.styles"
 import { Swiper, SwiperSlide } from "swiper/react"
-import CustomAnimatedText from "../../components/custom-animated-text/custom-animated-text.component"
 import FadeInOnScroll from "../../components/fade-in-on-scroll/fade-in-on-scroll.component"
 import parse from "html-react-parser"
 import { Autoplay } from "swiper/modules"

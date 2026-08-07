@@ -6,7 +6,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 import "swiper/css"
 import "swiper/css/effect-fade"
-import { EffectFade, Navigation } from "swiper/modules"
+import { Navigation } from "swiper/modules"
 
 const TestimonialsSlider = ({ testimonials }) => {
   const [index, setIndex] = useState(0)

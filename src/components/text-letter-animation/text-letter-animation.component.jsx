@@ -1,7 +1,5 @@
 import React, { useEffect, useRef } from "react"
 import * as S from "./text-letter-animation.styles"
-import SplitType from "split-type"
-import gsap from "gsap"
 
 const TextLetterAnimation = ({
   active,

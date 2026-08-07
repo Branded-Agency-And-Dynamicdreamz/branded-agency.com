@@ -1,6 +1,5 @@
 import React from "react"
 import * as S from "./custom-hero.styles"
-import Container from "@mui/material/Container"
 import { Stack } from "@mui/material"
 import parse from "html-react-parser"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"

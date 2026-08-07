@@ -1,10 +1,8 @@
 import React, { useRef, useState } from "react"
 import * as S from "./squeeze-page-form.styles"
 import { graphql, useStaticQuery } from "gatsby"
-import { ColorsStickerMb } from "./squeeze-page-form.styles"
-import { Alert, Grid } from "@mui/material"
+import { Grid } from "@mui/material"
 import { FormProvider, useForm } from "react-hook-form"
-import CustomInput from "../../components/custom-input/custom-input.component"
 import {
   detectHubspotErrorSubmission,
   downloadFile,
@@ -21,7 +19,6 @@ import {
 } from "../../utils/gtag-utils"
 import { linkedinConversionTrack } from "../../utils/linkedin-utils"
 import { trackPDFDownload, trackLeadFormSubmission } from "../../utils/meta-pixel-utils"
-import CustomLink from "../../components/custom-link/custom-link.component"
 import WestIcon from "@mui/icons-material/West"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"

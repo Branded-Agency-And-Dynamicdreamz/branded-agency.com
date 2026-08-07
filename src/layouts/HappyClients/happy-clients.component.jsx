@@ -2,10 +2,8 @@ import React from "react"
 import * as S from "./happy-clients.styles"
 import Container from "@mui/material/Container"
 import { Grid } from "@mui/material"
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Autoplay, Navigation } from "swiper/modules"
-import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 import CustomAnimatedText from "../../components/custom-animated-text/custom-animated-text.component"
 
 const HappyClients = ({ logos, button, text, largeStyle }) => {

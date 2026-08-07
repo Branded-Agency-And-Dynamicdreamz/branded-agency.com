@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react"
 import * as S from "./testimonial-banner.styles"
-import { Container, Grid, IconButton } from "@mui/material"
+import { Container, Grid } from "@mui/material"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Autoplay, EffectFade } from "swiper/modules"
 import PrevArrow from "../../assets/slider-arrows/prev.svg"

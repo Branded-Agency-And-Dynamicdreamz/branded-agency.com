@@ -1,6 +1,5 @@
 import styled from "@emotion/styled"
 import LazyVideo from "../../components/lazy-video/lazy-video.component"
-import { Typography } from "@mui/material"
 import CustomButton from "../../components/custom-button/custom-button.component"
 import CustomImage from "../../components/custom-image/custom-image.component"
 

@@ -1,7 +1,5 @@
 import React, { useState } from "react"
 import * as S from "./custom-input-file.styles"
-import { getWordpressToken } from "../../utils/utils"
-import { mediaApi } from "../../apis/apis"
 import ClipIcon from "../../assets/clip.svg"
 import CloseIcon from "@mui/icons-material/Close"
 import { useTranslation } from "../../hooks/useTranslation"

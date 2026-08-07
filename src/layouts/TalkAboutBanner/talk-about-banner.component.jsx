@@ -3,7 +3,6 @@ import * as S from "./talk-about-banner.styles"
 import { graphql, useStaticQuery } from "gatsby"
 import Container from "@mui/material/Container"
 import parse from "html-react-parser"
-import { KeyboardArrowDown } from "@mui/icons-material"
 
 const TalkAboutBanner = ({
   title,

@@ -1,5 +1,4 @@
 import styled from "@emotion/styled"
-import SectionWrapper from "../../components/section-wrapper/section-wrapper.component"
 import Typography from "@mui/material/Typography"
 import CustomButton from "../../components/custom-button/custom-button.component"
 import CustomImage from "../../components/custom-image/custom-image.component"

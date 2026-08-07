@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from "react"
 import * as S from "./header.styles.jsx"
-import SearchIcon from "@mui/icons-material/Search"
 import MenuIcon from "@mui/icons-material/Menu"
 import HeaderItems from "./header-items/header-items.component"
-import { AppBar, Toolbar, useMediaQuery, useTheme } from "@mui/material"
+import { useMediaQuery, useTheme } from "@mui/material"
 import SearchDrawer from "../search-drawer/search-drawer.component.jsx"
 import { isBrowser } from "../../utils/utils"
 import HeaderMobile from "./header-mobile/header-mobile.component"
 import { Close } from "@mui/icons-material"
 import { useScrollTrigger } from "@mui/material"
-import { graphql, useStaticQuery } from "gatsby"
 import Slide from "@mui/material/Slide"
-import { CustomLink } from "../custom-link/custom-link.styles"
-import Typography from "@mui/material/Typography"
 
 function HideOnScroll(props) {
   const {

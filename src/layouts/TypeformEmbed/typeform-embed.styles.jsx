@@ -1,8 +1,6 @@
 import styled from "@emotion/styled"
 import { IconButton, Typography } from "@mui/material"
 import CustomLink from "../../components/custom-link/custom-link.component"
-import CustomButton from "../../components/custom-button/custom-button.component"
-import { Link } from "react-scroll"
 import SectionWrapper from "../../components/section-wrapper/section-wrapper.component"
 
 export const Wrapper = styled(SectionWrapper)`

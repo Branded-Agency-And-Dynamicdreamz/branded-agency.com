@@ -1,5 +1,4 @@
 import styled from "@emotion/styled"
-import { Link } from "react-scroll"
 import SectionWrapper from "../../components/section-wrapper/section-wrapper.component"
 import CustomImage from "../../components/custom-image/custom-image.component"
 

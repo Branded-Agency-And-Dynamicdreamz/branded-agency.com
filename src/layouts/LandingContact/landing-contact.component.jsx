@@ -20,7 +20,6 @@ import {
   gtagAdwordsConversion,
   gtagFormSubmission,
 } from "../../utils/gtag-utils"
-import { linkedinConversionTrack } from "../../utils/linkedin-utils"
 
 const LandingContact = ({ title, content }) => {
   const methods = useForm({ mode: "onBlur", reValidateMode: "onBlur" })

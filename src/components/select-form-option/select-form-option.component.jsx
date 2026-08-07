@@ -1,6 +1,5 @@
 import React from "react"
 import * as S from "./select-form-option.styles"
-import { Controller, useFormContext } from "react-hook-form"
 
 const SelectFormOption = ({
   options,

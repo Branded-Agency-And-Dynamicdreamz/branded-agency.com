@@ -3,14 +3,6 @@ import { Widget } from "@typeform/embed-react"
 import * as S from "./typeform-embed.styles"
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded"
 import { Stack } from "@mui/material"
-import {
-  Link,
-  Button,
-  Element,
-  Events,
-  animateScroll as scroll,
-  scrollSpy,
-} from "react-scroll"
 import { useTranslation } from "../../hooks/useTranslation"
 
 const TypeformEmbed = ({ idForm, isHero }) => {

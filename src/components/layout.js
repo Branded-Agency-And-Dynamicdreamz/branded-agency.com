@@ -11,7 +11,6 @@ import Header from "../components/header/header.component"
 import { AppContainer } from "../styles/app.styles"
 import Footer from "./footer/footer.component"
 import { isBrowser, setSessionStorageItem } from "../utils/utils"
-import { Element } from "react-scroll"
 import { useLocation } from "@reach/router"
 
 import { IS_PRODUCTION } from "../utils/constants"

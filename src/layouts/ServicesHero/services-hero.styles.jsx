@@ -1,5 +1,4 @@
 import styled from "@emotion/styled"
-import Typography from "@mui/material/Typography"
 import CustomImage from "../../components/custom-image/custom-image.component"
 import Container from "@mui/material/Container"
 

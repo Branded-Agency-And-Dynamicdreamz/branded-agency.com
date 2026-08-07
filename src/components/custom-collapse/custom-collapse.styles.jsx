@@ -1,5 +1,4 @@
 import styled from "@emotion/styled"
-import Typography from "@mui/material/Typography"
 import CustomLink from "../custom-link/custom-link.component"
 
 export const Wrapper = styled.div``

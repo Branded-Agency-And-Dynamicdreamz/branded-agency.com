@@ -1,6 +1,6 @@
 import React from "react"
 import * as S from "./logo-banner.styles"
-import { Container, Grid, Stack } from "@mui/material"
+import { Container, Stack } from "@mui/material"
 import { gtagAdwordsConversion } from "../../utils/gtag-utils"
 import { navigate } from "gatsby"
 

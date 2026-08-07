@@ -4,7 +4,6 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight"
 import ITEMS from "../header-items.json"
 import { graphql, useStaticQuery } from "gatsby"
-import Typography from "@mui/material/Typography"
 import { useTranslation } from "../../../hooks/useTranslation"
 
 

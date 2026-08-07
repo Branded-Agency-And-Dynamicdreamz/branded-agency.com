@@ -2,7 +2,6 @@ import styled from "@emotion/styled"
 import SectionWrapper from "../../components/section-wrapper/section-wrapper.component"
 import CustomImage from "../../components/custom-image/custom-image.component"
 import CustomButton from "../../components/custom-button/custom-button.component"
-import { Typography } from "@mui/material"
 
 export const Wrapper = styled(SectionWrapper)`
   position: relative;

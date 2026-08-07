@@ -1,7 +1,7 @@
 import React from "react"
 import * as S from "./second-hero-image.styles"
 import Container from "@mui/material/Container"
-import { Grid, useTheme, useMediaQuery } from "@mui/material"
+import { useTheme, useMediaQuery } from "@mui/material"
 import parse from "html-react-parser"
 import { Slide } from "react-awesome-reveal"
 
