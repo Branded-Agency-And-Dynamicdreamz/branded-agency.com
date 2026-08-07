@@ -41,7 +41,7 @@ export const ContentWrapper = styled.div`
   }
 
 ${({ theme }) => theme.breakpoints.down("md")} {
-  padding: 2rem 1.5rem 21rem;
+  padding: 2rem 1.5rem 22rem;
 }
 `
 
@@ -204,9 +204,9 @@ export const MobileDots = styled(DotsWrapper)`
 
   ${({ theme }) => theme.breakpoints.down("md")} {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     width: 100%;
-    margin-top: 1.5rem;
+    margin-top: 0.1rem;
   }
 `
 

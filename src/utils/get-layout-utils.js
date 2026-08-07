@@ -67,44 +67,28 @@ import AnimatedDescription from "../layouts/AnimatedDescription"
 import AnimatedFeaturesVideo from "../layouts/AnimatedFeaturesVideo"
 import ArticlesSlider from "../layouts/ArticlesSlider"
 import GridContentMedia from "../layouts/GridContentMedia"
-// ✅ HeroBgText import
 import HeroBgText from "../layouts/HeroBgText"
-// ✅ TextHero import
 import TextHero from "../layouts/TextHero"
-// ✅ SliderHero import
 import SliderHero from "../layouts/SliderHero"
-// ✅ AnimatedDescriptionWithButton import
 import AnimatedDescriptionWithButton from "../layouts/AnimatedDescriptionWithButton"
 
 export const getPageLayout = (layout, options = {}) => {
   const layoutName = layout?.fieldGroupName?.split("_").pop().trim()
-  console.log("🔍 Layout Name:", layoutName)
-  
-  // ✅ Debug
-  console.log("🔍 Layout Name:", layoutName)
-  
+
   if (!layoutName) return null
-  
+
   if (layoutName === "CaseStudiesHero") {
     return <CaseStudiesHero key={uuidv4()} {...layout} caseStudies={options.caseStudies || []} />
   }
-  
+
   switch (layoutName) {
-    // ✅ HeroBgText case
     case "Herobgtext":
-      console.log("✅ HeroBgText rendering...")
       return <HeroBgText key={uuidv4()} {...layout} />
-    // ✅ TextHero case
     case "Texthero":
-      console.log("✅ TextHero rendering...")
       return <TextHero key={uuidv4()} {...layout} />
-    // ✅ SliderHero case
     case "Sliderhero":
-      console.log("✅ SliderHero rendering...")
       return <SliderHero key={uuidv4()} {...layout} />
-    // ✅ AnimatedDescriptionWithButton case
     case "AnimatedDescriptionWithButton":
-      console.log("✅ AnimatedDescriptionWithButton rendering...")
       return <AnimatedDescriptionWithButton key={uuidv4()} {...layout} />
     case "GridContentMedia":
       return <GridContentMedia key={uuidv4()} {...layout} />

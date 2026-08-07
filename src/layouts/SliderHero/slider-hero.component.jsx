@@ -9,7 +9,7 @@ const SliderHero = ({ slides, navItems }) => {
   const navbarRef = useRef(null)
   const wrapperRef = useRef(null)
 
-  // ✅ Sticky Navbar
+  // Sticky Navbar
   useEffect(() => {
 const handleScroll = () => {
   if (!wrapperRef.current || !navbarRef.current) return
@@ -37,7 +37,7 @@ const handleScroll = () => {
     }
   }, [])
 
-  // ✅ Auto Slider (Restored)
+  // Auto Slider (Restored)
   useEffect(() => {
     if (!slides || slides.length <= 1) return
 
@@ -63,7 +63,7 @@ const handleScroll = () => {
 
   if (!bgImageUrl) return null
 
-  // ✅ Scroll to section with sticky navbar offset
+  // Scroll to section with sticky navbar offset
   const scrollToSection = (targetId) => {
     if (!targetId) return
 

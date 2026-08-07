@@ -22,14 +22,14 @@ const AnimatedDescriptionWithButton = ({
 
   const imageUrl = getMediaUrl(buttonImage)
 
-  // ✅ Smooth scroll to target section (SliderHero)
+  //  Smooth scroll to target section (SliderHero)
   const scrollToSection = () => {
     if (!targetId) return
 
-    // ✅ Try to find element by ID
+    //  Try to find element by ID
     let target = document.getElementById(targetId)
 
-    // ✅ If not found, try to find SliderHero section
+    //  If not found, try to find SliderHero section
     if (!target) {
       target =
         document.querySelector('[class*="SliderHero"]') ||
@@ -63,7 +63,7 @@ const AnimatedDescriptionWithButton = ({
           {content && parse(content, { replace: transform })}
         </S.TextWrapper>
 
-        {/* ✅ Clickable Image Button */}
+        {/* Clickable Image Button */}
         <S.ButtonWrapper>
           <S.NavButton onClick={scrollToSection}>
             <S.ButtonImage

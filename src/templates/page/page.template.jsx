@@ -72,8 +72,8 @@ export const query = graphql`
           ... on WpPage_Pagebuilder_Layouts_Sliderhero {
             ...SliderHero
           }
-         ... on WpPage_Pagebuilder_Layouts_AnimatedDescriptionWithButton {
-      ...AnimatedDescriptionWithButton
+          ... on WpPage_Pagebuilder_Layouts_AnimatedDescriptionWithButton {
+            ...AnimatedDescriptionWithButton
           }
           ... on WpPage_Pagebuilder_Layouts_GridContentMedia {
             ...GridContentMediaPage
@@ -373,25 +373,19 @@ const PageTemplate = ({ data }) => {
 
   // Function to get the correct URI for the current language
   const getCurrentLanguageUri = () => {
-    // Define which language is the default (no prefix)
     const DEFAULT_LANGUAGE = "EN"
-    
-    // If it's the front page in default language, return "/"
+
     if (isFrontPage && language?.code?.toUpperCase() === DEFAULT_LANGUAGE) {
       return "/"
     }
-    
-    // If it's the front page in another language, return language root
+
     if (isFrontPage) {
       return `/${language?.code?.toLowerCase()}/`
     }
-    
-    // For default language pages, remove the /en/ prefix if it exists
+
     if (language?.code?.toUpperCase() === DEFAULT_LANGUAGE && uri?.startsWith("/en/")) {
       return uri.replace("/en/", "/")
     }
-    
-    // For other pages, return the actual URI
     return uri
   }
 
@@ -455,7 +449,7 @@ const PageTemplate = ({ data }) => {
                 border: "1px solid #e5e7eb",
               }}
             >
-              
+
               <Link
                 to={getCurrentLanguageUri()}
                 style={{
@@ -478,7 +472,6 @@ const PageTemplate = ({ data }) => {
                 if (
                   item.uri.includes("/home-page/")
                 ) {
-                  // If it's the default language (EN), use "/" instead of "/en/"
                   if (item.language?.code?.toUpperCase() === "EN") {
                     translatedUri = "/"
                   } else {
@@ -507,8 +500,6 @@ const PageTemplate = ({ data }) => {
             </div>
           </details>
         </div>
-        {console.log("🔍 Layouts:", layouts)}
-
         {layouts.map(layout => getPageLayout(layout, { caseStudies }))}
       </Layout>
     </TranslationProvider>

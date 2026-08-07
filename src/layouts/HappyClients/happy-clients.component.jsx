@@ -9,7 +9,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 import CustomAnimatedText from "../../components/custom-animated-text/custom-animated-text.component"
 
 const HappyClients = ({ logos, button, text, largeStyle }) => {
-  console.log(largeStyle)
+
   if (!logos) return null
 
   return (

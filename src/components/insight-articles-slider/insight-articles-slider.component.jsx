@@ -26,40 +26,25 @@ const InsightArticlesSlider = ({ sliderArticles, title, type }) => {
     
     let finalUri = null
     
-    console.log("🔍 Hero Click Debug:", {
-      currentLanguage,
-      articleLanguage,
-      slug,
-      originalUri: uri,
-      translations: translations?.map(t => ({ code: t.language?.code, uri: t.uri }))
-    })
-    
-    // If current language matches article language, use the article's URI
     if (currentLanguage === articleLanguage) {
       finalUri = uri || `/${type}/${slug}/`
     }
-    // If current language is ES but article is EN, try to find Spanish translation
     else if (currentLanguage === "ES" && articleLanguage === "EN") {
       const spanishTranslation = translations?.find(t => t.language?.code === "ES")
       if (spanishTranslation?.uri) {
         finalUri = spanishTranslation.uri
-        console.log("✅ Found Spanish translation:", finalUri)
       } else {
         // No Spanish translation, fallback to English
         finalUri = `/insight/${slug}/`
-        console.log("⚠️ No Spanish translation, falling back to English:", finalUri)
       }
     }
-    // If current language is EN but article is ES, try to find English translation
     else if (currentLanguage === "EN" && articleLanguage === "ES") {
       const englishTranslation = translations?.find(t => t.language?.code === "EN")
       if (englishTranslation?.uri) {
         finalUri = englishTranslation.uri
-        console.log("✅ Found English translation:", finalUri)
       } else {
         // No English translation, fallback to Spanish
         finalUri = `/es/insight/${slug}/`
-        console.log("⚠️ No English translation, falling back to Spanish:", finalUri)
       }
     }
     // Fallback for any other case
@@ -68,7 +53,6 @@ const InsightArticlesSlider = ({ sliderArticles, title, type }) => {
     }
     
     const localizedPath = getLocalizedPath(finalUri)
-    console.log("🚀 Final navigation path:", localizedPath)
     navigate(localizedPath)
   }
 

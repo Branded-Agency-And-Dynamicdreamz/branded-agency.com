@@ -23,7 +23,6 @@ export const catchAsync = (fn, fnName = "anonymous function") => {
       })
       .catch(err => {
         console.error(fnName, err.message ?? "Something was wrong")
-        // console.error(fnName, err);
         return err
       })
   }
@@ -265,7 +264,6 @@ export const getRHFErrorMessage = (errors, name, rules) => {
   const error = getError()
 
   if (error) {
-    // console.log(name, error);
     switch (error.type) {
       case "valueAsNumber":
         return `${name} is not a valid number`
@@ -282,7 +280,6 @@ export const getRHFErrorMessage = (errors, name, rules) => {
       case "pattern":
         return `${name} is not valid`
       case "validate":
-        //console.log(errors)
         return error.message
       default:
         return ""
@@ -297,7 +294,6 @@ export const submitContactForm = async (formId, formData) => {
         "Content-Type": "multipart/form-data",
       },
     })
-    // console.log("processOrder: ", res.data);
     return res.data
   } catch (err) {
     console.log("err :>> ", err)
@@ -312,7 +308,6 @@ export const searchWordpress = catchAsync(async searchTerm => {
       subtype: ["any"],
     },
   })
-  // console.log("processOrder: ", res.data);
   return res.data
 }, "searchWordpress")
 

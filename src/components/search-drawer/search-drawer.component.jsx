@@ -17,7 +17,7 @@ const SearchDrawer = ({ isOpen, handleClose }) => {
   const handleSearch = async () => {
     setIsLoading(true)
     const res = await searchWordpress(debouncedValue)
-    // console.log("res :>> ", res);
+
     setResults(res)
     setIsLoading(false)
   }

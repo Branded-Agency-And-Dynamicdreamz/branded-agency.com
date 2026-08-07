@@ -4,7 +4,7 @@ import { Grid } from "@mui/material"
 import CountUpItem from "../../components/count-up-item/count-up-item.component"
 
 const CountUpGrid = ({ items }) => {
-  //   console.log("items :>> ", items)
+  
   if (!items) return null
 
   return (
