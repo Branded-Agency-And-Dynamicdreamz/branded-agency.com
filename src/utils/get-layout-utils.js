@@ -71,6 +71,7 @@ import HeroBgText from "../layouts/HeroBgText"
 import TextHero from "../layouts/TextHero"
 import SliderHero from "../layouts/SliderHero"
 import AnimatedDescriptionWithButton from "../layouts/AnimatedDescriptionWithButton"
+import TestimonialPage from "../layouts/TestimonialPage"
 
 export const getPageLayout = (layout, options = {}) => {
   const layoutName = layout?.fieldGroupName?.split("_").pop().trim()
@@ -82,6 +83,8 @@ export const getPageLayout = (layout, options = {}) => {
   }
 
   switch (layoutName) {
+    case "Testimonialpage":
+    return <TestimonialPage key={uuidv4()} {...layout} />
     case "Herobgtext":
       return <HeroBgText key={uuidv4()} {...layout} />
     case "Texthero":

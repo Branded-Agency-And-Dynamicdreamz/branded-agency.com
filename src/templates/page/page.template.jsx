@@ -66,6 +66,9 @@ export const query = graphql`
           ... on WpPage_Pagebuilder_Layouts_Herobgtext {
             ...HeroBgText
           }
+          ... on WpPage_Pagebuilder_Layouts_Testimonialpage {
+            ...TestimonialPage
+          }
           ... on WpPage_Pagebuilder_Layouts_Texthero {
             ...TextHero
           }
