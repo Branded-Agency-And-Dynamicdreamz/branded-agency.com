@@ -26,8 +26,8 @@ export const BackgroundImage = styled(CustomImage)`
   display: flex;
 
   opacity: ${({ active }) => (active ? 1 : 0)};
-
-  transition: opacity 1s ease-in-out;
+  visibility: ${({ active }) => (active ? 'visible' : 'hidden')};
+  transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
 
   will-change: opacity;
 
@@ -52,9 +52,9 @@ export const ContentWrapper = styled.div`
     padding: 2rem 2rem 7rem;
   }
 
-${({ theme }) => theme.breakpoints.down("md")} {
-  padding: 2rem 1.5rem 22rem;
-}
+  ${({ theme }) => theme.breakpoints.down("md")} {
+    padding: 2rem 1.5rem 22rem;
+  }
 `
 
 export const Content = styled.div`
@@ -78,20 +78,44 @@ export const Content = styled.div`
 
 // ================= LEFT =================
 
-export const TextContent = styled.div`
+export const TextContentWrapper = styled.div`
+  position: relative;
   width: 100%;
   max-width: 500px;
   flex-shrink: 0;
-  padding-top: 3rem;
 
   ${({ theme }) => theme.breakpoints.down("lg")} {
     max-width: 470px;
-    padding-top: 2rem;
   }
 
   ${({ theme }) => theme.breakpoints.down("md")} {
     max-width: 100%;
+    position: static;
+  }
+`
+
+export const TextContent = styled.div`
+  width: 100%;
+  padding-top: 3rem;
+
+  ${({ theme }) => theme.breakpoints.up("md")} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: ${({ active }) => (active ? 1 : 0)};
+    visibility: ${({ active }) => (active ? 'visible' : 'hidden')};
+    transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
+    pointer-events: ${({ active }) => (active ? 'auto' : 'none')};
+  }
+
+  ${({ theme }) => theme.breakpoints.down("md")} {
+    position: relative;
     padding-top: 0;
+    display: ${({ active }) => (active ? 'block' : 'none')};
+  }
+
+  ${({ theme }) => theme.breakpoints.down("lg")} {
+    padding-top: 2rem;
   }
 `
 
@@ -172,8 +196,8 @@ export const OverlayImage = styled(CustomImage)`
   display: flex;
 
   opacity: ${({ active }) => (active ? 1 : 0)};
-
-  transition: opacity 1s ease-in-out;
+  visibility: ${({ active }) => (active ? 'visible' : 'hidden')};
+  transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
 
   will-change: opacity;
 
@@ -218,6 +242,7 @@ export const Dot = styled.button`
     transform: scale(1.15);
   }
 `
+
 export const DesktopDots = styled(DotsWrapper)`
   display: flex;
 
@@ -288,18 +313,18 @@ export const NavbarInner = styled.div`
 
   padding: 0 2rem;
 
-${({ theme }) => theme.breakpoints.down("md")} {
-  min-height: auto;
+  ${({ theme }) => theme.breakpoints.down("md")} {
+    min-height: auto;
 
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 
-  gap: 1.25rem;
-  padding: 1.5rem;
+    gap: 1.25rem;
+    padding: 1.5rem;
 
-  overflow: visible;
-}
+    overflow: visible;
+  }
 `
 
 export const NavItem = styled.button`
@@ -329,31 +354,31 @@ export const NavItem = styled.button`
     color: #ffffff;
   }
 
-${({ theme }) => theme.breakpoints.down("md")} {
-  width: 100%;
-  flex: none;
-  min-width: 100%;
+  ${({ theme }) => theme.breakpoints.down("md")} {
+    width: 100%;
+    flex: none;
+    min-width: 100%;
 
-  padding: 0 0 1rem;
-  border-right: none;
+    padding: 0 0 1rem;
+    border-right: none;
 
-  text-align: left;
+    text-align: left;
 
-  font-size: 1.2rem;
-  line-height: 1.6;
+    font-size: 1.2rem;
+    line-height: 1.6;
 
-  position: relative;
+    position: relative;
 
-  &:not(:last-child)::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
+    &:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
 
-    width: 36px;
-    height: 1px;
+      width: 36px;
+      height: 1px;
 
-    background: rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.6);
+    }
   }
-}
 `

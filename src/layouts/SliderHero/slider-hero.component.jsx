@@ -37,7 +37,7 @@ const SliderHero = ({ slides, navItems }) => {
     }
   }, [])
 
-  // Auto Slider (Restored)
+  // Auto Slider
   useEffect(() => {
     if (!slides || slides.length <= 1) return
 
@@ -109,7 +109,6 @@ const SliderHero = ({ slides, navItems }) => {
   return (
     <S.Wrapper ref={wrapperRef} id="slider-hero">
       {/* Background */}
-      {/* Background */}
       <S.BackgroundImageWrapper>
         {slides.map((slide, index) => (
           <S.BackgroundImage
@@ -124,33 +123,41 @@ const SliderHero = ({ slides, navItems }) => {
       {/* Hero Content */}
       <S.ContentWrapper>
         <S.Content>
-          <S.TextContent>
-            {currentSlideData.heading && (
-              <S.Heading>
-                {currentSlideData.heading}
-              </S.Heading>
-            )}
+          {/* Text Content - Desktop: absolute, Mobile: normal flow */}
+          <S.TextContentWrapper>
+            {slides.map((slide, index) => (
+              <S.TextContent
+                key={index}
+                active={index === currentSlide}
+              >
+                {slide.heading && (
+                  <S.Heading>
+                    {slide.heading}
+                  </S.Heading>
+                )}
 
-            {currentSlideData.description && (
-              <S.Description
-                dangerouslySetInnerHTML={{
-                  __html: currentSlideData.description,
-                }}
-              />
-            )}
+                {slide.description && (
+                  <S.Description
+                    dangerouslySetInnerHTML={{
+                      __html: slide.description,
+                    }}
+                  />
+                )}
 
-            {/* Desktop Dots */}
-            <S.DesktopDots>
-              {slides.map((_, index) => (
-                <S.Dot
-                  key={index}
-                  active={index === currentSlide}
-                  onClick={() => goToSlide(index)}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
-            </S.DesktopDots>
-          </S.TextContent>
+                {/* Desktop Dots */}
+                <S.DesktopDots>
+                  {slides.map((_, dotIndex) => (
+                    <S.Dot
+                      key={dotIndex}
+                      active={dotIndex === currentSlide}
+                      onClick={() => goToSlide(dotIndex)}
+                      aria-label={`Go to slide ${dotIndex + 1}`}
+                    />
+                  ))}
+                </S.DesktopDots>
+              </S.TextContent>
+            ))}
+          </S.TextContentWrapper>
 
           {overlayImageUrl && (
             <>
