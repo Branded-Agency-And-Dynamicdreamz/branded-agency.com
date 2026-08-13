@@ -158,6 +158,7 @@ export const OverlayImageBox = styled.div`
     width: 100%;
     max-width: 400px;
     height: auto;
+    aspect-ratio: 500 / 590;
   }
 `
 
