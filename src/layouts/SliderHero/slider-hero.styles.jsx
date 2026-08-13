@@ -17,9 +17,21 @@ export const BackgroundImageWrapper = styled.div`
 `
 
 export const BackgroundImage = styled(CustomImage)`
+  position: absolute;
+  inset: 0;
+
   width: 100%;
   height: 100%;
+
   display: flex;
+
+  opacity: ${({ active }) => (active ? 1 : 0)};
+
+  transition: opacity 1s ease-in-out;
+
+  will-change: opacity;
+
+  pointer-events: none;
 
   img {
     width: 100%;
@@ -130,6 +142,8 @@ export const Description = styled.div`
 // ================= RIGHT IMAGE =================
 
 export const OverlayImageBox = styled.div`
+  position: relative;
+
   width: 500px;
   height: 590px;
   flex-shrink: 0;
@@ -148,9 +162,21 @@ export const OverlayImageBox = styled.div`
 `
 
 export const OverlayImage = styled(CustomImage)`
+  position: absolute;
+  inset: 0;
+
   width: 100%;
   height: 100%;
+
   display: flex;
+
+  opacity: ${({ active }) => (active ? 1 : 0)};
+
+  transition: opacity 1s ease-in-out;
+
+  will-change: opacity;
+
+  pointer-events: none;
 
   img {
     width: 100%;
