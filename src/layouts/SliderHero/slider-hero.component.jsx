@@ -14,7 +14,7 @@ const SliderHero = ({ slides, navItems }) => {
     const handleScroll = () => {
       if (!wrapperRef.current || !navbarRef.current) return
 
-      // Disable sticky on tablets/mobile
+      // Disable sticky on tablets and mobile
       if (window.innerWidth <= 768) {
         setIsSticky(false)
         return
